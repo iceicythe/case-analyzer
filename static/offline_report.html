@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'none'; base-uri 'none'; form-action 'none'">
+  <title>排查报告包</title>
+  <style>
+    :root{--brand:#087f8c;--ink:#172126;--muted:#64727a;--line:#d9e1e5}*{box-sizing:border-box}[hidden]{display:none!important}
+    body{margin:0;background:#f3f6f8;color:var(--ink);font:14px/1.6 "Segoe UI","Microsoft YaHei",sans-serif}
+    header{background:#0c343b;color:#fff;padding:18px 24px;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+    h1{font-size:21px;margin:0}header span{color:#c6e9eb;font-size:12px}#snapshotStamp{margin-left:auto}
+    main{max-width:1500px;margin:20px auto;padding:0 20px 28px}.cards{display:flex;gap:12px;margin-bottom:16px}
+    .card{flex:1;background:#fff;border:1px solid var(--line);border-radius:9px;padding:12px 16px}.card span{display:block;color:var(--muted);font-size:12px}.card strong{font-size:25px;font-weight:600}
+    .workspace{display:grid;grid-template-columns:285px minmax(0,1fr);gap:16px;align-items:start}.sidebar,article{background:#fff;border:1px solid var(--line);border-radius:10px;padding:16px;min-width:0}
+    button,input,select{font:inherit}button{cursor:pointer;background:white;border:1px solid var(--line);border-radius:6px;padding:7px 10px;color:var(--ink)}button:hover{border-color:var(--brand);color:var(--brand)}
+    input,select{width:100%;min-width:0;padding:8px 10px;border:1px solid var(--line);border-radius:6px;background:#fff}.filters{display:grid;gap:8px;margin-bottom:14px}
+    .case-group{margin:12px 0}.case-name{font-size:12px;color:var(--muted);overflow-wrap:anywhere;margin:8px 0}.report-item{display:block;width:100%;text-align:left;margin:5px 0;padding:10px;font-size:12px}.report-item strong{font-size:13px}.report-item span{display:block;color:var(--muted)}.report-item.active{background:#e2f3f4;border-color:var(--brand)}
+    #listCount,.subtle{font-size:12px;color:var(--muted);overflow-wrap:anywhere}.heading{display:flex;justify-content:space-between;align-items:start;gap:12px;flex-wrap:wrap}h2{font-size:19px;margin:0}h3{font-size:15px;margin:0 0 8px}.tools{display:flex;gap:8px;flex-wrap:wrap}
+    .badge{display:inline-block;background:#e8f5ed;color:#197342;border-radius:5px;font-size:12px;padding:3px 7px;margin:5px 5px 0 0}.badge.warn{background:#fff1df;color:#9c5600}.badge.neutral{background:#eef1f3;color:var(--muted)}
+    #intervals{margin:10px 0;color:var(--brand)}.event{border-top:1px solid #e3e9ec;padding-top:14px;margin-top:14px}.observation{margin:7px 0}.checks{padding:0;list-style:none}.check{padding:10px 12px;border:1px solid #e3e9ec;border-radius:7px;margin:8px 0}.check p{margin:5px 0}.saved-note{background:#f5f8f9;padding:8px 10px;border-radius:5px;white-space:pre-wrap;overflow-wrap:anywhere;font-size:13px}
+    .citation{color:var(--brand);padding:3px 7px;font-size:12px;margin:3px 4px 0 0}.limitations{font-size:12px;color:var(--muted);padding-left:18px}.notice{font-size:12px;color:var(--muted);margin:14px 0;overflow-wrap:anywhere}.notice.error{color:#b22c3b}
+    details{margin:14px 0}summary{cursor:pointer;color:var(--brand);font-size:13px}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#f6f9fa;border:1px solid #e3e9ec;border-radius:7px;padding:14px;font:12px/1.7 Consolas,"Microsoft YaHei",monospace;max-height:550px;overflow:auto}.fingerprint{overflow-wrap:anywhere;font-family:Consolas,monospace;font-size:12px}
+    #empty{padding:36px;text-align:center;color:var(--muted)}#skipped{font-size:12px;color:var(--muted)}#skipped ul{padding-left:20px;overflow-wrap:anywhere}.footer-note{font-size:12px;color:var(--muted);margin-top:16px}
+    @media(max-width:900px){.workspace{grid-template-columns:230px minmax(0,1fr)}}
+    @media(max-width:650px){header{padding:15px;gap:6px}h1{font-size:19px}#snapshotStamp{margin:0;width:100%}main{padding:0 12px 20px;margin-top:12px}.cards{gap:7px}.card{padding:10px}.card strong{font-size:22px}.workspace{grid-template-columns:1fr}.sidebar,article{padding:12px}#reportList{max-height:220px;overflow:auto}.filters{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}h2{font-size:17px}.check{padding:8px}.tools button{font-size:12px}}
+  </style>
+</head>
+<body>
+  <header><h1>排查报告包</h1><span>离线只读 · 已保存快照</span><span id="snapshotStamp"></span></header>
+  <main>
+    <div class="cards"><div class="card"><span>确认候选</span><strong id="reportCount">—</strong></div><div class="card"><span>事件区间</span><strong id="eventCount">—</strong></div><div class="card"><span>有核查记录</span><strong id="trackingCount">—</strong></div></div>
+    <div id="loadError" class="notice error" role="status" hidden></div>
+    <details id="skipped" hidden><summary id="skippedTitle"></summary><ul id="skippedList"></ul></details>
+    <div class="workspace">
+      <aside class="sidebar"><div class="filters"><input id="search" placeholder="搜索 Case / 候选" aria-label="搜索报告"><select id="sourceFilter" aria-label="报告筛选"><option value="all">全部报告</option><option value="ai">AI 确认</option><option value="human">人工确认</option><option value="tracked">有核查记录</option></select></div><div id="listCount" class="subtle"></div><nav id="reportList" aria-label="报告列表"></nav></aside>
+      <article id="reportPanel" hidden>
+        <div class="heading"><div><h2 id="reportTitle"></h2><div id="caseId" class="subtle"></div></div><div class="tools"><button id="downloadMarkdown">下载报告</button><button id="downloadJson">下载 JSON</button></div></div>
+        <div id="reportBadges"></div><div id="intervals"></div><div id="trackingError" class="notice error" hidden></div>
+        <div id="evidence"></div><div id="eventChecks"></div>
+        <section id="savedNotes" hidden><h3>已保存排查备注</h3><div id="savedNotesText" class="saved-note"></div></section>
+        <details><summary>完整报告</summary><pre id="fullReport"></pre></details>
+        <details><summary>来源与指纹</summary><div id="provenance" class="subtle"></div></details>
+      </article>
+      <div id="empty" class="sidebar" hidden>没有符合条件的报告。</div>
+    </div>
+    <p class="footer-note">缺失数据保留未知；检查建议和人工核查结果不代表已确认根因。此页展示导出时的内容。</p>
+  </main>
+  <script id="reportData" type="application/json">__REPORT_DATA__</script>
+  <script>__EVIDENCE_VIEWER__</script>
+  <script>
+    (function () {
+      'use strict';
+      const el = id => document.getElementById(id);
+      const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+      const range = interval => interval.map(value => String(value)).join('～') + ' 秒';
+      let payload, reports;
+      try {
+        payload = JSON.parse(el('reportData').textContent);
+        reports = payload.reports.map(item => ({...item, document:JSON.parse(item.data_json), key:item.metadata.case_id + '/' + item.metadata.candidate_id}));
+        if (!reports.length || reports.some(item => !item.document.bundle.events.length)) throw new Error('missing reports');
+      } catch (_) { el('loadError').hidden = false; el('loadError').textContent = '报告包数据无法读取，请重新导出。'; return; }
+      const viewer = new EventEvidenceViewer(el('evidence'));
+      let current = null;
+      el('reportCount').textContent = reports.length;
+      el('eventCount').textContent = reports.reduce((sum,item) => sum + item.document.bundle.events.length, 0);
+      el('trackingCount').textContent = reports.filter(item => item.document.human_tracking?.persisted).length;
+      const date = new Date(payload.manifest.created_at);
+      el('snapshotStamp').textContent = '导出时间：' + (Number.isNaN(date.getTime()) ? payload.manifest.created_at : date.toLocaleString());
+      if (payload.manifest.skipped.length) {
+        el('skipped').hidden = false; el('skippedTitle').textContent = '未纳入 ' + payload.manifest.skipped.length + ' 个候选';
+        el('skippedList').innerHTML = payload.manifest.skipped.map(item => '<li>' + esc(item.case_id + ' / ' + item.candidate_id + ' · ' + item.reason) + '</li>').join('');
+      }
+      function visibleReports() {
+        const search = el('search').value.trim().toLowerCase(), filter = el('sourceFilter').value;
+        return reports.filter(item => (item.key + ' ' + item.document.bundle.events.map(event => range(event.confirmed_interval)).join(' ')).toLowerCase().includes(search)
+          && (filter === 'all' || filter === 'tracked' && item.document.human_tracking?.persisted || filter === 'human' && item.metadata.human_confirmation || filter === 'ai' && !item.metadata.human_confirmation));
+      }
+      function citation(eventId, evidenceId) {
+        return '<button type="button" class="citation" data-event="' + esc(eventId) + '" data-evidence="' + esc(evidenceId) + '">' + esc(evidenceId) + '</button>';
+      }
+      function renderList() {
+        const visible = visibleReports(); el('listCount').textContent = visible.length + ' / ' + reports.length + ' 个候选';
+        const groups = new Map(); visible.forEach(item => {if (!groups.has(item.metadata.case_id)) groups.set(item.metadata.case_id,[]); groups.get(item.metadata.case_id).push(item);});
+        el('reportList').innerHTML = [...groups].map(([caseId,items]) => '<section class="case-group"><div class="case-name">' + esc(caseId) + '</div>' + items.map(item => '<button type="button" class="report-item' + (current?.key === item.key ? ' active' : '') + '" data-report="' + esc(item.key) + '"><strong>' + esc(item.metadata.candidate_id) + '</strong><span>' + esc(item.document.bundle.events.map(event => range(event.confirmed_interval)).join('；')) + '</span><span>' + (item.metadata.human_confirmation ? '人工确认' : 'AI 确认') + '</span></button>').join('') + '</section>').join('');
+        if (!visible.length) {current = null; viewer.clear(); el('reportPanel').hidden = true; el('empty').hidden = false; return;}
+        el('empty').hidden = true;
+        if (!current || !visible.includes(current)) selectReport(visible[0], true);
+      }
+      function selectReport(item, updateHash) {
+        current = item; const doc = item.document, bundle = doc.bundle, tracking = doc.human_tracking;
+        el('reportPanel').hidden = false; el('empty').hidden = true;
+        el('reportTitle').textContent = item.metadata.candidate_id + ' · 事件排查'; el('caseId').textContent = item.metadata.case_id;
+        const status = {local_ready:'本地排查建议',model_validated:'AI 已整理建议',model_failed:'AI 整理失败 · 本地建议'}[doc.status] || doc.status;
+        el('reportBadges').innerHTML = '<span class="badge">' + (item.metadata.human_confirmation ? '人工确认' : 'AI 确认') + '</span><span class="badge neutral">' + esc(status) + '</span><span class="badge warn">根因未知</span>';
+        el('intervals').textContent = '确认区间：' + bundle.events.map(event => range(event.confirmed_interval)).join('；');
+        el('trackingError').hidden = !doc.tracking_error; el('trackingError').textContent = doc.tracking_error ? '核查记录未读取：' + doc.tracking_error : '';
+        viewer.setBundle(bundle);
+        el('eventChecks').innerHTML = bundle.events.map(event => '<section class="event"><h3>' + esc(range(event.confirmed_interval)) + ' · 排查建议</h3><p class="observation">' + esc(event.observation) + '</p><details data-facts="' + esc(event.event_id) + '"><summary>观测与引用</summary>' + event.facts.map(fact => '<p>' + esc(fact.statement) + ' ' + citation(event.event_id,fact.evidence_id) + '</p>').join('') + '</details><ol class="checks">' + (item.display_checks[event.event_id] || []).map((check,i) => {
+          const saved = tracking?.persisted ? tracking.entries[check.check_id] : null;
+          const state = {pending:'待核查',blocked:'待数据',checked:'已核查'}[saved?.status] || '待核查';
+          return '<li class="check"><strong>' + (i+1) + '. ' + esc(check.step) + '</strong><div><span class="badge neutral">' + state + '</span><span class="subtle">' + esc(check.knowledge_id || '输入核查') + '</span></div>'
+            + (saved?.note ? '<p class="saved-note">' + esc(saved.note) + '</p>' : '')
+            + (check.procedure ? '<details><summary>核查步骤与待补材料</summary><ol>' + check.procedure.map(t=>'<li>'+esc(t)+'</li>').join('') + '</ol><p>待补材料</p><ul>' + check.required_data.map(t=>'<li>'+esc(t)+'</li>').join('') + '</ul><p>结果判断</p><ul>' + check.result_branches.map(b=>'<li>'+esc(b.condition+' → '+b.next_action)+'</li>').join('') + '</ul><p>'+esc(check.caution)+'</p></details>' : '')
+            + check.evidence_ids.map(id => citation(event.event_id,id)).join('') + '</li>';
+        }).join('') + '</ol>' + (event.limitations.length ? '<details><summary>证据限制</summary><ul class="limitations">' + event.limitations.map(value => '<li>' + esc(value) + '</li>').join('') + '</ul></details>' : '') + '</section>').join('');
+        el('savedNotes').hidden = !(tracking?.persisted && tracking.notes); el('savedNotesText').textContent = tracking?.persisted ? tracking.notes : '';
+        el('fullReport').textContent = item.markdown;
+        const human = item.metadata.human_confirmation;
+        el('provenance').innerHTML = '<p>报告时间：' + esc(doc.created_at || '未提供') + '</p>' + (human ? '<p>人工事件：' + esc(human.selected_event_ids.join('、')) + '</p><p>标注 SHA256：<span class="fingerprint">' + esc(human.annotation_sha256) + '</span></p>' : '')
+          + '<p>输入指纹：<span class="fingerprint">' + esc(item.metadata.input_fingerprint) + '</span></p><p>证据指纹：<span class="fingerprint">' + esc(item.metadata.report_fingerprint) + '</span></p>'
+          + (tracking?.persisted ? '<p>核查保存时间：' + esc(tracking.updated_at) + '</p>' : '');
+        el('reportList').querySelectorAll('[data-report]').forEach(button => button.classList.toggle('active',button.dataset.report === item.key));
+        if (updateHash) {const hash = '#' + encodeURIComponent(item.key); if (location.hash !== hash) location.hash = hash;}
+      }
+      function download(text, extension, type) {
+        if (!current) return; const url = URL.createObjectURL(new Blob([text],{type})), link = document.createElement('a');
+        link.href = url; link.download = current.metadata.case_id + '_' + current.metadata.candidate_id + extension;
+        document.body.appendChild(link); link.click(); link.remove(); setTimeout(() => URL.revokeObjectURL(url),1000);
+      }
+      el('downloadMarkdown').onclick = () => download(current?.markdown,'.md','text/markdown;charset=utf-8');
+      el('downloadJson').onclick = () => download(current?.data_json,'.json','application/json;charset=utf-8');
+      el('reportList').onclick = event => {const button = event.target.closest('[data-report]'); if (button) selectReport(reports.find(item => item.key === button.dataset.report), true);};
+      el('eventChecks').onclick = event => {const button = event.target.closest('[data-evidence]'); if (button) viewer.showEvidence(button.dataset.event, button.dataset.evidence);};
+      el('search').oninput = renderList; el('sourceFilter').onchange = renderList;
+      function readHash() {
+        let key; try {key = decodeURIComponent(location.hash.slice(1));} catch (_) {return;}
+        const item = reports.find(value => value.key === key); if (!item) return;
+        if (!visibleReports().includes(item)) {el('search').value = ''; el('sourceFilter').value = 'all';}
+        selectReport(item,false); renderList();
+      }
+      window.addEventListener('hashchange',readHash); readHash(); renderList();
+    }());
+  </script>
+</body>
+</html>

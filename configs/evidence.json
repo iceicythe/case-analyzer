@@ -1,0 +1,8 @@
+{
+  "alignment_tolerance_seconds": 0.15,
+  "context_before_seconds": 1.0,
+  "context_after_seconds": 1.0,
+  "credible_confidence_threshold": 0.5,
+  "critical_distance_m": 15.0,
+  "critical_ttc_seconds": 3.0
+}

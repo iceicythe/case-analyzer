@@ -1,0 +1,5 @@
+{
+  "profile_id": "candidate-context-1.0",
+  "scope": "event_review",
+  "description": "Full speed and acceleration context with original CSV rows and source provenance. Event review uses fixed speed-window rules; object, planning and control evidence belongs to separate cause investigation."
+}

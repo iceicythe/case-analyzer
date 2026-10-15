@@ -1,0 +1,7 @@
+{
+  "alignment_tolerance_seconds": 0.15,
+  "context_before_seconds": 0.5,
+  "context_after_seconds": 0.2,
+  "planning_deceleration_threshold_mps2": -1.0,
+  "control_brake_threshold": 0.5
+}

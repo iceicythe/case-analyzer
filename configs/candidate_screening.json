@@ -1,0 +1,9 @@
+{
+  "profile_id": "candidate-screening-1.0",
+  "window_seconds": 0.5,
+  "minimum_speed_drop_mps": 0.6,
+  "minimum_decreasing_intervals": 3,
+  "maximum_cumulative_speed_increase_mps": 0.2,
+  "context_seconds": 3.0,
+  "description": "Broad candidate windows only; not final event labels. Merge overlapping/touching candidates, then apply the recorded SD-WINDOW-1.1 continuity bridge."
+}

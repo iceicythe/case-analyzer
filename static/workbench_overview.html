@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Case Analyzer · 智驾测试分析系统</title>
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/system.css">
+</head>
+<body data-page="overview">
+  <script src="/assets/system-shell.js"></script>
+  <main class="system-main">
+    <div class="page-heading">
+      <div><div class="eyebrow" id="eyebrow">TEST OPERATIONS</div><h1 id="pageTitle">任务总览</h1><p id="pageDescription">从事件发现到问题排查，跟进每一条测试记录。</p></div>
+      <div class="heading-actions">
+        <a class="btn primary" href="/import/">导入数据</a>
+        <button class="btn" id="refresh">刷新</button>
+        <details class="action-menu"><summary class="btn" aria-label="更多操作">更多 <span aria-hidden="true">⌄</span></summary><div class="menu-items">
+          <button id="completeReports" disabled>补齐全部本地报告</button>
+          <button id="archiveReports" disabled>下载全部报告包</button><hr>
+          <button id="exportCsv" disabled>导出全部任务 CSV</button><button id="exportJson" disabled>导出全部任务 JSON</button>
+        </div></details>
+      </div>
+    </div>
+    <div class="notice-line" id="message" role="status" aria-live="polite"></div>
+    <div class="notice-line" id="reportOperationStatus" role="status" aria-live="polite"></div>
+    <details class="operation-detail" id="reportOperationDetails" hidden><summary>本次处理结果</summary><ul id="reportOperationResults"></ul></details>
+    <div class="metrics" id="cards" aria-label="处理进度"></div>
+    <section class="queue-panel ai-queue" id="aiQueue" hidden aria-label="AI 后台队列">
+      <div class="queue-heading"><div><h2>AI 队列 <span class="status-pill" id="aiQueueState">读取中</span></h2><div class="cell-sub" id="aiQueueSummary"></div></div><div class="heading-actions"><button class="btn" id="aiQueueRetry" hidden>重试失败任务</button><button class="btn" id="aiQueuePause">暂停</button></div></div>
+      <div class="notice-line" id="aiQueueMessage" role="status" aria-live="polite"></div>
+      <details id="aiQueueDetails"><summary>最近任务</summary><div id="aiQueueJobs"></div></details>
+    </section>
+    <section class="queue-panel" aria-labelledby="queueTitle">
+      <div class="queue-heading"><h2 id="queueTitle">测试任务 <span class="count" id="resultCount"></span></h2><span class="stamp" id="stamp">读取本地记录中</span></div>
+      <div class="filters-bar">
+        <div class="searchbox"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><input id="search" type="search" placeholder="搜索 Case / 路线" aria-label="搜索 Case 或路线"></div>
+        <select id="filter" aria-label="任务状态"></select>
+      </div>
+      <div class="batch-bar" id="aiBatch" hidden><label><input type="checkbox" id="aiSelectAll"> 全选筛选结果中的待 AI Case</label><div class="heading-actions"><button class="btn" id="aiClear" hidden>清空选择</button><button class="btn primary" id="aiBatchStart" disabled>AI 复核所选</button></div></div>
+      <div class="table-scroll">
+        <table class="queue-table"><thead id="tableHead"></thead><tbody id="rows"></tbody></table>
+        <div class="empty-state" id="empty"><strong>正在核对任务状态</strong>读取事件、报告和已保存的排查记录…</div>
+      </div>
+      <footer class="queue-footer"><span id="footerCount">—</span><div class="pagination"><button class="btn" id="prev" disabled aria-label="上一页">←</button><span id="pageText">1 / 1</span><button class="btn" id="next" disabled aria-label="下一页">→</button></div></footer>
+    </section>
+    <div class="page-foot" id="scopeNote">勾选 Case 批量复核，或打开 Case 自动处理；疑难候选转人工。</div>
+  </main>
+  <script src="/assets/case-workflow.js"></script>
+  <script src="/assets/system-overview.js"></script>
+</body>
+</html>

@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>事件工作台 · Case Analyzer</title>
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/workbench.css">
+  <link rel="stylesheet" href="/assets/system.css">
+</head>
+<body data-page="workbench" data-view="ai">
+  <script src="/assets/system-shell.js"></script>
+  <main class="layout">
+    <aside class="panel sidebar">
+      <div class="panel-title task-list-title">测试记录 <span class="subtle" id="visibleCount"></span><button class="task-refresh" id="refreshTasks" aria-label="刷新任务状态" title="刷新任务状态">↻</button></div>
+      <div class="filters">
+        <input class="search" id="searchInput" type="search" placeholder="搜索 Case / 路线" aria-label="搜索测试记录">
+        <select id="taskFilter" aria-label="Case 复核状态">
+          <option value="all">全部 · 待办优先</option><option value="pending">待处理</option>
+          <option value="needs_human">待人工复核</option><option value="pending_ai">待 AI 复核</option>
+          <option value="reviewed">复核完成</option><option value="no_candidates">无候选事件</option>
+          <option value="data_issue">数据待核查</option><option value="read_error">读取异常</option>
+        </select>
+        <div id="taskNotice" class="subtle" role="status" hidden></div>
+      </div>
+      <div class="case-list" id="caseList"></div>
+    </aside>
+    <section class="panel visual">
+      <div class="case-overview" id="caseOverview"><div class="empty">正在读取 Case…</div></div>
+      <nav class="review-tabs" aria-label="事件处理">
+        <button class="chip active" data-view="ai">事件复核</button>
+        <button class="chip" data-view="investigation">事件排查</button>
+        <button class="chip" data-view="annotation">人工核查</button>
+      </nav>
+      <div id="candidateStrip" class="candidate-strip">
+        <div class="auto-controls">
+          <span id="automaticStatus" role="status">自动复核已开启</span>
+          <button class="button" id="automaticPause">暂停</button>
+          <button class="button" id="automaticRetry" hidden>重试</button>
+        </div>
+        <div class="candidate-toolbar">
+          <span id="aiSummary" role="status">正在读取候选…</span>
+          <select id="aiFilter" aria-label="候选处理状态"><option value="all">全部候选</option><option value="needs_human">待人工</option><option value="pending_ai">待 AI</option><option value="automatic">AI 已处理</option><option value="human_reviewed">人工已处理</option></select>
+          <details class="action-menu"><summary class="btn icon" aria-label="候选操作">⋯</summary><div class="menu-items"><button id="aiResultExport">导出复核结果</button><button id="aiRun">重新复核</button></div></details>
+        </div>
+        <div class="ai-candidates" id="aiCandidates"></div>
+        <div id="aiMessage" role="status" class="subtle"></div>
+      </div>
+      <div class="ai-panel" id="aiPanel">
+        <div id="aiContent" hidden>
+          <div class="ai-advice"><strong id="aiStatus"></strong><div id="aiDecisionRange"></div><details class="decision-detail"><summary>判断依据</summary><p id="aiAdvice"></p></details></div>
+          <div class="assist-tools">
+            <button class="button primary" id="aiInvestigate" hidden>进入排查</button>
+            <button class="button" id="aiLocate">人工核查</button>
+          </div>
+          <h3 id="aiRange"></h3>
+          <canvas class="signal-chart" id="aiChart" width="800" height="220" aria-label="候选区间车速"></canvas>
+          <canvas class="signal-chart acceleration-chart" id="aiAccelerationChart" width="800" height="165" aria-label="候选区间加速度参考"></canvas>
+          <div class="subtle signal-note" id="aiAccelerationNote"></div>
+          <div class="chart-legend"><span><i></i>候选区间</span><span><i class="green"></i>规则参考区间</span></div>
+          <details><summary>窗口数值与引用</summary><div id="aiRule"></div><div id="aiEvidence"></div></details>
+          <details id="aiDetails"><summary>模型补充信息</summary><div id="aiMore"></div></details>
+        </div>
+      </div>
+      <div id="investigationTab" class="investigation-workspace" hidden>
+        <div id="investigationEmpty" class="report-empty"><h3 id="investigationEmptyTitle">选择已确认事件</h3><p id="investigationEmptyText">事件确认后，可查看证据并记录排查结果。</p><button class="button primary" id="generateInvestigation" hidden>生成本地报告</button></div>
+        <section id="investigationPanel" hidden>
+          <div class="investigation-heading"><h3>事件排查</h3><div class="investigation-actions">
+            <button class="button primary" id="investigationMarkdown">下载报告</button>
+            <details class="action-menu"><summary class="btn icon" aria-label="报告操作">⋯</summary><div class="menu-items">
+              <button id="investigationModel" title="发送当前事件的多模块证据，整理排查建议">AI 整理建议</button>
+              <button id="investigationJson">导出证据 JSON</button>
+            </div></details>
+          </div></div>
+          <div class="investigation-state" id="investigationStatus"></div>
+          <div id="investigationSummary" class="investigation-summary"></div>
+          <div id="investigationEvidence"></div>
+          <div id="investigationTracking"></div>
+          <details><summary>完整报告</summary><pre class="investigation-pre" id="investigationReport"></pre></details>
+        </section>
+      </div>
+      <div class="assist" id="assistPanel" hidden>
+        <div id="qualityStatus" class="assist-status"></div>
+        <details><summary>数据与规则</summary><div id="assistSummary" class="subtle"></div></details>
+        <h3>车速与半秒窗口</h3>
+        <canvas class="signal-chart" id="speedChart" width="800" height="220" aria-label="车速曲线"></canvas>
+        <canvas class="signal-chart acceleration-chart" id="accelerationChart" width="800" height="165" aria-label="人工核查加速度参考"></canvas>
+        <div class="subtle signal-note" id="accelerationNote"></div>
+        <div class="assist-tools"><button class="button" id="wholeChart">整段</button><button class="button" id="zoomChart">放大</button><button class="button" id="previousWindow" aria-label="前一窗口">←</button><button class="button" id="nextWindow" aria-label="后一窗口">→</button><button class="button" id="nextQualified">下一达标窗口</button><input type="range" id="windowSlider" min="0" max="0" value="0" aria-label="选择半秒窗口"></div>
+        <details><summary>当前窗口数值</summary><div id="windowDetail"></div></details>
+        <h3>参考事件区间</h3>
+        <div id="referenceEvents"></div>
+        <button class="button" id="negativeEvidence" hidden>填入无事件依据</button>
+      </div>
+    </section>
+    <section class="panel form-panel">
+      <div class="panel-title">人工核查</div>
+      <div class="form-scroll">
+        <div class="notice" id="protocolNotice">人工标注 · SD-WINDOW-1.1</div>
+        <section id="humanResolution" class="human-resolution" hidden>
+          <strong id="humanCandidateTitle"></strong>
+          <select id="humanDecision" aria-label="本候选人工结论"><option value="">选择本候选结论</option><option value="confirmed_event">确认事件</option><option value="no_event">排除候选</option></select>
+          <div id="humanEventOptions"></div>
+          <div id="humanChoiceHint" class="subtle"></div>
+          <button class="button" id="humanReload" hidden>读取最新结论</button>
+          <button class="button" id="humanRestore" hidden>恢复本页选择</button>
+        </section>
+        <div class="field">
+          <span class="field-title">整段 Case 标注</span>
+          <div class="label-grid">
+            <label class="label-option"><input type="radio" name="caseLabel" value="positive"><span>有事件</span></label>
+            <label class="label-option"><input type="radio" name="caseLabel" value="negative"><span>无事件</span></label>
+            <label class="label-option"><input type="radio" name="caseLabel" value="uncertain" checked><span>不确定</span></label>
+          </div>
+        </div>
+        <div class="field">
+          <label for="annotatorInput">标注人</label>
+          <input id="annotatorInput" type="text" maxlength="80" placeholder="姓名或代号">
+        </div>
+        <div class="field">
+          <div class="event-header">
+            <span class="field-title">人工确认事件</span>
+            <button class="button" id="addEventButton">+ 新增事件</button>
+          </div>
+          <div id="eventList"></div>
+          <div class="subtle" id="eventHint">选择“有事件”后，至少填写一个时间区间。</div>
+        </div>
+        <div class="field">
+          <label for="notesInput">备注 / 判断依据</label>
+          <textarea id="notesInput" placeholder="填写区间依据或待确认事项"></textarea>
+        </div>
+        <div class="field">
+          <label class="review-check"><input type="checkbox" id="reviewConfirm">已核对整段数据、区间与质量提示。</label>
+          <label class="review-check" id="boundaryCheck" hidden><input type="checkbox" id="boundaryConfirm">我已结合同一记录的相邻片段确认首尾事件边界。</label>
+          <div class="subtle" id="completionHint">参考计算加载后可确认完成；不确定时保存草稿。</div>
+        </div>
+      </div>
+      <footer class="form-footer">
+        <div id="humanSaveStatus" class="subtle" role="status"></div>
+        <div class="save-state" id="saveState">尚未修改</div>
+        <div class="footer-actions">
+          <button class="button" id="saveButton">保存草稿</button>
+          <button class="button primary" id="completeButton">完成标注</button>
+          <button class="button primary" id="aiResolve" hidden>提交复核</button>
+        </div>
+        <div class="review-followup" id="reviewFollowup" hidden><span>本候选已提交</span><button class="button" id="nextHuman">下一个待复核 →</button></div>
+        <button class="button" id="annotationReload" hidden>读取最新标注</button>
+        <button class="button" id="annotationRestore" hidden>恢复本页草稿</button>
+      </footer>
+    </section>
+
+  </main>
+  <script src="/assets/evidence-viewer.js"></script>
+  <script src="/assets/investigation-tracking.js"></script>
+  <script src="/assets/case-workflow.js"></script>
+  <script src="/assets/workbench.js"></script>
+</body>
+</html>

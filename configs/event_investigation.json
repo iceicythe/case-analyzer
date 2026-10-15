@@ -1,0 +1,6 @@
+{
+  "profile_id": "event-investigation-2.0",
+  "context_seconds": 3.0,
+  "maximum_module_rows": 256,
+  "maximum_text_characters": 180
+}

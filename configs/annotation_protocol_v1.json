@@ -1,0 +1,21 @@
+{
+  "protocol_id": "SD-WINDOW-1.0",
+  "effective_date": "2026-10-09",
+  "scope": "Active normalized CSV event review at 0.1 second sample intervals",
+  "target_name": "持续明显纵向减速事件",
+  "event_type": "sustained_deceleration",
+  "primary_signal": "speed_mps",
+  "window_seconds": 0.5,
+  "sample_period_seconds": 0.1,
+  "minimum_speed_drop_mps": 1.0,
+  "minimum_decreasing_intervals": 4,
+  "decreasing_interval_minimum_drop_mps": 0.01,
+  "maximum_cumulative_speed_increase_mps": 0.1,
+  "maximum_original_can_gap_seconds": 0.25,
+  "comparison_epsilon": 1e-06,
+  "boundary_rule": "union of overlapping or touching qualifying windows; no bridging of disjoint windows",
+  "duration_rule": "end_time minus start_time; do not add one sample period",
+  "uncertain_status": "pending",
+  "documentation": "docs/DATA_FORMAT.md",
+  "usage": "Application event definition. Source integrity and continuity are checked against the import registry; collection authenticity remains a provider declaration."
+}

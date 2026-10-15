@@ -1,0 +1,50 @@
+[
+  {
+    "knowledge_id": "KB001",
+    "title": "完整风险制动链路复核",
+    "source_file": "consistent_risk_response.md",
+    "chain_statuses": ["consistent_risk_response"],
+    "object_statuses": ["supported_braking"],
+    "keywords": ["风险目标", "规划减速", "控制制动", "链路一致"]
+  },
+  {
+    "knowledge_id": "KB002",
+    "title": "低置信度目标排查",
+    "source_file": "perception_evidence_needs_review.md",
+    "chain_statuses": ["perception_evidence_needs_review"],
+    "object_statuses": ["needs_review_low_confidence", "needs_review_unknown_confidence"],
+    "keywords": ["低置信度", "感知误检", "目标跳变", "多传感器"]
+  },
+  {
+    "knowledge_id": "KB003",
+    "title": "规划触发缺少目标证据排查",
+    "source_file": "planning_trigger_needs_review.md",
+    "chain_statuses": ["planning_trigger_needs_review"],
+    "object_statuses": ["suspicious_no_object_evidence", "insufficient_object_data"],
+    "keywords": ["规划触发", "目标证据不足", "错误限速", "交通灯", "地图"]
+  },
+  {
+    "knowledge_id": "KB004",
+    "title": "无规划请求的控制制动排查",
+    "source_file": "control_without_plan.md",
+    "chain_statuses": ["control_without_plan"],
+    "object_statuses": [],
+    "keywords": ["控制制动", "规划未减速", "残留指令", "模式切换", "控制状态机"]
+  },
+  {
+    "knowledge_id": "KB005",
+    "title": "控制未跟随规划排查",
+    "source_file": "control_not_following_plan.md",
+    "chain_statuses": ["control_not_following_plan"],
+    "object_statuses": [],
+    "keywords": ["规划减速", "控制未制动", "指令丢失", "接口延迟", "控制饱和"]
+  },
+  {
+    "knowledge_id": "KB006",
+    "title": "车辆响应来源不明排查",
+    "source_file": "vehicle_response_unexplained.md",
+    "chain_statuses": ["vehicle_response_unexplained"],
+    "object_statuses": [],
+    "keywords": ["车辆急减速", "无规划", "无控制", "执行器反馈", "外部干预"]
+  }
+]

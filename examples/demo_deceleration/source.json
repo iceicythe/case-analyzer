@@ -1,0 +1,6 @@
+{
+  "case_id": "demo_deceleration",
+  "source_type": "synthetic",
+  "source_name": "公式生成的演示日志；不是道路采集或闭环仿真",
+  "acceleration_source": "由演示车速有限差分得到，不是独立传感器测量"
+}

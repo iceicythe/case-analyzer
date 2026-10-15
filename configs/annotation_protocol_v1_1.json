@@ -1,0 +1,15 @@
+{
+  "protocol_id": "SD-WINDOW-1.1",
+  "effective_date": "2026-10-09",
+  "scope": "Active normalized CSV event review at 0.1 second sample intervals",
+  "inherits_window_and_quality_rules_from": "SD-WINDOW-1.0",
+  "parent_config": "configs/annotation_protocol_v1.json",
+  "maximum_bridge_gap_seconds": 0.5,
+  "maximum_per_step_speed_increase_mps": 0.0,
+  "minimum_bridge_speed_drop_mps": 0.01,
+  "comparison_epsilon": 1e-06,
+  "bridge_rule": "Merge adjacent qualifying-window unions only when the gap is at most 0.5 seconds, all intervening speed samples are non-increasing, endpoint speed drops by at least 0.01 m/s, and source/grid quality passes. Apply transitively in time order to every case.",
+  "duration_rule": "end_time minus start_time; do not add one sample period",
+  "documentation": "docs/DATA_FORMAT.md",
+  "usage": "Application event definition. Source integrity and continuity are checked against the import registry; collection authenticity remains a provider declaration."
+}
