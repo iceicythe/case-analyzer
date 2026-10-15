@@ -2,6 +2,7 @@
 import argparse
 import json
 import os
+import sys
 import threading
 import webbrowser
 from pathlib import Path
@@ -42,7 +43,11 @@ def make_context(runtime, config):
         workspace_id='local', workspace_name='独立效果评估' if evaluation else config['name'])
 
 
-def main():
+def main(argv=None):
+    argv = list(sys.argv[1:] if argv is None else argv)
+    if argv and argv[0] == 'import':
+        from app.cli_import import main as import_main
+        return import_main(argv[1:])
     parser = argparse.ArgumentParser(description='Case Analyzer 独立工作台')
     parser.add_argument('--runtime', type=Path, default=DEFAULT_RUNTIME, help='运行数据目录，默认本应用的 runtime/')
     parser.add_argument('--port', type=int)

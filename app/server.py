@@ -21,7 +21,8 @@ from app.workbench_reviews import WorkbenchReviewStore, ReviewBusyError
 from app.human_event_review import HumanEventReviewStore, HumanConfirmationConflictError
 from app.model_runner import ModelConfigurationError
 from app.automatic_review import AutomaticReviewQueue, QueueStorageError
-from app.event_investigation import default_investigation_checks
+from app.event_investigation import build_findings, default_investigation_checks
+from app.investigation_summary import briefings
 from app.investigation_tracking import InvestigationTrackingStore, TrackingConflictError
 from app.workbench_overview import build_overview, build_review_queue, load_overview_index, review_task
 from app.local_report_tools import LocalReportTools
@@ -44,7 +45,9 @@ def investigation_payload(record: dict) -> dict:
     if not record.get('report'):
         return record
     model_events = {event['event_id']: event['prioritized_checks'] for event in (record.get('model_output') or {}).get('events', [])}
-    return dict(record, display_checks={event['event_id']: model_events.get(event['event_id'], default_investigation_checks(event)) for event in record['bundle']['events']})
+    checks = {event['event_id']: model_events.get(event['event_id'], default_investigation_checks(event)) for event in record['bundle']['events']}
+    return dict(record, display_checks=checks, briefings=briefings(record['bundle'], checks),
+                findings={event['event_id']: build_findings(event) for event in record['bundle']['events']})
 
 def _read_json(path: Path) -> dict[str, Any]:
     try:
@@ -112,6 +115,7 @@ class WorkbenchContext:
     automatic_review: bool = False
     workspace_id: str = 'custom'
     workspace_name: str = '本地工作空间'
+    automatic_investigation: bool = True
 
     def case_dir(self, case_id: str) -> Path:
         if not case_id or Path(case_id).name != case_id:
@@ -134,7 +138,7 @@ def _make_handler(context: WorkbenchContext) -> type[BaseHTTPRequestHandler]:
             raise ValueError('Case 不在当前任务清单')
         return context.case_dir(case_id)
     queue_scope = hashlib.sha256(str((context.batch_dir.resolve(), context.data_root.resolve(), context.annotations_root.resolve())).encode()).hexdigest()
-    automatic = AutomaticReviewQueue(reviews, reviews.output_root / 'automatic_queue.json', queue_case_dir, queue_scope, autostart=False) if context.automatic_review else None
+    automatic = AutomaticReviewQueue(reviews, reviews.output_root / 'automatic_queue.json', queue_case_dir, queue_scope, autostart=False, investigate=context.automatic_investigation) if context.automatic_review else None
     tracking = InvestigationTrackingStore(reviews.output_root)
     overview_lock = threading.Lock()
     queue_lock = threading.Lock()
@@ -208,7 +212,7 @@ def _make_handler(context: WorkbenchContext) -> type[BaseHTTPRequestHandler]:
                 length = int(self.headers.get('Content-Length', '0'))
             except ValueError as error:
                 raise ValueError('Content-Length 非法') from error
-            limit = 32 * 1024 * 1024 if urlparse(self.path).path == '/api/import' else MAX_REQUEST_BYTES
+            limit = 32 * 1024 * 1024 if urlparse(self.path).path in {'/api/import', '/api/import/validate'} else MAX_REQUEST_BYTES
             if length <= 0 or length > limit:
                 raise ValueError('请求体为空或超过大小限制')
             try:
@@ -460,11 +464,21 @@ def _make_handler(context: WorkbenchContext) -> type[BaseHTTPRequestHandler]:
                 self._error(HTTPStatus.CONFLICT,'评估模型结果已冻结，请在日常工作空间运行新任务'); return
             if evaluation.enabled and not evaluation.state()['unblinded']:
                 self._error(HTTPStatus.FORBIDDEN,'先完成独立核对，再查看报告'); return
-            if path == '/api/import':
+            if path in {'/api/import', '/api/import/validate'}:
                 try:
-                    from app.storage import import_case
+                    from app.storage import import_case, inspect_import
+                    if path.endswith('/validate'):
+                        self._json(inspect_import(context, self._body()))
+                        return
                     result = import_case(context, self._body())
                     indexed_ids.add(result['case_id'])
+                    result['analysis'] = 'disabled'
+                    if automatic:
+                        try:
+                            automatic.schedule(result['case_id'])
+                            result['analysis'] = 'paused' if automatic.snapshot()['paused'] else 'scheduled'
+                        except QueueStorageError:
+                            result['analysis'] = 'queue_unavailable'
                     self._json(result, HTTPStatus.CREATED)
                 except ValueError as error:
                     self._error(HTTPStatus.BAD_REQUEST, str(error))
@@ -592,6 +606,11 @@ def _make_handler(context: WorkbenchContext) -> type[BaseHTTPRequestHandler]:
                     body = self._body()
                     if resolving:
                         result = reviews.resolve_human(context.case_dir(case_id), candidate_id, body.get('input_fingerprint', ''), body.get('human_decision'), body.get('selected_event_ids'), body.get('annotation_sha256'), body.get('expected_record_fingerprint'))
+                        if automatic:
+                            try:
+                                automatic.schedule(case_id)
+                            except QueueStorageError:
+                                result['automatic_error'] = '自动队列不可用，请检查队列状态'
                     else:
                         result = reviews.review(context.case_dir(case_id), candidate_id, body.get('input_fingerprint', ''))
                     result['workflow'] = review_task(result)
@@ -609,6 +628,7 @@ def _make_handler(context: WorkbenchContext) -> type[BaseHTTPRequestHandler]:
                 return
             self._error(HTTPStatus.NOT_FOUND, '接口不存在')
     WorkbenchHandler.automatic_queue = automatic
+    WorkbenchHandler.initial_cases = tuple(indexed_ids)
     return WorkbenchHandler
 
 def create_server(context: WorkbenchContext, port: int=DEFAULT_PORT) -> ThreadingHTTPServer:
@@ -628,5 +648,10 @@ def create_server(context: WorkbenchContext, port: int=DEFAULT_PORT) -> Threadin
             handler.automatic_queue.close()
         raise
     if handler.automatic_queue:
+        for case_id in handler.initial_cases:
+            try:
+                handler.automatic_queue.schedule(case_id)
+            except QueueStorageError:
+                break
         handler.automatic_queue.start()
     return server

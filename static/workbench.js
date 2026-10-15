@@ -304,8 +304,8 @@
         document.getElementById('automaticPause').textContent = paused ? '继续自动复核' : '暂停';
         document.getElementById('automaticRetry').hidden = !job || job.status !== 'failed';
         document.getElementById('automaticStatus').textContent = automaticState && automaticState.storage_error ? '队列存储异常，已暂停' : paused ? '已暂停 · 当前请求完成后停止' :
-          !job ? '无待 AI 候选' : job.status === 'running' ? 'AI 正在复核 · ' + (job.completed_count || 0) + '/' + job.total_count :
-          job.status === 'queued' ? '已排队 · 后台依次复核' : job.status === 'changed' ? '数据已更新，请刷新 Case' : job.status === 'failed' ? (job.error_type === 'InterruptedRequest' ? '请求中断，点击重试后继续' : '任务未完成，请重试或检查模型配置') : '自动复核完成';
+          !job ? (automaticState && (automaticState.discovering || automaticState.discovery_count) ? '正在准备分析任务…' : '无待 AI 任务') : job.status === 'running' ? (job.stage === 'investigation' ? 'AI 正在整理排查报告' : 'AI 正在复核 · ' + (job.completed_count || 0) + '/' + job.total_count) :
+          job.status === 'queued' ? '已排队 · 后台依次分析' : job.status === 'changed' ? '数据已更新，请刷新 Case' : job.status === 'failed' ? (job.error_type === 'InterruptedRequest' ? '请求中断，点击重试后继续' : '任务未完成，请重试或检查模型配置') : '自动分析完成';
       }
       function startAutomatic(caseId, token, retry) {
         return request('/api/automatic-review/' + encodeURIComponent(caseId), {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({retry:!!retry})}).then(function (result) {
@@ -324,6 +324,8 @@
               if (state.currentId !== caseId || state.loadToken !== token || state.submittingHuman) return;
               var changed = state.aiCase && result.input_fingerprint !== state.aiCase.input_fingerprint;
               acceptAiCase(result, caseId); automaticState = result.automatic_review;
+              if (state.investigationLookupStatus !== 'loading' && state.investigationLookupStatus !== 'error' &&
+                  (!state.investigation || state.investigation.status !== 'model_validated')) state.investigationLookupKey = '';
               renderAi(); renderList();
               if (changed) await startAutomatic(caseId, token, false);
             }
@@ -520,10 +522,10 @@
         var valid = hasCurrentInvestigation(), candidate = aiCandidate();
         var empty = document.getElementById('investigationEmpty'), generate = document.getElementById('generateInvestigation');
         empty.hidden = valid; elements.investigationPanel.hidden = !valid;
-        generate.hidden = valid || !confirmedForInvestigation(candidate);
+        generate.hidden = valid || !confirmedForInvestigation(candidate) || !!state.data.automatic_review && state.investigationLookupStatus !== 'error';
         generate.disabled = !!state.aiBusy || state.loading || state.investigationLookupStatus === 'loading';
         generate.textContent = state.investigationLookupStatus === 'error' ? '重试读取报告' : state.investigationLookupStatus === 'stale' ? '更新本地报告' : '生成本地报告';
-        document.getElementById('investigationEmptyTitle').textContent = !candidate ? '选择已确认事件' : !confirmedForInvestigation(candidate) ? '此候选尚未确认' : state.investigationLookupStatus === 'loading' ? '正在读取报告' : state.investigationLookupStatus === 'error' ? '报告暂时无法读取' : '事件已确认，待整理证据';
+        document.getElementById('investigationEmptyTitle').textContent = !candidate ? '选择已确认事件' : !confirmedForInvestigation(candidate) ? '此候选尚未确认' : state.investigationLookupStatus === 'loading' ? '正在读取报告' : state.investigationLookupStatus === 'error' ? '报告暂时无法读取' : state.data.automatic_review ? '后台正在生成排查报告' : '事件已确认，待整理证据';
         document.getElementById('investigationEmptyText').textContent = candidate && confirmedForInvestigation(candidate) ? '关联车辆、目标、规划与控制记录，生成可追溯的排查报告。' : '在事件复核中确认区间后，进入证据排查。';
         if (!valid) { investigationViewer.clear(); investigationTracking.clear(); return; }
         elements.investigationStatus.textContent = {local_ready:'本地证据报告 · 未调用模型',model_validated:'AI 建议已校验 · 根因尚未确认',model_failed:'AI 整理失败 · 已保留本地报告'}[record.status] || '待重新排查';
@@ -531,12 +533,17 @@
         elements.investigationSummary.innerHTML = record.bundle.events.map(function (event) {
           var output = record.model_output && record.model_output.events.find(function (e) { return e.event_id === event.event_id; });
           var checks = record.display_checks && record.display_checks[event.event_id] || (output ? output.prioritized_checks : []);
-          return '<p><strong>' + event.confirmed_interval[0].toFixed(1) + '～' + event.confirmed_interval[1].toFixed(1) + ' 秒</strong> · ' + escapeHtml(event.observation) + '</p><ol>' + checks.map(function (check) {
-            return '<li>' + escapeHtml(check.step) + investigationActionDetails(check) + '<div>' + check.evidence_ids.map(function (id) {
+          var brief = record.briefings && record.briefings[event.event_id];
+          function action(check) {
+            return '<div>' + escapeHtml(check.step) + investigationActionDetails(check) + '<div>' + check.evidence_ids.map(function (id) {
               var label = /-R$/.test(id) ? '原因记录' : /-J$/.test(id) ? '目标关联' : /-V$/.test(id) ? '车辆' : /-O$/.test(id) ? '目标' : /-P$/.test(id) ? '规划' : /-C$/.test(id) ? '控制' : /-T$/.test(id) ? '覆盖' : '链路';
               return '<button type="button" class="ev-reference" data-investigation-event="' + escapeHtml(event.event_id) + '" data-investigation-evidence="' + escapeHtml(id) + '">' + label + '证据</button>';
-            }).join('') + '</div></li>';
-          }).join('') + '</ol>';
+            }).join('') + '</div></div>';
+          }
+          return '<section class="investigation-brief"><p><strong>' + event.confirmed_interval[0].toFixed(1) + '～' + event.confirmed_interval[1].toFixed(1) + ' 秒</strong> · ' + escapeHtml(event.observation) + '</p>' +
+            (brief ? (brief.gaps.length ? '<p class="brief-gap"><strong>证据缺口</strong> · ' + brief.gaps.map(escapeHtml).join('；') + '</p>' : '') +
+              '<p class="brief-next"><strong>下一步</strong> · ' + escapeHtml(brief.next_action) + '</p><p class="brief-reason">依据：' + escapeHtml(brief.reason) + '</p>' : '') +
+            (checks[0] ? action(checks[0]) : '') + (checks.length > 1 ? '<details><summary>其他检查（' + (checks.length-1) + '）</summary>' + checks.slice(1).map(action).join('') + '</details>' : '') + '</section>';
         }).join('');
         investigationViewer.setBundle(record.bundle);
         investigationTracking.setRecord(record, !!state.aiBusy);

@@ -45,3 +45,8 @@ pre{white-space:pre-wrap;overflow-wrap:anywhere}
 .review-followup .button{font-size:11px;padding:5px 8px}
 body[data-view=annotation] #candidateStrip .auto-controls,body[data-view=annotation] #candidateStrip .candidate-toolbar{display:none}
 body[data-view=annotation] #candidateStrip .ai-candidates{margin-bottom:8px}
+.investigation-brief{padding:14px 0;border-bottom:1px solid #e5ebef;line-height:1.8}
+.investigation-brief:last-child{border-bottom:0}.investigation-brief p{margin:6px 0}
+.investigation-brief .brief-next{background:#edf6ff;border-left:3px solid #0068eb;padding:9px 12px;border-radius:4px}
+.investigation-brief .brief-gap{color:#986012;font-size:12px}.investigation-brief .brief-reason{color:#64727a;font-size:12px}
+.investigation-brief details{margin:8px 0;font-size:12px}.investigation-brief details summary{cursor:pointer;color:#536779}

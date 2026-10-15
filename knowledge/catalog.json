@@ -5,7 +5,8 @@
     "source_file": "consistent_risk_response.md",
     "chain_statuses": ["consistent_risk_response"],
     "object_statuses": ["supported_braking"],
-    "keywords": ["风险目标", "规划减速", "控制制动", "链路一致"]
+    "keywords": ["风险目标", "规划减速", "控制制动", "链路一致"],
+    "case_note_template": "本事件 {interval}：规划原因记录 {planning_reasons}，相邻原因切换 {reason_switch}；规划 {planning_coverage}、控制 {control_coverage}。共同出现不证明因果，按 KB001 逐项核对两条请求的一致性、变化起点与时延。"
   },
   {
     "knowledge_id": "KB002",
@@ -13,7 +14,8 @@
     "source_file": "perception_evidence_needs_review.md",
     "chain_statuses": ["perception_evidence_needs_review"],
     "object_statuses": ["needs_review_low_confidence", "needs_review_unknown_confidence"],
-    "keywords": ["低置信度", "感知误检", "目标跳变", "多传感器"]
+    "keywords": ["低置信度", "感知误检", "目标跳变", "多传感器"],
+    "case_note_template": "本事件 {interval}：目标记录无近邻 {object_missing} 点、匹配歧义 {object_ambiguous} 点、相邻 ID 切换 {object_switches} 次、事件内 {object_ids} 个 ID。按 KB002 先补目标关联与置信度记录，再判断感知误检。"
   },
   {
     "knowledge_id": "KB003",
@@ -21,7 +23,8 @@
     "source_file": "planning_trigger_needs_review.md",
     "chain_statuses": ["planning_trigger_needs_review"],
     "object_statuses": ["suspicious_no_object_evidence", "insufficient_object_data"],
-    "keywords": ["规划触发", "目标证据不足", "错误限速", "交通灯", "地图"]
+    "keywords": ["规划触发", "目标证据不足", "错误限速", "交通灯", "地图"],
+    "case_note_template": "本事件 {interval}：规划原因记录 {planning_reasons}，相邻原因切换 {reason_switch}；目标匹配缺口 {object_missing} 点、歧义 {object_ambiguous} 点。按 KB003 补目标证据与场景输入，验证规划触发依据。"
   },
   {
     "knowledge_id": "KB004",
@@ -29,7 +32,8 @@
     "source_file": "control_without_plan.md",
     "chain_statuses": ["control_without_plan"],
     "object_statuses": [],
-    "keywords": ["控制制动", "规划未减速", "残留指令", "模式切换", "控制状态机"]
+    "keywords": ["控制制动", "规划未减速", "残留指令", "模式切换", "控制状态机"],
+    "case_note_template": "本事件 {interval}：规划减速请求观测 {planning_coverage}，控制制动请求观测 {control_coverage}。按 KB004 核查控制输入来源、残留指令、模式切换与仲裁记录。"
   },
   {
     "knowledge_id": "KB005",
@@ -37,7 +41,8 @@
     "source_file": "control_not_following_plan.md",
     "chain_statuses": ["control_not_following_plan"],
     "object_statuses": [],
-    "keywords": ["规划减速", "控制未制动", "指令丢失", "接口延迟", "控制饱和"]
+    "keywords": ["规划减速", "控制未制动", "指令丢失", "接口延迟", "控制饱和"],
+    "case_note_template": "本事件 {interval}：规划减速请求观测 {planning_coverage}，控制制动请求观测 {control_coverage}。按 KB005 核查指令丢失、接口延迟与控制饱和。"
   },
   {
     "knowledge_id": "KB006",
@@ -45,6 +50,7 @@
     "source_file": "vehicle_response_unexplained.md",
     "chain_statuses": ["vehicle_response_unexplained"],
     "object_statuses": [],
-    "keywords": ["车辆急减速", "无规划", "无控制", "执行器反馈", "外部干预"]
+    "keywords": ["车辆急减速", "无规划", "无控制", "执行器反馈", "外部干预"],
+    "case_note_template": "本事件 {interval}：规划/控制有效对齐 {planning_coverage}、{control_coverage}。按 KB006 核查人工驾驶输入、底盘安全系统介入、制动反馈与外部阻力。"
   }
 ]

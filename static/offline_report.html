@@ -96,14 +96,19 @@
         el('intervals').textContent = '确认区间：' + bundle.events.map(event => range(event.confirmed_interval)).join('；');
         el('trackingError').hidden = !doc.tracking_error; el('trackingError').textContent = doc.tracking_error ? '核查记录未读取：' + doc.tracking_error : '';
         viewer.setBundle(bundle);
-        el('eventChecks').innerHTML = bundle.events.map(event => '<section class="event"><h3>' + esc(range(event.confirmed_interval)) + ' · 排查建议</h3><p class="observation">' + esc(event.observation) + '</p><details data-facts="' + esc(event.event_id) + '"><summary>观测与引用</summary>' + event.facts.map(fact => '<p>' + esc(fact.statement) + ' ' + citation(event.event_id,fact.evidence_id) + '</p>').join('') + '</details><ol class="checks">' + (item.display_checks[event.event_id] || []).map((check,i) => {
+        el('eventChecks').innerHTML = bundle.events.map(event => {
+          const brief=doc.briefings?.[event.event_id];
+          return '<section class="event"><h3>' + esc(range(event.confirmed_interval)) + ' · 排查建议</h3><p class="observation">' + esc(event.observation) + '</p>' +
+          (brief ? brief.gaps.map(gap=>'<p><strong>证据缺口</strong> · '+esc(gap)+'</p>').join('')+'<p><strong>下一步</strong> · '+esc(brief.next_action)+'</p><p class="subtle">依据：'+esc(brief.reason)+'</p>' : '') +
+          '<details data-facts="' + esc(event.event_id) + '"><summary>观测与引用</summary>' + event.facts.map(fact => '<p>' + esc(fact.statement) + ' ' + citation(event.event_id,fact.evidence_id) + '</p>').join('') + '</details><div class="checks">' + (item.display_checks[event.event_id] || []).map((check,i) => {
           const saved = tracking?.persisted ? tracking.entries[check.check_id] : null;
           const state = {pending:'待核查',blocked:'待数据',checked:'已核查'}[saved?.status] || '待核查';
-          return '<li class="check"><strong>' + (i+1) + '. ' + esc(check.step) + '</strong><div><span class="badge neutral">' + state + '</span><span class="subtle">' + esc(check.knowledge_id || '输入核查') + '</span></div>'
+          return (i===1 ? '<details><summary>其他检查</summary>' : '')+'<div class="check"><strong>' + (i+1) + '. ' + esc(check.step) + '</strong><div><span class="badge neutral">' + state + '</span><span class="subtle">' + esc(check.knowledge_id || '输入核查') + '</span></div>'
             + (saved?.note ? '<p class="saved-note">' + esc(saved.note) + '</p>' : '')
             + (check.procedure ? '<details><summary>核查步骤与待补材料</summary><ol>' + check.procedure.map(t=>'<li>'+esc(t)+'</li>').join('') + '</ol><p>待补材料</p><ul>' + check.required_data.map(t=>'<li>'+esc(t)+'</li>').join('') + '</ul><p>结果判断</p><ul>' + check.result_branches.map(b=>'<li>'+esc(b.condition+' → '+b.next_action)+'</li>').join('') + '</ul><p>'+esc(check.caution)+'</p></details>' : '')
-            + check.evidence_ids.map(id => citation(event.event_id,id)).join('') + '</li>';
-        }).join('') + '</ol>' + (event.limitations.length ? '<details><summary>证据限制</summary><ul class="limitations">' + event.limitations.map(value => '<li>' + esc(value) + '</li>').join('') + '</ul></details>' : '') + '</section>').join('');
+            + check.evidence_ids.map(id => citation(event.event_id,id)).join('') + '</div>';
+        }).join('') + ((item.display_checks[event.event_id] || []).length>1 ? '</details>' : '') + '</div>' + (event.limitations.length ? '<details><summary>证据限制</summary><ul class="limitations">' + event.limitations.map(value => '<li>' + esc(value) + '</li>').join('') + '</ul></details>' : '') + '</section>';
+        }).join('');
         el('savedNotes').hidden = !(tracking?.persisted && tracking.notes); el('savedNotesText').textContent = tracking?.persisted ? tracking.notes : '';
         el('fullReport').textContent = item.markdown;
         const human = item.metadata.human_confirmation;

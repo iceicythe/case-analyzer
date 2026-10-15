@@ -29,7 +29,7 @@ class DailyWorkflowTests(unittest.TestCase):
     tearDown = fixtures.WorkbenchTests.tearDown
     request = fixtures.WorkbenchTests.request
 
-    def restart(self, automatic=False, adapter=None):
+    def restart(self, automatic=False, adapter=None, investigate=False, paused=False):
         self.http.shutdown()
         self.http.server_close()
         self.thread.join()
@@ -37,12 +37,19 @@ class DailyWorkflowTests(unittest.TestCase):
         self.context = server.WorkbenchContext(
             batch_dir=self.root/'index', data_root=self.root/'data',
             annotations_root=self.root/'annotations', evaluation_output=self.root/'evaluations',
-            model_reviews_root=self.root/'model_reviews', automatic_review=automatic)
+            model_reviews_root=self.root/'model_reviews', automatic_review=automatic,
+            automatic_investigation=investigate)
         self.status = patch('app.server.model_status', return_value={'ready':automatic, 'message':'acceptance fixture'})
         self.status.start()
         def store(*args, **kwargs):
             return HumanEventReviewStore(*args, **kwargs, adapter_factory=adapter)
-        with patch('app.server.HumanEventReviewStore', side_effect=store):
+        from app.automatic_review import AutomaticReviewQueue
+        def make_queue(*args, **kwargs):
+            result = AutomaticReviewQueue(*args, **kwargs)
+            if paused:
+                result.pause(True)
+            return result
+        with patch('app.server.HumanEventReviewStore', side_effect=store), patch('app.server.AutomaticReviewQueue', side_effect=make_queue):
             self.http = server.create_server(self.context, 0)
         self.http.RequestHandlerClass.log_message = lambda *args: None
         self.thread = threading.Thread(target=self.http.serve_forever, daemon=True)
@@ -238,7 +245,7 @@ class DailyWorkflowTests(unittest.TestCase):
             def generate(inner, package):
                 Adapter.calls += 1
                 return super().generate(package)
-        self.restart(True,Adapter)
+        self.restart(True,Adapter,paused=True)
         self.request('/api/automatic-review',{'paused':True})
         self.request('/api/automatic-review/fixture_001',{})
         self.restart(True,Adapter)
@@ -257,7 +264,7 @@ class DailyWorkflowTests(unittest.TestCase):
             def generate(inner, package):
                 Adapter.calls += 1
                 return super().generate(package)
-        self.restart(True,Adapter)
+        self.restart(True,Adapter,paused=True)
         self.request('/api/automatic-review',{'paused':True})
         self.request('/api/automatic-review/fixture_001',{})
         self.http.shutdown(); self.http.server_close(); self.thread.join()

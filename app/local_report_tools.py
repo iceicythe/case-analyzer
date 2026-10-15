@@ -180,6 +180,10 @@ class LocalReportTools:
                                     for e in (record.get('model_output') or {}).get('events', [])}
                     context = dict(record, display_checks={e['event_id']: model_events.get(
                         e['event_id'], default_investigation_checks(e)) for e in record['bundle']['events']})
+                    from app.investigation_summary import briefings
+                    from app.event_investigation import build_findings
+                    context['briefings'] = briefings(record['bundle'], context['display_checks'])
+                    context['findings'] = {e['event_id']: build_findings(e) for e in record['bundle']['events']}
                     tracking, tracking_error = None, None
                     try:
                         tracking = self.tracking.get(context)
@@ -189,7 +193,8 @@ class LocalReportTools:
                     markdown = record['report'] + (tracking['report_appendix'] if tracking else '')
                     data = _json({'status': record['status'], 'created_at': record.get('created_at'),
                                   'bundle': record['bundle'], 'model_output': record.get('model_output'),
-                                  'human_tracking': tracking, 'tracking_error': tracking_error})
+                                  'human_tracking': tracking, 'tracking_error': tracking_error,
+                                  'briefings':context['briefings'], 'findings':context['findings']})
                     self._current(item)
                     current = self._record(item, directory)
                     if (not current.get('report') or current['status'] not in READY

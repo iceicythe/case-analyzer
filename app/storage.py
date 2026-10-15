@@ -81,8 +81,7 @@ def validate_csv(name, text):
     return {'rows': count, 'sampling_gaps': gaps}
 
 
-def import_case(context, payload):
-    from app.annotations import _annotation_template
+def validate_import_payload(payload):
     if not isinstance(payload, dict) or set(payload) - {'case_id', 'source_name', 'source_type', 'acceleration_source', 'files'}:
         raise ValueError('导入字段不正确')
     cid = valid_case_id(payload.get('case_id'))
@@ -99,6 +98,37 @@ def import_case(context, payload):
     if any(not isinstance(content, str) for content in files.values()) or sum(len(s.encode('utf-8')) for s in files.values()) > MAX_BYTES:
         raise ValueError('单个 Case 总文件大小不能超过 24 MB')
     stats = {name: validate_csv(name, content) for name, content in files.items()}
+    return cid, source_name, source_type, acceleration_source, files, stats
+
+
+def inspect_import(context, payload):
+    """Read-only preflight; identical retries may skip, conflicting IDs never overwrite."""
+    cid, source_name, source_type, acceleration_source, files, stats = validate_import_payload(payload)
+    with IMPORT_LOCK:
+        existing = list(csv.DictReader(io.StringIO((context.batch_dir / 'summary.csv').read_text(encoding='utf-8-sig'))))
+        match = next((row['case_id'] for row in existing if row['case_id'].casefold() == cid.casefold()), None)
+        destination = context.data_root / cid
+        status = 'ready'
+        if match or destination.exists() or (context.annotations_root / (cid + '.json')).exists():
+            status = 'conflict'
+            if match == cid:
+                try:
+                    metadata = json.loads((destination / 'source_metadata.json').read_text(encoding='utf-8'))
+                    same_files = {name for name in FILES if (destination / name).is_file()} == set(files)
+                    same_bytes = same_files and all(sha(destination / name) == hashlib.sha256(content.encode('utf-8')).hexdigest() for name, content in files.items())
+                    if (same_bytes and metadata.get('source_name') == source_name and metadata.get('source_type') == source_type
+                            and metadata.get('signal_sources', {}).get('vehicle_state.csv', {}).get('acceleration_mps2') == acceleration_source):
+                        status = 'skipped'
+                except (OSError, ValueError, TypeError, AttributeError):
+                    pass
+        return {'case_id':cid, 'status':status, 'files':stats,
+                'missing_files':[name for name in FILES if name not in files],
+                'message':{'ready':'可导入', 'skipped':'内容及来源相同，已跳过', 'conflict':'编号已存在且内容或来源不同，请修改编号'}[status]}
+
+
+def import_case(context, payload):
+    from app.annotations import _annotation_template
+    cid, source_name, source_type, acceleration_source, files, stats = validate_import_payload(payload)
     root = context.data_root.parent.resolve()
     destination = context.data_root / cid
     label = context.annotations_root / (cid + '.json')

@@ -161,22 +161,25 @@
   function jobError(job){return ({InterruptedRequest:'请求中断，需明确重试',ModelCallFailed:'调用失败，待重试',InputChanged:'数据已更新，请刷新后重新选择',CandidatesChanged:'候选已更新，请刷新后重新选择'})[job.error_type]||(job.status==='failed'?'处理失败，请检查配置后重试':'');}
   function acceptQueue(value){
     if(queue&&value.instance_id===queue.instance_id&&value.revision<queue.revision)return;
-    const wasActive=queue&&(queue.running||queue.queued_count),first=!queue;
+    const wasActive=queue&&(queue.running||queue.queued_count||queue.discovery_count||queue.discovering),first=!queue;
     queue=value;$('aiQueue').hidden=!queue.enabled;
     if(!queue.enabled){batchButtons();return;}
     const jobs=queue.jobs||[],counts=queue.counts||{};
-    $('aiQueueState').textContent=queue.storage_error?'存储异常':queue.paused?'已暂停':queue.running?'运行中':queue.queued_count?'等待处理':'空闲';
+    $('aiQueueState').textContent=queue.storage_error?'存储异常':queue.paused?'已暂停':queue.running?'运行中':queue.discovering||queue.discovery_count?'准备任务':queue.queued_count?'等待处理':'空闲';
     $('aiQueuePause').textContent=queue.paused?'继续队列':'暂停';
     $('aiQueueRetry').hidden=!counts.failed;
-    $('aiQueueSummary').textContent='排队 '+queue.queued_count+' · 已完成 '+(counts.complete||0)+' · 待重试 '+(counts.failed||0)+(queue.paused&&queue.running?' · 当前请求结束后暂停':'');
+    $('aiQueueSummary').textContent='排队 '+(queue.queued_count+(queue.discovery_count||0))+' · 已完成 '+(counts.complete||0)+' · 待重试 '+(counts.failed||0)+(queue.paused&&queue.running?' · 当前请求结束后暂停':'');
     if(queue.storage_error){$('aiQueueMessage').textContent=queue.storage_error==='QueueStateUnreadable'?'队列文件无法读取，已暂停。请检查本地队列记录。':'队列保存失败，已暂停。检查磁盘后点击继续队列。';$('aiQueueMessage').className='notice-line error';}
     else if($('aiQueueMessage').textContent==='队列连接中断，正在重连…'||$('aiQueueMessage').textContent.startsWith('队列保存失败')||$('aiQueueMessage').textContent.startsWith('队列文件无法读取')){$('aiQueueMessage').textContent='';}
+    if(!queue.storage_error && queue.pause_reason==='ProviderAccessError'){$('aiQueueMessage').textContent='模型认证、余额或访问权限异常，队列已暂停。检查配置后重试失败项并继续队列。';$('aiQueueMessage').className='notice-line error';}
+    else if(!queue.storage_error && Object.keys(queue.discovery_errors||{}).length){$('aiQueueMessage').textContent='以下 Case 无法准备分析任务，请检查日志后重新打开：'+Object.keys(queue.discovery_errors).join('、');$('aiQueueMessage').className='notice-line error';}
+    else if(!queue.storage_error && ($('aiQueueMessage').textContent.startsWith('模型认证')||$('aiQueueMessage').textContent.startsWith('以下 Case'))){$('aiQueueMessage').textContent='';}
     $('aiQueueDetails').hidden=!jobs.length;
     const recent=[...jobs].sort((a,b)=>b.updated_at.localeCompare(a.updated_at)).slice(0,12);
     $('aiQueueDetails').querySelector('summary').textContent=jobs.length>12?'最近 12 个任务':'任务进度';
-    $('aiQueueJobs').innerHTML=recent.map(j=>'<div class="ai-job"><a href="/workbench/?case='+encodeURIComponent(j.case_id)+'">'+esc(shortName(j.case_id))+'</a><span>'+esc(jobLabels[j.status]||j.status)+' · '+j.completed_count+'/'+j.total_count+'</span>'+(jobError(j)?'<small>'+esc(jobError(j))+'</small>':'')+'</div>').join('');
+    $('aiQueueJobs').innerHTML=recent.map(j=>'<div class="ai-job"><a href="/workbench/?case='+encodeURIComponent(j.case_id)+'">'+esc(shortName(j.case_id))+'</a><span>'+esc(j.status==='running'&&j.stage==='investigation'?'排查中':jobLabels[j.status]||j.status)+' · '+j.completed_count+'/'+j.total_count+'</span>'+(jobError(j)?'<small>'+esc(jobError(j))+'</small>':'')+'</div>').join('');
     if(first)render();else batchButtons();
-    if(wasActive&&!queue.running&&!queue.queued_count&&!refreshing)refresh();
+    if(wasActive&&!queue.running&&!queue.queued_count&&!queue.discovering&&!queue.discovery_count&&!refreshing)refresh();
   }
   async function queueRequest(path,body){
     const response=await fetch(path,{cache:'no-store',...(body?{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}:{})});
@@ -190,7 +193,7 @@
       catch(error){$('aiQueue').hidden=false;$('aiQueueMessage').className='notice-line error';$('aiQueueMessage').textContent='队列连接中断，正在重连…';}
       finally{queuePolling=false;}
     }
-    queueTimer=setTimeout(pollQueue,queue&&(queue.running||queue.queued_count)?2500:10000);
+    queueTimer=setTimeout(pollQueue,queue&&(queue.running||queue.queued_count||queue.discovering||queue.discovery_count)?2500:10000);
   }
   async function submitBatch(items,retry=false){
     if(queueBusy||!items.length)return;

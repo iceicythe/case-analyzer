@@ -17,6 +17,7 @@ from app.paths import PROJECT_ROOT
 DEFAULT_OUTPUT_ROOT = PROJECT_ROOT / "model_outputs"
 ADAPTER_CHOICES = ("mock", "deepseek")
 MODEL_CALL_METRIC_KEYS = (
+    "http_status",
     "provider",
     "model",
     "reasoning_effort",
@@ -293,6 +294,8 @@ class DeepSeekAdapter:
                     status="failed",
                     error_type=type(error).__name__,
                 )
+                http_status = getattr(error, 'status_code', None)
+                self._last_call_metrics['http_status'] = http_status if type(http_status) is int else None
                 raise ModelInvocationError(
                     f"DeepSeek 请求失败：{type(error).__name__}: {error}"
                 ) from error

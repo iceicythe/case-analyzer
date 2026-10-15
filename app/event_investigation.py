@@ -13,11 +13,12 @@ import pandas as pd
 from jsonschema import Draft202012Validator, ValidationError
 
 from app.paths import PROJECT_ROOT
+from app.knowledge_notes import case_notes
 from app.retriever import DEFAULT_CATALOG, KNOWLEDGE_ROOT, retrieve_knowledge
 from app.investigation_actions import describe_context, build_actions, default_actions, required_actions
 
 VERSION = "event-investigation-2.0"
-PROMPT_VERSION = "investigation-ranking-2.2"
+PROMPT_VERSION = "investigation-ranking-2.3"
 CONFIG_PATH = PROJECT_ROOT / "configs/event_investigation.json"
 CHAIN_PATH = PROJECT_ROOT / "configs/chain.json"
 EVIDENCE_PATH = PROJECT_ROOT / "configs/evidence.json"
@@ -300,12 +301,16 @@ def ranking_context(bundle):
                 compact['signal_ids'].append(signal_id)
             checks.append(compact)
         item['signals'], item['checks'] = signals, checks
+        # 时间线与 finding_index 一并投影：解读按序号逐条对应，不含原始行内容。
+        item['findings'] = [dict(finding, finding_index=index)
+                            for index,finding in enumerate(build_findings(event))]
         events.append(item)
     return {'case_id':bundle['case_id'], 'candidate_id':bundle['candidate_id'],
             'acceleration_provenance':copy.deepcopy(bundle['acceleration_provenance']),
             'evidence_scope':'仅提供程序从日志计算的摘要供检查排序；原始行、逐点对齐、完整引用和哈希保存在本地。'
                              'limitations 中发送行数指本地证据包收录数，本请求不含原始采样。'
-                             '未提供的时序细节不可推断；不作独立原始日志复核或根因判定。',
+                             '未提供的时序细节不可推断；不作独立原始日志复核或根因判定。'
+                             'findings 为程序计算的证据时间线，finding_notes 按 finding_index 逐条对应。',
             'events':events}
 
 
@@ -317,10 +322,22 @@ def build_investigation_prompt(bundle):
             'items':{'enum':[c['check_id'] for c in event['checks']]}}
         if required:
             selection['prefixItems'] = [{'const':key} for key in required]
+        properties = {'event_id':{'const':event['event_id']},'fault_assessment':{'const':'unknown'},
+            'prioritized_check_ids':selection}
+        findings = build_findings(event)
+        if findings:
+            # 每条时间线条目至多一条解读：结构由 anyOf+const 限定，序号唯一与范围由程序复核。
+            properties['finding_notes'] = {'type':'array','uniqueItems':True,'maxItems':len(findings),
+                'items':{'anyOf':[{'type':'object','additionalProperties':False,
+                    'required':['finding_index','interpretation'],
+                    'properties':{'finding_index':{'const':index},
+                        'interpretation':{'type':'string','minLength':1},
+                        'verification':{'type':'string','minLength':1},
+                        'needed_data':{'type':'string','minLength':1}}}
+                    for index in range(len(findings))]}}
         event_schemas.append({'type':'object','additionalProperties':False,
             'required':['event_id','fault_assessment','prioritized_check_ids'],
-            'properties':{'event_id':{'const':event['event_id']},'fault_assessment':{'const':'unknown'},
-                'prioritized_check_ids':selection}})
+            'properties':properties})
     schema = {'type':'object','additionalProperties':False,'required':['case_id','candidate_id','events'],
         'properties':{'case_id':{'const':bundle['case_id']},'candidate_id':{'const':bundle['candidate_id']},
             'events':{'type':'array','prefixItems':event_schemas,'minItems':len(event_schemas),'maxItems':len(event_schemas),'items':False}}}
@@ -329,11 +346,48 @@ def build_investigation_prompt(bundle):
         'schema 的 prefixItems 是必须优先的证据缺口或原因关联步骤；遵守其顺序。'
         '多目标不能当作没有目标；ID变化不证明物体更换；decision_reason是日志自述，不是根因。'
         '近邻匹配不能校准时钟，字段缺失不代表没有请求；保持 fault_assessment 为 unknown。'
-        '事实和具体操作由程序原样组装，不自行生成检查内容。只输出 response_schema 要求的 JSON。')
+        '事实和具体操作由程序原样组装，不自行生成检查内容。只输出 response_schema 要求的 JSON。'
+        'findings 是程序从日志计算的证据时间线，按 finding_index 逐条对应；可追加 finding_notes：'
+        'interpretation 只重述该条观测并说明证据边界，不引入未提供的数据、不下根因结论、不生成新检查；'
+        'verification 写数据支持范围内的核对动作；needed_data 仅在确需补充时写；没有把握的条目可以不写。')
     context = ranking_context(bundle)
     return {'prompt_version':PROMPT_VERSION,'thinking_mode':'disabled','analysis_context':bundle,'response_schema':schema,
         'messages':[{'role':'system','content':system},{'role':'user','content':json.dumps(
             {'context':context,'response_schema':schema},ensure_ascii=False,allow_nan=False,separators=(',',':'))}]}
+
+
+def normalize_finding_notes(notes, findings, source='AI'):
+    """Validate per-finding notes against the deterministic timeline.
+
+    Indexes must be unique and in range; interpretation is required while the
+    two optional strings stay optional. Applies to both fresh model output and
+    replayed persisted output, so old records without notes still pass.
+    """
+    if not isinstance(notes, list):
+        raise ValueError(source + ' 输出的 finding_notes 必须是数组')
+    seen, normalized = set(), []
+    for note in notes:
+        if not isinstance(note, dict) or set(note) - {'finding_index','interpretation','verification','needed_data'}:
+            raise ValueError(source + ' 输出的 finding_notes 条目结构无效')
+        index = note.get('finding_index')
+        if isinstance(index, bool) or not isinstance(index, int) or not 0 <= index < len(findings):
+            raise ValueError(source + ' 输出的 finding_notes 引用了不存在的证据时间线条目')
+        if index in seen:
+            raise ValueError(source + ' 输出的 finding_notes 对同一条目重复解读')
+        if not isinstance(note.get('interpretation'), str) or not note['interpretation'].strip():
+            raise ValueError(source + ' 输出的 finding_notes 缺少解读内容')
+        item = {'finding_index':index, 'interpretation':note['interpretation'].strip()}
+        for key in ('verification','needed_data'):
+            value = note.get(key)
+            if value is None:
+                continue
+            if not isinstance(value, str) or not value.strip():
+                raise ValueError(source + ' 输出的 finding_notes 可选字段必须是非空字符串')
+            item[key] = value.strip()
+        seen.add(index)
+        normalized.append(item)
+    normalized.sort(key=lambda entry: entry['finding_index'])
+    return normalized
 
 
 def validate_investigation(raw, package):
@@ -346,12 +400,17 @@ def validate_investigation(raw, package):
         normalized=[]
         for saved,event in zip(value['events'],events):
             facts=[{k:f[k] for k in ('evidence_id','statement')} for f in event['facts']]
-            if (set(saved)!={'event_id','fault_assessment','facts','prioritized_checks'} or saved['facts']!=facts
+            if (not {'event_id','fault_assessment','facts','prioritized_checks'} <= set(saved)
+                    or set(saved)-{'event_id','fault_assessment','facts','prioritized_checks','finding_notes'}
+                    or saved['facts']!=facts
                     or not isinstance(saved['prioritized_checks'],list)
                     or any(c not in event['checks'] for c in saved['prioritized_checks'])):
                 raise ValueError('已有排查输出篡改了事实或检查内容')
-            normalized.append({'event_id':saved['event_id'],'fault_assessment':saved['fault_assessment'],
-                               'prioritized_check_ids':[c['check_id'] for c in saved['prioritized_checks']]})
+            item={'event_id':saved['event_id'],'fault_assessment':saved['fault_assessment'],
+                  'prioritized_check_ids':[c['check_id'] for c in saved['prioritized_checks']]}
+            if 'finding_notes' in saved:
+                item['finding_notes']=normalize_finding_notes(saved['finding_notes'],build_findings(event),'已有排查输出')
+            normalized.append(item)
         value=dict(value,events=normalized)
     try:
         Draft202012Validator(package['response_schema']).validate(value)
@@ -360,33 +419,125 @@ def validate_investigation(raw, package):
     output=[]
     for chosen,event in zip(value['events'],events):
         checks={c['check_id']:c for c in event['checks']}
-        output.append({'event_id':event['event_id'],'fault_assessment':'unknown',
+        item={'event_id':event['event_id'],'fault_assessment':'unknown',
             'facts':[{k:f[k] for k in ('evidence_id','statement')} for f in event['facts']],
-            'prioritized_checks':[checks[key] for key in chosen['prioritized_check_ids']]})
+            'prioritized_checks':[checks[key] for key in chosen['prioritized_check_ids']]}
+        if 'finding_notes' in chosen:
+            item['finding_notes']=normalize_finding_notes(chosen['finding_notes'],build_findings(event))
+        output.append(item)
     return {'case_id':value['case_id'],'candidate_id':value['candidate_id'],'events':output}
+
+
+# 本地无模型演示用：按条目类型给固定保守句，不引入任何推断。
+MOCK_FINDING_NOTES = {
+    'planning_reason': ('该时刻规划日志自述原因切换；日志自述不证明实际触发原因。',
+                        '按原因关联检查核对相邻时刻的规划请求与控制响应是否一致。', None),
+    'object_id': ('相邻单目标记录的 ID 发生变化；ID 变化不证明物理对象更换。',
+                  '先核对目标关联与覆盖，再判断是否为同一目标的轨迹。', None),
+    'object_gap': ('该区间目标记录存在覆盖缺口或匹配歧义；缺失或歧义本身不能推断目标状态。',
+                   '回查该区间原始目标日志确认覆盖，再使用距离类结论。',
+                   '缺口区间对应的原始目标日志'),
+    'alignment': ('对齐覆盖率来自程序逐点统计；覆盖不足时相关结论不可判定。', None, None),
+}
 
 
 class InvestigationMockAdapter:
     def generate(self, package):
         bundle = package['analysis_context']
-        return {'case_id':bundle['case_id'],'candidate_id':bundle['candidate_id'],'events':[
-            {'event_id':e['event_id'],'fault_assessment':'unknown',
-             'prioritized_check_ids':[c['check_id'] for c in default_investigation_checks(e)]} for e in bundle['events']]}
+        events = []
+        for event in bundle['events']:
+            notes = []
+            for index,finding in enumerate(build_findings(event)):
+                interpretation,verification,needed = MOCK_FINDING_NOTES.get(
+                    finding['kind'],('该条目来自程序计算的证据时间线。',None,None))
+                note = {'finding_index':index, 'interpretation':interpretation}
+                if verification: note['verification'] = verification
+                if needed: note['needed_data'] = needed
+                notes.append(note)
+            events.append({'event_id':event['event_id'],'fault_assessment':'unknown',
+                'prioritized_check_ids':[c['check_id'] for c in default_investigation_checks(event)],
+                'finding_notes':notes})
+        return {'case_id':bundle['case_id'],'candidate_id':bundle['candidate_id'],'events':events}
+
+
+def build_findings(event):
+    """Deterministic evidence timeline from the already validated context summary.
+
+    Only changes with a source time and CSV row enter the timeline; counts
+    without a timestamp are summarized as one trailing coverage entry instead
+    of being placed at a guessed moment.
+    """
+    detail = event['context_summary']
+    items = []
+    for change in detail['reason_transitions']:
+        items.append({'time': change['time'], 'end': None, 'kind': 'planning_reason',
+                      'detail': f"规划原因 {change['before']} → {change['after']}",
+                      'csv_rows': change['source_rows'], 'source_file': 'planning_state.csv'})
+    for switch in detail['object_switches']:
+        items.append({'time': switch['time'], 'end': None, 'kind': 'object_id',
+                      'detail': f"目标 ID {switch['before']} → {switch['after']}",
+                      'csv_rows': switch['source_rows'], 'source_file': 'object_state.csv'})
+    for gap in detail['object_gaps']:
+        items.append({'time': gap['start'], 'end': gap['end'], 'kind': 'object_gap',
+                      'detail': f"目标记录{gap['reason']}（{gap['samples']} 个车辆采样点）",
+                      'csv_rows': [], 'source_file': 'object_state.csv'})
+    coverage = event['alignment_summary']
+    total = coverage['vehicle_event_sample_count']
+    items.append({'time': None, 'end': None, 'kind': 'alignment',
+                  'detail': f"事件内有效对齐：规划 {coverage['planning_state.csv']['valid_event_samples']}/{total} 点、"
+                            f"控制 {coverage['control_state.csv']['valid_event_samples']}/{total} 点",
+                  'csv_rows': [], 'source_file': ''})
+    items.sort(key=lambda item: (item['time'] is None, item['time'] if item['time'] is not None else 0,
+                                 item['end'] if item['end'] is not None else 0))
+    return items
 
 
 def render_investigation(bundle, output=None):
+    from app.investigation_summary import summarize_event
     lines = [f"# 已确认事件排查报告：{bundle['case_id']} / {bundle['candidate_id']}",'',
         '事件区间来自已通过复核的结果；以下是日志观测与排查建议，未确认软件故障。','']
     for event in bundle['events']:
         start,end = event['confirmed_interval']
-        lines += [f"## {event['event_id']}：{start:.1f}～{end:.1f} 秒",'',event['observation'],'','### 事实证据','']
+        selected = next((e['prioritized_checks'] for e in (output or {}).get('events',[]) if e['event_id']==event['event_id']),default_investigation_checks(event))
+        brief = summarize_event(event, selected)
+        lines += [f"## {event['event_id']}：{start:.1f}～{end:.1f} 秒",'',event['observation'],'',
+                  '**优先处理：** '+brief['next_action'], '', '**依据：** '+brief['reason']]
+        lines += ['- 证据缺口：'+gap for gap in brief['gaps']]
+        lines += ['', '### 事实证据', '']
         for fact in event['facts']:
             rows = fact['source_rows']
             reference = ('CSV 行 '+str(rows) if len(rows)<=6 else f'CSV 行 {rows[0]}～{rows[-1]}中的{len(rows)}条记录') if rows else '聚合/匹配结果，详见逐点对齐证据'
             statement = fact['statement'].replace('None','未知/不可判定').replace('True','是').replace('False','否')
             lines.append(f"- {fact['evidence_id']}：{statement}（{fact['source_file']}；{reference}）")
+        findings = build_findings(event)
+        notes = {}
+        for chosen in (output or {}).get('events', []):
+            if chosen['event_id'] == event['event_id']:
+                notes = {n['finding_index']: n for n in chosen.get('finding_notes', [])}
+                break
+        lines += ['', '### 证据时间线', '']
+        if not any(item['time'] is not None for item in findings):
+            lines.append('- 事件内未出现规划原因切换、目标 ID 切换或目标记录缺口。')
+        for index,item in enumerate(findings):
+            note = notes.get(index)
+            if item['time'] is None:
+                lines.append(f"- 事件全程：{item['detail']}")
+            else:
+                when = f"{item['time']:.2f} 秒" if item['end'] is None else f"{item['time']:.2f}～{item['end']:.2f} 秒"
+                rows = '；CSV 行 ' + ','.join(str(r) for r in item['csv_rows']) if item['csv_rows'] else ''
+                lines.append(f"- {when}：{item['detail']}（{item['source_file']}{rows}）")
+            if note:
+                lines.append(f"  - AI 解读：{note['interpretation']}")
+                if note.get('verification'):
+                    lines.append(f"  - 核对动作：{note['verification']}")
+                if note.get('needed_data'):
+                    lines.append(f"  - 需补数据：{note['needed_data']}")
         lines += ['','### 数据限制',''] + ['- '+v for v in event['limitations']]
-        selected = next((e['prioritized_checks'] for e in (output or {}).get('events',[]) if e['event_id']==event['event_id']),default_investigation_checks(event))
+        notes = case_notes(event)
+        if any(n['note'] for n in notes):
+            lines += ['', '### 手册依据（结合本案数据）', '']
+            lines += [f"- {n['knowledge_id']}《{n['title']}》：{n['note']}（knowledge/{n['source_file']}）"
+                      for n in notes if n['note']]
         lines += ['','### 下一步检查'+('（AI 排序）' if output else '（本地建议）'),'']
         for i,check in enumerate(selected,1):
             lines += [f"{i}. **{check['step']}**（证据：{', '.join(check['evidence_ids'])}）"]

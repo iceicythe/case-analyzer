@@ -23,13 +23,17 @@ def _now():
 
 
 class AutomaticReviewQueue:
-    def __init__(self, reviews, state_path=None, resolve_case=None, scope='', autostart=True):
+    def __init__(self, reviews, state_path=None, resolve_case=None, scope='', autostart=True, investigate=False):
         self.reviews = reviews
+        self.investigate = investigate
+        self.discovery, self.discovery_errors = deque(), {}
+        self.discovering = None
         self.state_path = Path(state_path) if state_path else None
         self.resolve_case, self.scope = resolve_case, scope
         self.condition = threading.Condition()
         self.pending, self.jobs, self.directories = deque(), {}, {}
         self.paused = self.closed = self.invalid_state = False
+        self.pause_reason = None
         self.revision = 0
         self.instance_id = uuid4().hex
         self.storage_error = self.owner = self.worker = None
@@ -84,6 +88,8 @@ class AutomaticReviewQueue:
                         or job.get('error_type') is not None and not re.fullmatch(r'[A-Za-z0-9_]{1,80}', job['error_type'])):
                     raise ValueError('InvalidJob')
                 jobs[job['job_id']] = dict(job)
+                if job.get('stage', 'review') not in {'review', 'investigation', 'done'}:
+                    raise ValueError('InvalidStage')
             pending = [j['job_id'] for j in jobs.values() if j['status'] == 'running']
             if len(pending) > 1:
                 raise ValueError('InvalidRunningJobs')
@@ -92,6 +98,7 @@ class AutomaticReviewQueue:
                 jobs[key].update(status='queued', recovered=True)
             self.jobs, self.pending = jobs, deque(pending)
             self.paused, self.revision = value['paused'], value['revision']
+            self.pause_reason = 'ProviderAccessError' if value.get('pause_reason') == 'ProviderAccessError' else None
         except (OSError, ValueError, KeyError, TypeError):
             # Preserve the original file; unreadable state cannot authorize calls.
             self.storage_error, self.invalid_state, self.paused = 'QueueStateUnreadable', True, True
@@ -104,7 +111,7 @@ class AutomaticReviewQueue:
             return
         temporary = self.state_path.with_name(self.state_path.name+'.'+uuid4().hex+'.tmp')
         try:
-            payload = {'version':1, 'scope':self.scope, 'paused':self.paused,
+            payload = {'version':1, 'scope':self.scope, 'paused':self.paused, 'pause_reason':self.pause_reason,
                        'revision':self.revision, 'jobs':list(self.jobs.values())}
             with temporary.open('w', encoding='utf-8') as stream:
                 json.dump(payload, stream, ensure_ascii=False, allow_nan=False, indent=2)
@@ -134,6 +141,9 @@ class AutomaticReviewQueue:
             current = next((j for j in reversed(list(self.jobs.values())) if j['case_id'] == case_dir.name
                             and j['input_fingerprint'] == case['input_fingerprint'] and j['prompt_version'] == VERSION), None)
             ids = [c['candidate_id'] for c in case['candidates'] if c['disposition']['status'] == 'pending_ai']
+            if self.investigate:
+                ids += [c['candidate_id'] for c in case['candidates'] if self._confirmed(c)
+                        and self.reviews.get_investigation(case_dir, c['candidate_id']).get('status') != 'model_validated']
             if not ids and current and current['status'] in {'failed','changed'}:
                 current.update(status='complete', completed_count=len(current['candidate_ids']),
                                error_type=None, candidate_id=None, in_flight=False, updated_at=_now())
@@ -143,12 +153,29 @@ class AutomaticReviewQueue:
                 self.jobs[key] = {'job_id':key, 'case_id':case_dir.name, 'input_fingerprint':case['input_fingerprint'],
                     'prompt_version':VERSION, 'status':'queued', 'retry':bool(retry), 'candidate_ids':ids,
                     'candidate_id':None, 'in_flight':False, 'completed_count':0, 'error_type':None,
+                    'stage':'review', 'investigation_count':0,
                     'created_at':stamp, 'updated_at':stamp, 'recovered':False}
                 self.directories[key] = case_dir
                 self.pending.append(key)
                 self._persist()  # Persist authorization before waking the worker.
                 self.condition.notify_all()
         return self.snapshot(case_dir.name)
+
+    @staticmethod
+    def _confirmed(candidate):
+        disposition = candidate['disposition']
+        return (disposition['status'] == 'ai_confirmed_event' or
+                disposition['status'] == 'human_reviewed' and disposition.get('human_decision') == 'confirmed_event')
+
+    def schedule(self, case_id):
+        """Discover work off the HTTP thread. The import index survives restarts."""
+        with self.condition:
+            if self.closed or self.storage_error:
+                raise QueueStorageError('自动队列不可用，请检查服务状态')
+            if case_id not in self.discovery:
+                self.discovery.append(case_id)
+            self.discovery_errors.pop(case_id, None)
+            self.condition.notify_all()
 
     def snapshot(self, case_id=None):
         with self.condition:
@@ -159,15 +186,19 @@ class AutomaticReviewQueue:
                     if case_id is None or j['case_id'] == case_id]
             counts = {s:sum(j['status'] == s for j in latest.values()) for s in ('queued','running','complete','failed','changed')}
             return {'enabled':True, 'persistent':self.state_path is not None, 'paused':self.paused,
+                    'pause_reason':self.pause_reason,
                     'jobs':jobs, 'running':any(j['status']=='running' for j in self.jobs.values()),
-                    'queued_count':len(self.pending), 'counts':counts, 'revision':self.revision, 'instance_id':self.instance_id,
+                    'queued_count':len(self.pending), 'discovery_count':len(self.discovery),
+                    'discovering':self.discovering, 'discovery_errors':dict(self.discovery_errors),
+                    'counts':counts, 'revision':self.revision, 'instance_id':self.instance_id,
                     'storage_error':self.storage_error, 'recovered_count':sum(bool(j.get('recovered')) for j in latest.values())}
 
-    def pause(self, paused):
+    def pause(self, paused, reason=None):
         with self.condition:
             if self.invalid_state:
                 raise QueueStorageError('队列记录无法读取，请先检查本地队列文件')
             self.paused = paused
+            self.pause_reason = reason if paused else None
             self._persist()
             self.condition.notify_all()
 
@@ -202,12 +233,14 @@ class AutomaticReviewQueue:
         if any(cid not in candidates for cid in job['candidate_ids']):
             self._update(key, status='changed', candidate_id=None, in_flight=False, error_type='CandidatesChanged')
             return
-        if job['in_flight'] and candidates[job['candidate_id']]['disposition']['status'] == 'pending_ai':
+        interrupted = job['in_flight'] and (self.reviews.get_investigation(case_dir, job['candidate_id']).get('status') != 'model_validated'
+            if job.get('stage') == 'investigation' else candidates[job['candidate_id']]['disposition']['status'] == 'pending_ai')
+        if interrupted:
             # A crash may happen after the provider accepted a request. Require
             # explicit retry when there is no usable saved result to resume from.
             self._update(key, status='failed', error_type='InterruptedRequest', in_flight=False)
             return
-        self._update(key, in_flight=False, candidate_id=None)
+        self._update(key, in_flight=False, candidate_id=None, stage='review')
         for candidate_id in job['candidate_ids']:
             if not self._ready():
                 return
@@ -235,25 +268,106 @@ class AutomaticReviewQueue:
                 return
             reviewed = next(c for c in result['candidates'] if c['candidate_id'] == candidate_id)
             if reviewed['review']['status'] in {'call_failed','stale'}:
+                self._pause_provider_failure(reviewed['review'])
                 self._update(key, status='failed', in_flight=False, candidate_id=None,
                              error_type='InputChanged' if reviewed['review']['status']=='stale' else 'ModelCallFailed')
                 return
             completed = sum(c['candidate_id'] in job['candidate_ids'] and c['disposition']['status'] != 'pending_ai' for c in result['candidates'])
             self._update(key, completed_count=completed, in_flight=False, candidate_id=None)
-        self._update(key, status='complete', candidate_id=None, in_flight=False, error_type=None)
+        if self.investigate and not self._investigate(key, case_dir):
+            return
+        self._update(key, status='complete', candidate_id=None, in_flight=False, error_type=None, stage='done')
+
+    def _investigate(self, key, case_dir):
+        job = self.jobs[key]
+        self._update(key, stage='investigation')
+        completed = 0
+        for cid in job['candidate_ids']:
+            if not self._ready():
+                return False
+            case = self.reviews.get_case(case_dir)
+            if case['input_fingerprint'] != job['input_fingerprint']:
+                self._update(key, status='changed', error_type='InputChanged')
+                return False
+            candidate = next(c for c in case['candidates'] if c['candidate_id'] == cid)
+            if not self._confirmed(candidate):
+                continue
+            existing = self.reviews.get_investigation(case_dir, cid)
+            if existing.get('status') == 'model_validated':
+                completed += 1
+                self._update(key, investigation_count=completed)
+                continue
+            if existing.get('status') == 'model_failed' and not job['retry']:
+                self._update(key, status='failed', error_type='InvestigationFailed')
+                return False
+            disposition = candidate['disposition']
+            confirmation = ({'annotation_sha256':disposition['annotation_sha256'],
+                             'selected_event_ids':disposition['selected_event_ids']}
+                            if disposition['status'] == 'human_reviewed' else None)
+            arguments = (case_dir, cid, job['input_fingerprint'])
+            # Save deterministic evidence first, so provider failures retain a usable report.
+            while self._ready():
+                try:
+                    self.reviews.investigate(*arguments, expected_confirmation=confirmation)
+                    break
+                except ReviewBusyError:
+                    with self.condition:
+                        self.condition.wait(timeout=.3)
+            else:
+                return False
+            self._update(key, candidate_id=cid, in_flight=True)
+            while self._ready():
+                try:
+                    record = self.reviews.investigate(*arguments, use_model=True, expected_confirmation=confirmation)
+                    break
+                except ReviewBusyError:
+                    with self.condition:
+                        self.condition.wait(timeout=.3)
+            else:
+                return False
+            if record.get('status') != 'model_validated':
+                self._pause_provider_failure(record)
+                self._update(key, status='changed' if record.get('status') == 'stale' else 'failed',
+                             candidate_id=None, in_flight=False, error_type='InvestigationFailed')
+                return False
+            completed += 1
+            self._update(key, investigation_count=completed, candidate_id=None, in_flight=False)
+        return True
+
+    def _pause_provider_failure(self, record):
+        if (record.get('model_call_metrics') or record.get('call_metrics') or {}).get('http_status') in {401, 402, 403}:
+            self.pause(True, reason='ProviderAccessError')
 
     def _run(self):
         key = None
         try:
             while True:
+                case_id = None
                 with self.condition:
-                    self.condition.wait_for(lambda: self.closed or self.pending and not self.paused and not self.storage_error)
+                    self.condition.wait_for(lambda: self.closed or (self.pending or self.discovery) and not self.paused and not self.storage_error)
                     if self.closed:
                         return
-                    key = self.pending.popleft()
+                    if not self.pending:
+                        self.discovering = self.discovery.popleft()
+                        case_id = self.discovering
+                    else:
+                        key = self.pending.popleft()
+                if case_id is not None:
+                    try:
+                        directory = self.resolve_case(case_id)
+                        self.enqueue(directory, self.reviews.get_case(directory))
+                    except Exception as error:
+                        with self.condition:
+                            self.discovery_errors[case_id] = type(error).__name__[:80]
+                    finally:
+                        with self.condition:
+                            self.discovering = None
+                    continue
                 try:
                     self._update(key, status='running')
                     self._process(key)
+                    if self.jobs[key]['status'] == 'complete' and not self.closed:
+                        self.schedule(self.jobs[key]['case_id'])
                 except QueueStorageError:
                     with self.condition:
                         self.jobs[key]['status'] = 'queued'; self.pending.appendleft(key)

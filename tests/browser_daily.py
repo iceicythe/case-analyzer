@@ -3,6 +3,8 @@
 Run: python -B -X utf8 -m unittest discover -s tests -p browser_daily.py -v
 """
 import os
+import json
+import threading
 import unittest
 import zipfile
 from pathlib import Path
@@ -43,6 +45,7 @@ class BrowserDailyTests(unittest.TestCase):
     def test_import_review_report_notes_export_and_restart(self):
         page = self.page
         page.goto(self.url+'/import/')
+        page.locator('#importMode').select_option('single')
         page.locator('#caseId').fill('fixture_001')
         page.locator('#sourceType').select_option('synthetic')
         page.locator('#sourceName').fill('browser acceptance')
@@ -51,7 +54,7 @@ class BrowserDailyTests(unittest.TestCase):
             'buffer':daily.payload()['files']['vehicle_state.csv'].encode('utf-8')})
         page.locator('#submitImport').click()
         expect(page.locator('#importResult')).to_contain_text('已导入')
-        page.get_by_role('link',name='打开 Case',exact=True).click()
+        page.goto(self.url+'/workbench/?case=fixture_001')
         expect(page.locator('#aiSummary')).to_contain_text('1 个候选')
         page.locator('#aiLocate').click()
         page.locator('[data-add-reference]').first.click()
@@ -91,6 +94,7 @@ class BrowserDailyTests(unittest.TestCase):
         expect(page.locator('#investigationPanel')).to_be_visible()
         page.locator('#investigationTracking summary').click()
         expect(page.locator('[data-it-notes]')).to_have_value('验收：页面保存的记录。')
+
         with page.expect_download() as download:
             page.locator('#investigationMarkdown').click()
         self.assertIn('验收：页面保存的记录。',Path(download.value.path()).read_text(encoding='utf-8'))
@@ -103,9 +107,48 @@ class BrowserDailyTests(unittest.TestCase):
             self.assertIn('index.html',archive.namelist())
             content = '\n'.join(archive.read(name).decode('utf-8') for name in archive.namelist() if name.endswith('.md'))
             self.assertIn('验收：页面保存的记录。',content)
+            offline = self.root/'offline.html'
+            offline.write_bytes(archive.read('index.html'))
+        page.goto(offline.as_uri())
+        expect(page.locator('#eventChecks')).to_contain_text('下一步')
+        expect(page.locator('#eventChecks')).to_contain_text('证据缺口')
+        expect(page.locator('#savedNotesText')).to_have_text('验收：页面保存的记录。')
         self.restart()
         self.open_report()
         expect(page.locator('[data-it-notes]')).to_have_value('验收：页面保存的记录。')
+
+    def test_batch_directory_import_skips_labels_and_isolates_and_retries_failures(self):
+        directory = self.root/'browser_batch'
+        for cid in ('batch_a','batch_b','broken'):
+            folder=directory/cid; folder.mkdir(parents=True)
+            (folder/'vehicle_state.csv').write_bytes(daily.payload(cid)['files']['vehicle_state.csv'].encode('utf-8')
+                if cid!='broken' else b'timestamp,speed_mps\n0,invalid\n')
+        (directory/'batch_a/reference.json').write_text('LABEL_MUST_NOT_BE_IMPORTED',encoding='utf-8')
+        attempts=[]
+        def intercept(route):
+            value=json.loads(route.request.post_data); attempts.append(value['case_id'])
+            self.assertEqual(set(value['files']),{'vehicle_state.csv'})
+            if value['case_id']=='batch_b' and attempts.count('batch_b')==1:
+                route.fulfill(status=503,content_type='application/json',body='{"error":"模拟暂时失败"}')
+            else: route.continue_()
+        self.page.route('**/api/import',intercept)
+        page=self.page; page.goto(self.url+'/import/')
+        page.locator('#batchFiles').set_input_files(directory)
+        page.locator('#sourceType').select_option('synthetic')
+        expect(page.locator('#fileList')).to_contain_text('3 条 Case · 忽略 1')
+        page.locator('#submitImport').click()
+        expect(page.locator('#importResult')).to_contain_text('已导入 1 · 已跳过 0 · 失败 2')
+        self.assertEqual(attempts.count('batch_a'),1)
+        page.locator('#retryImport').click()
+        expect(page.locator('#importResult')).to_contain_text('已导入 2 · 已跳过 0 · 失败 1')
+        self.assertEqual(attempts.count('batch_a'),1)
+        self.assertEqual(attempts.count('batch_b'),2)
+        self.assertFalse((self.root/'data/batch_a/reference.json').exists())
+        (directory/'broken/vehicle_state.csv').write_bytes(daily.payload()['files']['vehicle_state.csv'].encode('utf-8'))
+        page.locator('#batchFiles').set_input_files(directory)
+        page.locator('#submitImport').click()
+        expect(page.locator('#importResult')).to_contain_text('已导入 1 · 已跳过 2 · 失败 0')
+        self.assertEqual(self.request('/api/system')[1]['case_count'],3)
 
     def test_tracking_network_failure_refresh_draft_and_conflict_recovery(self):
         self.confirmed_report()
@@ -168,6 +211,28 @@ class BrowserDailyTests(unittest.TestCase):
         self.page.goto(self.url+'/')
         expect(self.page.locator('#rows')).to_contain_text('good_001')
         expect(self.page.locator('#rows')).to_contain_text('bad_001')
+
+    def test_background_report_updates_without_any_generate_button(self):
+        from test_automatic_pipeline import PipelineAdapter
+        release=threading.Event()
+        class Adapter(PipelineAdapter):
+            calls=[]
+            def generate(inner, package):
+                if 'events' in package['analysis_context']:
+                    release.wait(15)
+                return super().generate(package)
+        self.addCleanup(release.set)
+        self.restart(True,Adapter,investigate=True)
+        self.request('/api/import',daily.payload())
+        page=self.page
+        page.goto(self.url+'/workbench/?case=fixture_001&candidate=C001#investigationPanel')
+        expect(page.locator('#investigationPanel')).to_be_visible(timeout=15000)
+        expect(page.locator('#investigationStatus')).to_contain_text('本地证据报告')
+        release.set()
+        expect(page.locator('#investigationStatus')).to_contain_text('AI 建议已校验',timeout=15000)
+        expect(page.locator('#investigationSummary')).to_contain_text('下一步')
+        expect(page.locator('#investigationSummary')).to_contain_text('证据缺口')
+        self.assertEqual(Adapter.calls,['review','investigation'])
 
 
 if __name__ == '__main__':
