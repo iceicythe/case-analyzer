@@ -7,14 +7,14 @@ from urllib.parse import unquote, urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
 IGNORED = {'.git','.venv','venv','__pycache__','runtime','artifacts','archive','acceptance_runtime'}
-PRIVATE = {'deepseek.local.json','.env'}
+PRIVATE = {'deepseek.local.json','feishu.local.json','.env'}
 
 
 def public_files():
     try:
         top = subprocess.run(['git','rev-parse','--show-toplevel'],cwd=ROOT,capture_output=True,text=True,check=True)
         if Path(top.stdout.strip()).resolve() == ROOT:
-            result = subprocess.run(['git','ls-files','-z'],cwd=ROOT,capture_output=True,check=True)
+            result = subprocess.run(['git','ls-files','--cached','--others','--exclude-standard','-z'],cwd=ROOT,capture_output=True,check=True)
             names = [name for name in result.stdout.decode('utf-8').split('\0') if name]
             if names: return [ROOT/name for name in names]
     except (OSError,subprocess.CalledProcessError):
@@ -47,6 +47,8 @@ def check():
                 config = json.loads(text)
                 if isinstance(config,dict) and config.get('api_key'):
                     errors.append(f'Non-empty public API key: {relative}')
+                if isinstance(config,dict) and (config.get('webhook_url') or config.get('signing_secret')):
+                    errors.append(f'Non-empty public notification credential: {relative}')
             except ValueError:
                 errors.append(f'Invalid JSON: {relative}')
         if path.suffix=='.md':

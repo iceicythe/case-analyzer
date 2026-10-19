@@ -1,0 +1,17 @@
+# 一条命令起服务：docker compose up --build
+# 数据落在命名卷 case-data，容器删除不丢；DEEPSEEK_API_KEY 从宿主机环境变量透传（不写进文件）。
+services:
+  case-analyzer:
+    build: .
+    image: case-analyzer:latest
+    ports:
+      - "8770:8770"
+    environment:
+      DEEPSEEK_API_KEY: ${DEEPSEEK_API_KEY:-}
+      CASE_ANALYZER_HOST: 0.0.0.0
+    volumes:
+      - case-data:/app/runtime
+    restart: unless-stopped
+
+volumes:
+  case-data:

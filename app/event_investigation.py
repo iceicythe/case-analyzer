@@ -18,7 +18,7 @@ from app.retriever import DEFAULT_CATALOG, KNOWLEDGE_ROOT, retrieve_knowledge
 from app.investigation_actions import describe_context, build_actions, default_actions, required_actions
 
 VERSION = "event-investigation-2.0"
-PROMPT_VERSION = "investigation-ranking-2.3"
+PROMPT_VERSION = "investigation-ranking-2.4"
 CONFIG_PATH = PROJECT_ROOT / "configs/event_investigation.json"
 CHAIN_PATH = PROJECT_ROOT / "configs/chain.json"
 EVIDENCE_PATH = PROJECT_ROOT / "configs/evidence.json"
@@ -330,10 +330,7 @@ def build_investigation_prompt(bundle):
             properties['finding_notes'] = {'type':'array','uniqueItems':True,'maxItems':len(findings),
                 'items':{'anyOf':[{'type':'object','additionalProperties':False,
                     'required':['finding_index','interpretation'],
-                    'properties':{'finding_index':{'const':index},
-                        'interpretation':{'type':'string','minLength':1},
-                        'verification':{'type':'string','minLength':1},
-                        'needed_data':{'type':'string','minLength':1}}}
+                    'properties':{key:{'const':value} for key,value in finding_note(index, findings[index]).items()}}
                     for index in range(len(findings))]}}
         event_schemas.append({'type':'object','additionalProperties':False,
             'required':['event_id','fault_assessment','prioritized_check_ids'],
@@ -347,9 +344,10 @@ def build_investigation_prompt(bundle):
         '多目标不能当作没有目标；ID变化不证明物体更换；decision_reason是日志自述，不是根因。'
         '近邻匹配不能校准时钟，字段缺失不代表没有请求；保持 fault_assessment 为 unknown。'
         '事实和具体操作由程序原样组装，不自行生成检查内容。只输出 response_schema 要求的 JSON。'
-        'findings 是程序从日志计算的证据时间线，按 finding_index 逐条对应；可追加 finding_notes：'
-        'interpretation 只重述该条观测并说明证据边界，不引入未提供的数据、不下根因结论、不生成新检查；'
-        'verification 写数据支持范围内的核对动作；needed_data 仅在确需补充时写；没有把握的条目可以不写。')
+        'findings 是程序从日志计算的证据时间线，按 finding_index 逐条对应。'
+        '可通过 finding_notes 选用条目的受控说明；逐字复制 schema 中该 finding_index 对应的 const 内容。'
+        '数字、观测和核对动作均由程序提供，不改写、不扩展、不新增自由文本。'
+        'verification 和 needed_data 只能从同一条目的 schema 选取；不适用的说明可以省略。')
     context = ranking_context(bundle)
     return {'prompt_version':PROMPT_VERSION,'thinking_mode':'disabled','analysis_context':bundle,'response_schema':schema,
         'messages':[{'role':'system','content':system},{'role':'user','content':json.dumps(
@@ -384,6 +382,9 @@ def normalize_finding_notes(notes, findings, source='AI'):
             if not isinstance(value, str) or not value.strip():
                 raise ValueError(source + ' 输出的 finding_notes 可选字段必须是非空字符串')
             item[key] = value.strip()
+        allowed = finding_note(index, findings[index])
+        if any(key not in allowed or value != allowed[key] for key,value in item.items()):
+            raise ValueError(source + ' 输出的证据说明超出当前条目允许的内容')
         seen.add(index)
         normalized.append(item)
     normalized.sort(key=lambda entry: entry['finding_index'])
@@ -428,8 +429,8 @@ def validate_investigation(raw, package):
     return {'case_id':value['case_id'],'candidate_id':value['candidate_id'],'events':output}
 
 
-# 本地无模型演示用：按条目类型给固定保守句，不引入任何推断。
-MOCK_FINDING_NOTES = {
+# Used by real and mock adapters alike. Free-form causal claims are never accepted.
+FINDING_NOTE_TEMPLATES = {
     'planning_reason': ('该时刻规划日志自述原因切换；日志自述不证明实际触发原因。',
                         '按原因关联检查核对相邻时刻的规划请求与控制响应是否一致。', None),
     'object_id': ('相邻单目标记录的 ID 发生变化；ID 变化不证明物理对象更换。',
@@ -441,6 +442,17 @@ MOCK_FINDING_NOTES = {
 }
 
 
+def finding_note(index, finding):
+    """Bind an explanation to this exact observation; no model-authored facts."""
+    interpretation,verification,needed = FINDING_NOTE_TEMPLATES[finding['kind']]
+    note = {'finding_index':index, 'interpretation':f"当前记录：{finding['detail']}。{interpretation}"}
+    if verification:
+        note['verification'] = verification
+    if needed:
+        note['needed_data'] = needed
+    return note
+
+
 class InvestigationMockAdapter:
     def generate(self, package):
         bundle = package['analysis_context']
@@ -448,12 +460,7 @@ class InvestigationMockAdapter:
         for event in bundle['events']:
             notes = []
             for index,finding in enumerate(build_findings(event)):
-                interpretation,verification,needed = MOCK_FINDING_NOTES.get(
-                    finding['kind'],('该条目来自程序计算的证据时间线。',None,None))
-                note = {'finding_index':index, 'interpretation':interpretation}
-                if verification: note['verification'] = verification
-                if needed: note['needed_data'] = needed
-                notes.append(note)
+                notes.append(finding_note(index, finding))
             events.append({'event_id':event['event_id'],'fault_assessment':'unknown',
                 'prioritized_check_ids':[c['check_id'] for c in default_investigation_checks(event)],
                 'finding_notes':notes})
@@ -513,7 +520,7 @@ def render_investigation(bundle, output=None):
         notes = {}
         for chosen in (output or {}).get('events', []):
             if chosen['event_id'] == event['event_id']:
-                notes = {n['finding_index']: n for n in chosen.get('finding_notes', [])}
+                notes = {n['finding_index']: n for n in normalize_finding_notes(chosen.get('finding_notes', []), findings)}
                 break
         lines += ['', '### 证据时间线', '']
         if not any(item['time'] is not None for item in findings):
@@ -527,7 +534,7 @@ def render_investigation(bundle, output=None):
                 rows = '；CSV 行 ' + ','.join(str(r) for r in item['csv_rows']) if item['csv_rows'] else ''
                 lines.append(f"- {when}：{item['detail']}（{item['source_file']}{rows}）")
             if note:
-                lines.append(f"  - AI 解读：{note['interpretation']}")
+                lines.append(f"  - 证据说明（AI 选用，程序组装）：{note['interpretation']}")
                 if note.get('verification'):
                     lines.append(f"  - 核对动作：{note['verification']}")
                 if note.get('needed_data'):

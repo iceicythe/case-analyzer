@@ -29,6 +29,7 @@
     <section class="queue-panel ai-queue" id="aiQueue" hidden aria-label="AI 后台队列">
       <div class="queue-heading"><div><h2>AI 队列 <span class="status-pill" id="aiQueueState">读取中</span></h2><div class="cell-sub" id="aiQueueSummary"></div></div><div class="heading-actions"><button class="btn" id="aiQueueRetry" hidden>重试失败任务</button><button class="btn" id="aiQueuePause">暂停</button></div></div>
       <div class="notice-line" id="aiQueueMessage" role="status" aria-live="polite"></div>
+      <div class="cell-sub notification-line" id="notificationLine" hidden><span id="notificationStatus" role="status"></span> <button class="btn" id="notificationRetry" hidden>重发通知</button></div>
       <details id="aiQueueDetails"><summary>最近任务</summary><div id="aiQueueJobs"></div></details>
     </section>
     <section class="queue-panel" aria-labelledby="queueTitle">

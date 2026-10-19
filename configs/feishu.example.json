@@ -1,0 +1,8 @@
+{
+  "enabled": false,
+  "webhook_url": "",
+  "signing_secret": "",
+  "keyword": "case-analyzer",
+  "workbench_url": "",
+  "summary_window_seconds": 5
+}

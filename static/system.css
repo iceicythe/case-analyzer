@@ -19,3 +19,4 @@ body[data-page=workbench] .form-panel{display:none}body[data-page=workbench][dat
 
 .app-header .workspace-tag{max-width:45%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;background:#fff;font:inherit;font-size:11px;cursor:pointer}.sidebar-bottom #workspaceName{overflow-wrap:anywhere}
 @media(max-width:650px){.app-sidebar nav{gap:2px}.nav-link{padding:8px 6px;gap:4px;font-size:10px}}
+.ai-queue>.notification-line{margin:0;padding:0 22px 12px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}.ai-queue>.notification-line[hidden]{display:none}.notification-line .btn{padding:4px 10px;font-size:11px}@media(max-width:650px){.ai-queue>.notification-line{padding-inline:14px}}

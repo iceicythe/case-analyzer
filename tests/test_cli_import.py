@@ -4,6 +4,7 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 from app.__main__ import main as app_main
 from app.cli_import import collect_cases, format_report, run_import
@@ -92,11 +93,53 @@ class CliImportTests(unittest.TestCase):
         runtime = str(self.root / 'runtime')
         self.assertEqual(app_main(['import', str(self.source), '--runtime', runtime]), 1)
         self.assertEqual(app_main(['import', str(self.source / 'seg_001'), '--runtime', runtime,
-                                   '--dry-run', '--report', str(self.root / 'report.json')]), 0)
+                                   '--dry-run', '--report', str(self.root / 'report.json')]), 1)
         written = json.loads((self.root / 'report.json').read_text(encoding='utf-8'))
         self.assertTrue(written['dry_run'])
         self.assertEqual(written['totals']['conflict'], 1)  # 前一步已真实导入，预检报冲突不写入
         self.assertEqual(written['totals']['ready'], 0)
+
+    def test_invalid_encoding_does_not_abort_later_cases(self):
+        (self.source/'seg_001/vehicle_state.csv').write_bytes(b'\xff\xfe\x00')
+        summary=run_import(self.source,self.context)
+        results={item['case_id']:item for item in summary['cases']}
+        self.assertEqual(results['seg_001']['status'],'error')
+        self.assertIn('UTF-8',results['seg_001']['message'])
+        self.assertEqual(results['seg_002']['status'],'imported')
+        self.assertEqual(summary['totals']['failed'],2)
+        self.assertIn('失败 2',format_report(summary))
+
+    def test_file_read_failure_is_reported_per_case(self):
+        from app.cli_import import read_case
+        def read(directory):
+            if directory.name=='seg_001':
+                raise PermissionError('fixture access denied')
+            return read_case(directory)
+        with patch('app.cli_import.read_case',side_effect=read):
+            summary=run_import(self.source,self.context)
+        self.assertEqual(summary['totals']['imported'],1)
+        self.assertEqual(summary['totals']['failed'],2)
+
+    def test_optional_modules_are_warnings_not_extra_cases(self):
+        folder=self.source/'seg_004'; folder.mkdir()
+        (folder/'vehicle_state.csv').write_bytes(demo_cases()['demo_deceleration']['files']['vehicle_state.csv'].encode())
+        summary=run_import(self.source,self.context)
+        self.assertEqual(summary['totals']['total'],4)
+        self.assertEqual(summary['totals']['imported'],3)
+        self.assertEqual(summary['totals']['partial'],1)
+        self.assertEqual(summary['totals']['failed'],1)
+        self.assertEqual(len([r for r in summary['cases'] if r['case_id']=='seg_004']),1)
+        self.assertTrue(next(r for r in summary['cases'] if r['case_id']=='seg_004')['warnings'])
+
+    def test_cli_preserves_crlf_for_browser_duplicate_check(self):
+        from app.storage import inspect_import
+        directory=self.source/'seg_001'
+        files={name:content.replace('\n','\r\n') for name,content in demo_cases()['demo_deceleration']['files'].items()}
+        for name,content in files.items():
+            (directory/name).write_bytes(content.encode())
+        run_import(directory,self.context,source_type='synthetic',source_name='same batch')
+        checked=inspect_import(self.context,{'case_id':'seg_001','source_type':'synthetic','source_name':'same batch','files':files})
+        self.assertEqual(checked['status'],'skipped')
 
 
 if __name__ == '__main__':

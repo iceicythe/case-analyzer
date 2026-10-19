@@ -27,10 +27,11 @@ def build(output):
         for path in sorted((ROOT/folder).rglob('*')):
             if path.is_file() and '__pycache__' not in path.parts and path.suffix in extensions: add(path)
     for path in sorted((ROOT/'configs').glob('*.json')):
-        if path.name!='deepseek.local.json': add(path)
+        if not path.name.endswith('.local.json'): add(path)
     template = json.loads(files['configs/deepseek.example.json'])
     template['api_key'] = ''
     files['configs/deepseek.local.json'] = (json.dumps(template,ensure_ascii=False,indent=2)+'\n').encode('utf-8')
+    files['configs/feishu.local.json'] = files['configs/feishu.example.json']
     manifest = {name:hashlib.sha256(data).hexdigest() for name,data in files.items()}
     files['release-manifest.json'] = json.dumps(manifest,indent=2).encode('utf-8')
     output.parent.mkdir(parents=True,exist_ok=True)

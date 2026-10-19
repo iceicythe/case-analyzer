@@ -6,6 +6,7 @@ acceptance_runtime/
 .venv/
 venv/
 configs/deepseek.local.json
+configs/feishu.local.json
 .env
 .env.*
 !.env.example

@@ -20,6 +20,7 @@ jobs:
       DEEPSEEK_API_KEY: ''
       PYTHONUTF8: '1'
       PYTHONDONTWRITEBYTECODE: '1'
+      FEISHU_WEBHOOK_URL: ${{ secrets.FEISHU_WEBHOOK_URL }}
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-python@v7
@@ -31,3 +32,13 @@ jobs:
       - run: python -B -X utf8 -m unittest discover -s tests -v
       - run: python -B -X utf8 -m app --check
       - run: python scripts/check_repo.py
+      # 吞吐量冒烟：小规模合成数据验证导入路径的耗时量级，不作为性能承诺。
+      - name: Import throughput smoke
+        run: python -B -X utf8 scripts/measure_throughput.py --cases 2 --rows 20000
+      # 失败时推飞书（可选）：在仓库 Settings → Secrets 添加 FEISHU_WEBHOOK_URL 后生效。
+      - name: Notify Feishu on failure
+        if: failure() && env.FEISHU_WEBHOOK_URL != ''
+        run: |
+          curl -sS -X POST "$FEISHU_WEBHOOK_URL" \
+            -H 'Content-Type: application/json' \
+            -d '{"msg_type":"text","content":{"text":"case-analyzer CI 失败：'"${{ github.repository }}"' @ '"${{ github.sha }}"' 请查看 Actions 日志。"}}'

@@ -56,7 +56,7 @@ class NotifyTests(unittest.TestCase):
             self.assertNotIn('secret-token', message)  # token 不出现在任何消息里
         with patch('app.notify.urllib.request.urlopen', return_value=ok_response(b'{"code":19021,"msg":"sign match err"}')):
             message = send_card(self.webhook, '标题', ['内容'])
-        self.assertIn('sign match err', message)
+        self.assertIn('19021', message)
         with patch('app.notify.urllib.request.urlopen', return_value=ok_response(b'not json')):
             self.assertIsInstance(send_card(self.webhook, '标题', ['内容']), str)
 
@@ -64,6 +64,34 @@ class NotifyTests(unittest.TestCase):
         with patch('app.notify.urllib.request.urlopen') as urlopen:
             self.assertIsNone(send_card('', '标题', ['内容']))
         urlopen.assert_not_called()
+
+    def test_bad_urls_and_non_object_responses_do_not_raise(self):
+        for url in ('not a url','https://[','file:///local','https://user:secret@example.invalid/hook'):
+            with self.subTest(url=url), patch('app.notify.urllib.request.urlopen') as request:
+                self.assertIsInstance(send_card(url,'标题',['内容']),str)
+                request.assert_not_called()
+        for body in (b'[]',b'null',b'false',b'{"code":false}',b'{"msg":"ok"}',b'{"code":1,"StatusCode":0}'):
+            with self.subTest(body=body), patch('app.notify.urllib.request.urlopen',return_value=ok_response(body)):
+                self.assertIsInstance(send_card(self.webhook,'标题',['内容']),str)
+
+    def test_provider_messages_cannot_echo_webhook_secret(self):
+        import urllib.error
+        import http.client
+        for error in (urllib.error.URLError(self.webhook),ValueError(self.webhook),http.client.InvalidURL(self.webhook)):
+            with patch('app.notify.urllib.request.urlopen',side_effect=error):
+                result=send_card(self.webhook,'标题',['内容'])
+            self.assertNotIn('secret-token',result)
+            self.assertNotIn('/hook/',result)
+        body=json.dumps({'code':123,'msg':self.webhook}).encode()
+        with patch('app.notify.urllib.request.urlopen',return_value=ok_response(body)):
+            self.assertNotIn('secret-token',send_card(self.webhook,'标题',['内容']))
+
+    def test_missing_vehicle_is_counted_as_failed_in_card(self):
+        summary={'source':{'name':'fixture','type':'synthetic'},'dry_run':False,
+                 'totals':{'imported':1,'skipped':0,'conflict':0,'error':0,'invalid':1,'total':2},'cases':[]}
+        _,lines,_=import_card(summary)
+        self.assertIn('失败 1',lines[0])
+        self.assertIn('Case 总数 2',lines[1])
 
     def test_resolve_webhook_prefers_cli_then_environment(self):
         import os

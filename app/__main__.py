@@ -48,11 +48,16 @@ def main(argv=None):
     if argv and argv[0] == 'import':
         from app.cli_import import main as import_main
         return import_main(argv[1:])
+    if argv and argv[0] == 'notify':
+        from app.workbench_notifications import main as notify_main
+        return notify_main(argv[1:])
     parser = argparse.ArgumentParser(description='Case Analyzer 独立工作台')
     parser.add_argument('--runtime', type=Path, default=DEFAULT_RUNTIME, help='运行数据目录，默认本应用的 runtime/')
     parser.add_argument('--port', type=int)
     parser.add_argument('--no-open', action='store_true')
     parser.add_argument('--no-auto-review', action='store_true')
+    parser.add_argument('--host', default=os.environ.get('CASE_ANALYZER_HOST', '127.0.0.1'),
+                        help='监听地址，默认 127.0.0.1；容器内运行用 0.0.0.0（也可用环境变量 CASE_ANALYZER_HOST）')
     parser.add_argument('--check', action='store_true', help='初始化空目录并检查应用资源，不启动服务或请求模型')
     parser.add_argument('--check-api', action='store_true', help='仅发送一次短请求检查 API，不载入数据或启动复核队列')
     args = parser.parse_args()
@@ -76,10 +81,11 @@ def main(argv=None):
             print(json.dumps(result, ensure_ascii=False, indent=2))
             return 0 if result['ok'] else 1
         lease = WorkspaceLease(runtime)
-        server = create_server(context, port)
+        server = create_server(context, port, args.host)
         url = f'http://127.0.0.1:{server.server_port}/'
-        print(f'Case Analyzer 已启动：{url}\n{model_status()["message"]}\n按 Ctrl+C 停止。', flush=True)
-        if not args.no_open:
+        shown = f'http://localhost:{server.server_port}/' if args.host == '0.0.0.0' else url
+        print(f'Case Analyzer 已启动：{shown}\n{model_status()["message"]}\n按 Ctrl+C 停止。', flush=True)
+        if not args.no_open and args.host != '0.0.0.0':
             threading.Timer(.5, lambda: webbrowser.open(url)).start()
         server.serve_forever()
     except KeyboardInterrupt:

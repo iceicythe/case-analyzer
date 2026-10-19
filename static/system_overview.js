@@ -192,9 +192,27 @@
       try{const value=await queueRequest('/api/automatic-review');if(generation===queueGeneration)acceptQueue(value);}
       catch(error){$('aiQueue').hidden=false;$('aiQueueMessage').className='notice-line error';$('aiQueueMessage').textContent='队列连接中断，正在重连…';}
       finally{queuePolling=false;}
+      if(queue?.enabled){
+        try{acceptNotifications(await queueRequest('/api/notifications'));}
+        catch(error){$('notificationLine').hidden=false;$('notificationStatus').textContent='飞书通知状态暂不可用';$('notificationRetry').hidden=true;}
+      }
     }
     queueTimer=setTimeout(pollQueue,queue&&(queue.running||queue.queued_count||queue.discovering||queue.discovery_count)?2500:10000);
   }
+  function acceptNotifications(value){
+    $('notificationLine').hidden=!value.enabled&&!value.error;
+    const counts=value.counts||{},failed=(counts.failed||0)+(counts.unknown||0);
+    $('notificationStatus').textContent=value.error||('飞书 · 待发送 '+((counts.pending||0)+(counts.sending||0))+' · 已发送 '+(counts.sent||0)+(failed?' · 失败/送达未知 '+failed:''));
+    $('notificationStatus').title=value.last_warning||'';
+    $('notificationRetry').hidden=!failed||!!value.error;
+  }
+  $('notificationRetry').onclick=async()=>{
+    if(!confirm('重发失败或送达未知的通知？请先检查飞书群，避免重复消息。'))return;
+    $('notificationRetry').disabled=true;
+    try{acceptNotifications(await queueRequest('/api/notifications/retry',{confirm:true}));}
+    catch(error){$('notificationStatus').textContent=error.message;}
+    finally{$('notificationRetry').disabled=false;}
+  };
   async function submitBatch(items,retry=false){
     if(queueBusy||!items.length)return;
     queueBusy=true;queueGeneration++;batchButtons();$('aiQueueMessage').textContent='';

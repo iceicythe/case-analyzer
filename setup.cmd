@@ -2,6 +2,7 @@
 chcp 65001 >nul
 cd /d "%~dp0"
 if not exist "configs\deepseek.local.json" copy /Y "configs\deepseek.example.json" "configs\deepseek.local.json" >nul
+if not exist "configs\feishu.local.json" copy /Y "configs\feishu.example.json" "configs\feishu.local.json" >nul
 if not exist ".venv\Scripts\python.exe" (
   python -c "import sys; sys.exit(0 if sys.version_info >= (3,11) else 1)"
   if errorlevel 1 goto failed

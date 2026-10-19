@@ -207,13 +207,34 @@ class InvestigationTests(unittest.TestCase):
         output = validate_investigation(InvestigationMockAdapter().generate(package), package)
         text = render_investigation(bundle, output)
         timeline = text.split('### 证据时间线')[1].split('### 数据限制')[0]
-        self.assertEqual(timeline.count('AI 解读：'), 3)
+        self.assertEqual(timeline.count('证据说明（AI 选用，程序组装）：'), 3)
         self.assertIn('核对动作：', timeline)
         self.assertIn('需补数据：缺口区间对应的原始目标日志', timeline)
         self.assertIn('1.60 秒：规划原因 CRUISE → FOLLOW_LEAD_VEHICLE（planning_state.csv；CSV 行 17,18）', timeline)
         # 无模型输出时不出现解读小节内容
         plain = render_investigation(bundle)
-        self.assertNotIn('AI 解读：', plain)
+        self.assertNotIn('证据说明（AI 选用，程序组装）：', plain)
+
+    def test_free_form_causes_and_numbers_are_rejected_in_all_note_fields(self):
+        package=build_investigation_prompt(self.bundle('demo_multitarget'))
+        raw=InvestigationMockAdapter().generate(package)
+        for field in ('interpretation','verification','needed_data'):
+            bad=copy.deepcopy(raw)
+            bad['events'][0]['finding_notes'][0][field]='已确定控制器故障，制动延迟为 999 秒。'
+            with self.subTest(field=field), self.assertRaises(ValueError):
+                validate_investigation(bad,package)
+        saved=validate_investigation(raw,package)
+        saved['events'][0]['finding_notes'][0]['interpretation']='确认感知误检导致制动。'
+        with self.assertRaises(ValueError): validate_investigation(saved,package)
+        with self.assertRaises(ValueError): render_investigation(package['analysis_context'],saved)
+
+    def test_notes_cannot_be_reassigned_to_a_different_observation(self):
+        package=build_investigation_prompt(self.bundle('demo_multitarget'))
+        raw=InvestigationMockAdapter().generate(package)
+        note=raw['events'][0]['finding_notes'][0]
+        note['finding_index']=len(raw['events'][0]['finding_notes'])-1
+        raw['events'][0]['finding_notes']=[note]
+        with self.assertRaises(ValueError): validate_investigation(raw,package)
 
 
 if __name__ == '__main__': unittest.main()

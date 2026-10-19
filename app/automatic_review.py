@@ -23,9 +23,11 @@ def _now():
 
 
 class AutomaticReviewQueue:
-    def __init__(self, reviews, state_path=None, resolve_case=None, scope='', autostart=True, investigate=False):
+    def __init__(self, reviews, state_path=None, resolve_case=None, scope='', autostart=True, investigate=False, on_result=None):
         self.reviews = reviews
         self.investigate = investigate
+        self.on_result = on_result
+        self.notification_error = None
         self.discovery, self.discovery_errors = deque(), {}
         self.discovering = None
         self.state_path = Path(state_path) if state_path else None
@@ -191,6 +193,7 @@ class AutomaticReviewQueue:
                     'queued_count':len(self.pending), 'discovery_count':len(self.discovery),
                     'discovering':self.discovering, 'discovery_errors':dict(self.discovery_errors),
                     'counts':counts, 'revision':self.revision, 'instance_id':self.instance_id,
+                    'notification_error':self.notification_error,
                     'storage_error':self.storage_error, 'recovered_count':sum(bool(j.get('recovered')) for j in latest.values())}
 
     def pause(self, paused, reason=None):
@@ -338,6 +341,13 @@ class AutomaticReviewQueue:
         if (record.get('model_call_metrics') or record.get('call_metrics') or {}).get('http_status') in {401, 402, 403}:
             self.pause(True, reason='ProviderAccessError')
 
+    def _notify_result(self, case_id, job=None):
+        if self.on_result:
+            try:
+                self.on_result(case_id, dict(job, provider_paused=self.pause_reason == 'ProviderAccessError') if job else None)
+            except Exception:
+                self.notification_error = '通知记录失败，分析结果已保留'
+
     def _run(self):
         key = None
         try:
@@ -355,10 +365,14 @@ class AutomaticReviewQueue:
                 if case_id is not None:
                     try:
                         directory = self.resolve_case(case_id)
-                        self.enqueue(directory, self.reviews.get_case(directory))
+                        result = self.enqueue(directory, self.reviews.get_case(directory))
+                        job = result['jobs'][0] if result['jobs'] else None
+                        if not job or job['status'] in {'complete','failed','changed'}:
+                            self._notify_result(case_id, job)
                     except Exception as error:
                         with self.condition:
                             self.discovery_errors[case_id] = type(error).__name__[:80]
+                        self._notify_result(case_id)
                     finally:
                         with self.condition:
                             self.discovering = None
@@ -378,6 +392,8 @@ class AutomaticReviewQueue:
                     except QueueStorageError:
                         with self.condition:
                             self.jobs[key]['status'] = 'queued'; self.pending.appendleft(key)
+                if self.jobs[key]['status'] in {'complete','failed','changed'}:
+                    self._notify_result(self.jobs[key]['case_id'], self.jobs[key])
                 if self.closed:
                     return
                 key = None

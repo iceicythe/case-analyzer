@@ -21,6 +21,7 @@ from app.workbench_reviews import WorkbenchReviewStore, ReviewBusyError
 from app.human_event_review import HumanEventReviewStore, HumanConfirmationConflictError
 from app.model_runner import ModelConfigurationError
 from app.automatic_review import AutomaticReviewQueue, QueueStorageError
+from app.workbench_notifications import WorkbenchNotifications
 from app.event_investigation import build_findings, default_investigation_checks
 from app.investigation_summary import briefings
 from app.investigation_tracking import InvestigationTrackingStore, TrackingConflictError
@@ -139,6 +140,9 @@ def _make_handler(context: WorkbenchContext) -> type[BaseHTTPRequestHandler]:
         return context.case_dir(case_id)
     queue_scope = hashlib.sha256(str((context.batch_dir.resolve(), context.data_root.resolve(), context.annotations_root.resolve())).encode()).hexdigest()
     automatic = AutomaticReviewQueue(reviews, reviews.output_root / 'automatic_queue.json', queue_case_dir, queue_scope, autostart=False, investigate=context.automatic_investigation) if context.automatic_review else None
+    notifications = WorkbenchNotifications(reviews.output_root / 'feishu_notifications.sqlite3', reviews, queue_case_dir) if automatic else None
+    if automatic:
+        automatic.on_result = notifications.record
     tracking = InvestigationTrackingStore(reviews.output_root)
     overview_lock = threading.Lock()
     queue_lock = threading.Lock()
@@ -264,6 +268,9 @@ def _make_handler(context: WorkbenchContext) -> type[BaseHTTPRequestHandler]:
                     return
                 if path == '/api/health':
                     self._json({'status': 'ok', 'service': 'case-analyzer', 'version': APP_VERSION})
+                    return
+                if path == '/api/notifications':
+                    self._json(notifications.status() if notifications else {'enabled':False, 'error':None, 'counts':{}, 'last_warning':None})
                     return
                 if path == '/api/system':
                     self._json({'version': APP_VERSION, 'workspace': workspace_identity(context), 'protocol': PROTOCOL_ID, 'case_count': len(indexed_ids), 'automatic_review': automatic is not None, 'model': model_status(), 'evaluation': {'enabled':evaluation.enabled,'unblinded':evaluation.state()['unblinded'] if evaluation.enabled else False}})
@@ -464,6 +471,17 @@ def _make_handler(context: WorkbenchContext) -> type[BaseHTTPRequestHandler]:
                 self._error(HTTPStatus.CONFLICT,'评估模型结果已冻结，请在日常工作空间运行新任务'); return
             if evaluation.enabled and not evaluation.state()['unblinded']:
                 self._error(HTTPStatus.FORBIDDEN,'先完成独立核对，再查看报告'); return
+            if path == '/api/notifications/retry':
+                try:
+                    body = self._body()
+                    if not notifications or body.get('confirm') is not True:
+                        raise ValueError('请明确重发失败或送达未知的通知')
+                    self._json(notifications.retry())
+                except ValueError as error:
+                    self._error(HTTPStatus.BAD_REQUEST, str(error))
+                except Exception:
+                    self._error(HTTPStatus.INTERNAL_SERVER_ERROR, '通知记录无法更新，请检查运行目录')
+                return
             if path in {'/api/import', '/api/import/validate'}:
                 try:
                     from app.storage import import_case, inspect_import
@@ -628,10 +646,11 @@ def _make_handler(context: WorkbenchContext) -> type[BaseHTTPRequestHandler]:
                 return
             self._error(HTTPStatus.NOT_FOUND, '接口不存在')
     WorkbenchHandler.automatic_queue = automatic
+    WorkbenchHandler.notifications = notifications
     WorkbenchHandler.initial_cases = tuple(indexed_ids)
     return WorkbenchHandler
 
-def create_server(context: WorkbenchContext, port: int=DEFAULT_PORT) -> ThreadingHTTPServer:
+def create_server(context: WorkbenchContext, port: int=DEFAULT_PORT, host: str='127.0.0.1') -> ThreadingHTTPServer:
 
     class WorkbenchServer(ThreadingHTTPServer):
         request_queue_size = 64
@@ -639,15 +658,20 @@ def create_server(context: WorkbenchContext, port: int=DEFAULT_PORT) -> Threadin
         def server_close(self):
             if self.RequestHandlerClass.automatic_queue:
                 self.RequestHandlerClass.automatic_queue.close()
+            if self.RequestHandlerClass.notifications:
+                self.RequestHandlerClass.notifications.close()
             super().server_close()
     handler = _make_handler(context)
     try:
-        server = WorkbenchServer(('127.0.0.1', port), handler)
+        server = WorkbenchServer((host, port), handler)
     except Exception:
         if handler.automatic_queue:
             handler.automatic_queue.close()
+        if handler.notifications:
+            handler.notifications.close()
         raise
     if handler.automatic_queue:
+        handler.notifications.start(f'http://127.0.0.1:{server.server_port}')
         for case_id in handler.initial_cases:
             try:
                 handler.automatic_queue.schedule(case_id)
