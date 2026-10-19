@@ -1,0 +1,47 @@
+# 构建上下文黑名单——与 .gitignore 同源，另加 Docker 特有项。
+# 头号目标：.venv/ 是 Windows 虚拟环境，没有它会被 COPY . . 整个灌进镜像。
+
+# 本地环境与数据（镜像内由命名卷挂载 /app/runtime，不需要宿主机数据）
+.venv/
+venv/
+runtime/
+artifacts/
+archive/
+acceptance_runtime/
+configs/deepseek.local.json
+configs/feishu.local.json
+.env
+.env.*
+!.env.example
+
+# 版本控制与 CI 不需要进镜像
+.git/
+.gitattributes
+.gitignore
+.github/
+
+# Python 与工具缓存
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+build/
+dist/
+*.egg-info/
+*.log
+*.tmp
+
+# 编辑器与系统杂项
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Docker 自身与文档构建产物
+Dockerfile
+docker-compose.yml
+.dockerignore
+*.md.bak
