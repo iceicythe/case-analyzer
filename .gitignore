@@ -30,3 +30,8 @@ dist/
 .vscode/
 .DS_Store
 Thumbs.db
+
+# Local notes and working drafts (kept on disk, out of version control)
+docs/interview/
+_*.txt
+_*.py
