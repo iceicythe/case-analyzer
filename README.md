@@ -76,6 +76,23 @@ docker run --rm -p 8770:8770 -v case-data:/app/runtime case-analyzer
 - 模型 Key 通过环境变量传入，不进镜像：`-e DEEPSEEK_API_KEY=<你的 Key>`。
 - 容器内监听 `0.0.0.0` 由 `--host`（或环境变量 `CASE_ANALYZER_HOST`）控制，默认仍只监听 `127.0.0.1`，本地直跑行为不变。
 
+**实测记录**（Windows 10 家庭中文版 + Docker Desktop 4.95.0 + WSL2 后端）：
+
+| 验证项 | 结果 |
+|---|---|
+| `docker build -t case-analyzer .` | 通过，镜像约 400 MB，pip 安装 24 个依赖 149 秒 |
+| `docker run -d -p 8770:8770 case-analyzer` | 通过，容器启动约 4 秒，`GET /` 返回 200（4413 B，70 ms） |
+| `docker compose up --build` | 通过，网络/命名卷/容器一键创建，缓存命中后重建 0.2 秒 |
+| `docker compose down` | 通过，容器与网络干净移除，卷保留 |
+
+国内网络注意：`registry-1.docker.io` 直连多省不通，建议配镜像源（Docker Desktop → Settings → Docker Engine）：
+
+```json
+{ "registry-mirrors": ["https://docker.m.daocloud.io"] }
+```
+
+另需确认 Windows 系统代理（`设置 → 网络 → 代理`）处于关闭状态或代理软件在运行——Docker 跟随系统代理，代理端口无监听时所有拉取会静默失败。
+
 ### 命令行批量导入
 
 整批日志不必守在浏览器前：在仓库根目录执行
