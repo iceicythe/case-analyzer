@@ -39,11 +39,11 @@ Case Analyzer 把这条流程放到同一个工作台中：保留原始引用，
 ### Windows
 
 ```powershell
-.\setup.cmd
-.\start.cmd
+.\scripts\setup.cmd
+.\scripts\start.cmd
 ```
 
-也可以依次双击 `setup.cmd` 和 `start.cmd`。安装脚本会创建本目录专用的 `.venv`，启动脚本优先使用该环境。
+也可以依次双击 `scripts\setup.cmd` 和 `scripts\start.cmd`。安装脚本会创建本目录专用的 `.venv`，启动脚本优先使用该环境。
 
 ### Linux / macOS
 
@@ -119,7 +119,7 @@ seg_042    error     Case 编号限 1～64 位字母、数字、下划线或短�
 
 ### 飞书工作台通知
 
-填写 `configs/feishu.local.json` 中的 `webhook_url`，将 `enabled` 改为 `true`；若机器人开启签名校验，同时填写 `signing_secret`。本地文件由 `setup.cmd` 创建，也可复制 [配置模板](configs/feishu.example.json)。执行 `.venv/Scripts/python.exe -m app notify --test` 发送连接测试，然后重启工作台。
+填写 `configs/feishu.local.json` 中的 `webhook_url`，将 `enabled` 改为 `true`；若机器人开启签名校验，同时填写 `signing_secret`。本地文件由 `scripts\setup.cmd` 创建，也可复制 [配置模板](configs/feishu.example.json)。执行 `.venv/Scripts/python.exe -m app notify --test` 发送连接测试，然后重启工作台。
 
 自动复核与排查完成后，后台合并发送进展卡片，标出待人工与失败 Case。飞书网络请求不阻塞分析；发送记录持久保存，重启去重，失败时可在任务总览重发。配置也适用于命令行导入和事件评测。完整步骤、触发范围及链接限制见 [飞书配置说明](docs/FEISHU.md)。
 
@@ -162,7 +162,7 @@ Linux / macOS 使用 `cp configs/deepseek.example.json configs/deepseek.local.js
 }
 ```
 
-用当前 Python 环境运行 `python -m app --check-api` 检查连接，再重启工作台并去掉 `--no-auto-review`。Windows 可双击 `check-api.cmd` 检查、`start.cmd` 启动。连接检查本身会发出一次短请求。
+用当前 Python 环境运行 `python -m app --check-api` 检查连接，再重启工作台并去掉 `--no-auto-review`。Windows 可双击 `scripts\check-api.cmd` 检查、`scripts\start.cmd` 启动。连接检查本身会发出一次短请求。
 
 也支持 `DEEPSEEK_API_KEY` 环境变量；本地配置中的非空 Key 优先。`deepseek.local.json` 已被 Git 忽略。启用模型后，当前步骤的日志片段或证据摘要会发送至所配置的服务，调用可能产生费用。参数说明见 [API 配置](docs/API_CONFIG.md)。
 
@@ -246,7 +246,7 @@ python -B -X utf8 -m unittest discover -s tests -v
 python scripts/check_repo.py
 ```
 
-常用操作也可以走 `pipeline.sh`（Linux / macOS / 容器内）：`./pipeline.sh test` 跑测试与自检，`./pipeline.sh import <目录>` 批量导入，`./pipeline.sh serve` 启动工作台，`./pipeline.sh docker` 构建并启动容器。
+常用操作也可以走 `scripts/pipeline.sh`（Linux / macOS / 容器内）：`./scripts/pipeline.sh test` 跑测试与自检，`./scripts/pipeline.sh import <目录>` 批量导入，`./scripts/pipeline.sh serve` 启动工作台，`./scripts/pipeline.sh docker` 构建并启动容器。
 
 默认测试使用临时目录、公式样例和模拟模型响应，无需 Key，不调用真实 API。覆盖导入、回滚、并发、人工确认、队列恢复、保存冲突、报告导出、事件匹配及排查约束。浏览器测试另行安装，见 [贡献指南](CONTRIBUTING.md)。
 
@@ -268,11 +268,10 @@ case-analyzer/
 ├── knowledge/    排查知识目录与手册
 ├── examples/     可再生成的合成 CSV 样例
 ├── eval/         冻结评测集（sim-batch-02：输入 + 人工标签 + 冻结结果 + 预言机）
-├── scripts/      样例导入、仓库检查、端到端评测、吞吐测量与打包
+├── scripts/      一键安装/启动/检查、常用流水线、仓库检查、端到端评测、吞吐测量与打包
 ├── tests/        自包含测试，无历史数据依赖
 ├── docs/         数据约定、架构、演示与评测方法
 ├── Dockerfile    容器镜像定义（compose 一条命令起服务）
-├── pipeline.sh   测试 / 导入 / 吞吐 / 启动 / 容器 常用流水线
 └── runtime/      本机运行时创建，Git 忽略
 ```
 

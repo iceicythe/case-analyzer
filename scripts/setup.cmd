@@ -1,6 +1,6 @@
 @echo off
 chcp 65001 >nul
-cd /d "%~dp0"
+cd /d "%~dp0.."
 if not exist "configs\deepseek.local.json" copy /Y "configs\deepseek.example.json" "configs\deepseek.local.json" >nul
 if not exist "configs\feishu.local.json" copy /Y "configs\feishu.example.json" "configs\feishu.local.json" >nul
 if not exist ".venv\Scripts\python.exe" (
@@ -15,7 +15,7 @@ if errorlevel 1 goto failed
 if errorlevel 1 goto failed
 ".venv\Scripts\python.exe" -B -X utf8 -m app --check
 if errorlevel 1 goto failed
-echo Setup completed. Run start.cmd to open the workbench.
+echo Setup completed. Run scripts\start.cmd to open the workbench.
 exit /b 0
 :failed
 echo Setup failed. Check Python 3.11+, network access and the error above.

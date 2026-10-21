@@ -2,7 +2,7 @@
 
 ## 启动
 
-在仓库根目录运行 `start.cmd`。模型配置填写在 `configs/deepseek.local.json`，检查连接后重启服务。正常启动会启用后台处理；加上 `--no-auto-review` 或关闭工作空间配置的 `automatic_review` 会停用自动处理。没有有效模型配置时进入人工模式。
+在仓库根目录运行 `scripts\start.cmd`。模型配置填写在 `configs/deepseek.local.json`，检查连接后重启服务。正常启动会启用后台处理；加上 `--no-auto-review` 或关闭工作空间配置的 `automatic_review` 会停用自动处理。没有有效模型配置时进入人工模式。
 
 ## 导入一批 Case
 

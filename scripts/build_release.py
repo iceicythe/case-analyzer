@@ -16,7 +16,9 @@ def build(output):
         files[path.relative_to(ROOT).as_posix()] = path.read_bytes()
     for name in ('README.md','LICENSE','CHANGELOG.md','CONTRIBUTING.md',
                  '.gitignore','.gitattributes','.editorconfig','requirements-dev.txt',
-                 'requirements.txt','setup.cmd','start.cmd','check-api.cmd'):
+                 'requirements.txt',
+                 'scripts/setup.cmd','scripts/start.cmd','scripts/check-api.cmd',
+                 'scripts/pipeline.sh'):
         add(ROOT/name)
     for folder, extensions in (
         ('app',{'.py'}),('static',{'.html','.js','.css','.svg'}),

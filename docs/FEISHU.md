@@ -6,7 +6,7 @@
 
 在飞书群的“设置 → 群机器人”添加自定义机器人，复制 Webhook。若启用关键词，设置为 `case-analyzer`；若启用签名校验，复制对应签名密钥。两者可同时启用，签名按[飞书官方文档](https://open.feishu.cn/document/client-docs/bot-v3/add-custom-bot)计算。
 
-运行 `setup.cmd` 会创建 `configs/feishu.local.json`。已有项目也可将 [配置模板](../configs/feishu.example.json)复制为同目录下的 `feishu.local.json`，内容如下：
+运行 `scripts\setup.cmd` 会创建 `configs/feishu.local.json`。已有项目也可将 [配置模板](../configs/feishu.example.json)复制为同目录下的 `feishu.local.json`，内容如下：
 
 ```json
 {
