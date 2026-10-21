@@ -1,0 +1,42 @@
+{
+  "case_id": "seg_008",
+  "completed": true,
+  "decision": "positive",
+  "events": [
+    [
+      37775.7,
+      37778.7
+    ],
+    [
+      37779.0,
+      37782.0
+    ]
+  ],
+  "events_relative": [
+    [
+      6.0,
+      9.0
+    ],
+    [
+      9.3,
+      12.3
+    ]
+  ],
+  "t0_seconds": 37769.7,
+  "expected_candidate_verdict": "meets_numeric_rule",
+  "expected_observation_status": [
+    "planning_trigger_needs_review",
+    "planning_trigger_needs_review"
+  ],
+  "label_origin": "human_verified",
+  "derived_by": "verify.py 从四路 CSV 独立重算（构造真值）；2026-10-15 孙佳鑫逐段人工复核确认/修正后生效",
+  "scene": "减速过程中车速短暂回升，随后继续下降",
+  "notes": "回升幅度不足以隔开粗筛窗口。人工复核确认。",
+  "annotation": {
+    "annotator": "孙佳鑫",
+    "reviewed_at": "2026-10-15",
+    "method": "逐段对照车速曲线人工复核（human_review_worksheet.html），2026-10-15",
+    "base_truth": "constructive_truth（构造真值）经人工确认后生效；1 段按人工判定修正",
+    "review_record": "reference_labels/_human_review_2026-10-15.json"
+  }
+}

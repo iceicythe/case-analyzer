@@ -1,0 +1,30 @@
+{
+  "case_id": "seg_016",
+  "scene": "前车急刹，本车重制动跟随",
+  "t0": 37453.7,
+  "duration": 25.0,
+  "design_events": [
+    [
+      7.0,
+      8.8
+    ]
+  ],
+  "expect_candidates": 1,
+  "expect_verdict": "meets_numeric_rule",
+  "expect_statuses": [
+    "planning_trigger_needs_review"
+  ],
+  "expect_boundary": false,
+  "expect_object": "normal",
+  "expect_import_warning": false,
+  "label_decision": "positive",
+  "note": "",
+  "has_object_log": true,
+  "jitter": true,
+  "vehicle_gaps": [],
+  "planning_gaps": [],
+  "control_gaps": [],
+  "object_gaps": [],
+  "planning_offset": 0.0,
+  "planning_period": 0.1
+}

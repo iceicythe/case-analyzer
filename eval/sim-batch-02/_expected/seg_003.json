@@ -1,0 +1,30 @@
+{
+  "case_id": "seg_003",
+  "scene": "路口红灯，跟随前车减速至停止",
+  "t0": 54243.2,
+  "duration": 30.0,
+  "design_events": [
+    [
+      18.0,
+      24.5
+    ]
+  ],
+  "expect_candidates": 1,
+  "expect_verdict": "meets_numeric_rule",
+  "expect_statuses": [
+    "planning_trigger_needs_review"
+  ],
+  "expect_boundary": false,
+  "expect_object": "normal",
+  "expect_import_warning": false,
+  "label_decision": "positive",
+  "note": "",
+  "has_object_log": true,
+  "jitter": true,
+  "vehicle_gaps": [],
+  "planning_gaps": [],
+  "control_gaps": [],
+  "object_gaps": [],
+  "planning_offset": 0.0,
+  "planning_period": 0.1
+}

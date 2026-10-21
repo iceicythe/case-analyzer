@@ -1,0 +1,30 @@
+{
+  "case_id": "seg_028",
+  "scene": "规划时钟偏移 0.14 秒（在 0.15 秒对齐容差内）",
+  "t0": 6733.1,
+  "duration": 29.0,
+  "design_events": [
+    [
+      10.0,
+      13.0
+    ]
+  ],
+  "expect_candidates": 1,
+  "expect_verdict": "meets_numeric_rule",
+  "expect_statuses": [
+    "planning_trigger_needs_review"
+  ],
+  "expect_boundary": false,
+  "expect_object": "normal",
+  "expect_import_warning": false,
+  "label_decision": "positive",
+  "note": "容差边界对照：偏移小于容差时每个采样仍可唯一对齐，链路应保持完整。",
+  "has_object_log": true,
+  "jitter": true,
+  "vehicle_gaps": [],
+  "planning_gaps": [],
+  "control_gaps": [],
+  "object_gaps": [],
+  "planning_offset": 0.14,
+  "planning_period": 0.1
+}

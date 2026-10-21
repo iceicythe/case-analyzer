@@ -1,0 +1,1975 @@
+{
+  "evaluated_cases": 27,
+  "excluded_cases": 3,
+  "gold_event_count": 27,
+  "candidate_recall": 1.0,
+  "candidate_covered_events": 27,
+  "automatic_confirmation_precision": 1.0,
+  "automatic_event_recall": 0.9629629629629629,
+  "tp": 26,
+  "fp": 0,
+  "fn": 1,
+  "wrongly_rejected_gold_events": 0,
+  "automatic_processing_coverage": 0.8666666666666667,
+  "automatic_candidates": 26,
+  "total_candidates": 30,
+  "report_useful_rate": null,
+  "reports_assessed": 0,
+  "reports_total": 25,
+  "reports_useful": 0,
+  "model_reports_validated": 23,
+  "model_reports_failed": 2,
+  "cases": [
+    {
+      "case_id": "seg_001",
+      "excluded": false,
+      "gold_events": [
+        [
+          59312.8,
+          59315.8
+        ]
+      ],
+      "predicted_events": [
+        [
+          59312.8,
+          59315.8
+        ]
+      ],
+      "tp": 1,
+      "fp": 0,
+      "fn": 0,
+      "candidate_missed_events": [],
+      "wrongly_rejected_events": [],
+      "boundary_errors": [
+        {
+          "prediction": 0,
+          "truth": 0,
+          "start_error_seconds": 0.0,
+          "end_error_seconds": 0.0
+        }
+      ]
+    },
+    {
+      "case_id": "seg_002",
+      "excluded": false,
+      "gold_events": [
+        [
+          61610.9,
+          61613.6
+        ]
+      ],
+      "predicted_events": [
+        [
+          61610.9,
+          61613.6
+        ]
+      ],
+      "tp": 1,
+      "fp": 0,
+      "fn": 0,
+      "candidate_missed_events": [],
+      "wrongly_rejected_events": [],
+      "boundary_errors": [
+        {
+          "prediction": 0,
+          "truth": 0,
+          "start_error_seconds": 0.0,
+          "end_error_seconds": 0.0
+        }
+      ]
+    },
+    {
+      "case_id": "seg_003",
+      "excluded": false,
+      "gold_events": [
+        [
+          54261.2,
+          54267.7
+        ]
+      ],
+      "predicted_events": [
+        [
+          54261.2,
+          54267.7
+        ]
+      ],
+      "tp": 1,
+      "fp": 0,
+      "fn": 0,
+      "candidate_missed_events": [],
+      "wrongly_rejected_events": [],
+      "boundary_errors": [
+        {
+          "prediction": 0,
+          "truth": 0,
+          "start_error_seconds": 0.0,
+          "end_error_seconds": 0.0
+        }
+      ]
+    },
+    {
+      "case_id": "seg_004",
+      "excluded": false,
+      "gold_events": [
+        [
+          17217.8,
+          17221.8
+        ]
+      ],
+      "predicted_events": [
+        [
+          17217.8,
+          17221.8
+        ]
+      ],
+      "tp": 1,
+      "fp": 0,
+      "fn": 0,
+      "candidate_missed_events": [],
+      "wrongly_rejected_events": [],
+      "boundary_errors": [
+        {
+          "prediction": 0,
+          "truth": 0,
+          "start_error_seconds": 0.0,
+          "end_error_seconds": 0.0
+        }
+      ]
+    },
+    {
+      "case_id": "seg_005",
+      "excluded": false,
+      "gold_events": [
+        [
+          6160.8,
+          6163.9
+        ]
+      ],
+      "predicted_events": [
+        [
+          6160.8,
+          6163.9
+        ]
+      ],
+      "tp": 1,
+      "fp": 0,
+      "fn": 0,
+      "candidate_missed_events": [],
+      "wrongly_rejected_events": [],
+      "boundary_errors": [
+        {
+          "prediction": 0,
+          "truth": 0,
+          "start_error_seconds": 0.0,
+          "end_error_seconds": 0.0
+        }
+      ]
+    },
+    {
+      "case_id": "seg_006",
+      "excluded": false,
+      "gold_events": [],
+      "predicted_events": [],
+      "tp": 0,
+      "fp": 0,
+      "fn": 0,
+      "candidate_missed_events": [],
+      "wrongly_rejected_events": [],
+      "boundary_errors": []
+    },
+    {
+      "case_id": "seg_007",
+      "excluded": false,
+      "gold_events": [],
+      "predicted_events": [],
+      "tp": 0,
+      "fp": 0,
+      "fn": 0,
+      "candidate_missed_events": [],
+      "wrongly_rejected_events": [],
+      "boundary_errors": []
+    },
+    {
+      "case_id": "seg_008",
+      "excluded": false,
+      "gold_events": [
+        [
+          37775.7,
+          37778.7
+        ],
+        [
+          37779.0,
+          37782.0
+        ]
+      ],
+      "predicted_events": [
+        [
+          37775.7,
+          37778.7
+        ],
+        [
+          37779.0,
+          37782.0
+        ]
+      ],
+      "tp": 2,
+      "fp": 0,
+      "fn": 0,
+      "candidate_missed_events": [],
+      "wrongly_rejected_events": [],
+      "boundary_errors": [
+        {
+          "prediction": 0,
+          "truth": 0,
+          "start_error_seconds": 0.0,
+          "end_error_seconds": 0.0
+        },
+        {
+          "prediction": 1,
+          "truth": 1,
+          "start_error_seconds": 0.0,
+          "end_error_seconds": 0.0
+        }
+      ]
+    },
+    {
+      "case_id": "seg_009",
+      "excluded": false,
+      "gold_events": [
+        [
+          11887.0,
+          11889.5
+        ],
+        [
+          11894.0,
+          11896.5
+        ]
+      ],
+      "predicted_events": [
+        [
+          11887.0,
+          11889.5
+        ],
+        [
+          11894.0,
+          11896.5
+        ]
+      ],
+      "tp": 2,
+      "fp": 0,
+      "fn": 0,
+      "candidate_missed_events": [],
+      "wrongly_rejected_events": [],
+      "boundary_errors": [
+        {
+          "prediction": 0,
+          "truth": 0,
+          "start_error_seconds": 0.0,
+          "end_error_seconds": 0.0
+        },
+        {
+          "prediction": 1,
+          "truth": 1,
+          "start_error_seconds": 0.0,
+          "end_error_seconds": 0.0
+        }
+      ]
+    },
+    {
+      "case_id": "seg_010",
+      "excluded": false,
+      "gold_events": [
+        [
+          41103.9,
+          41107.9
+        ]
+      ],
+      "predicted_events": [
+        [
+          41103.9,
+          41107.9
+        ]
+      ],
+      "tp": 1,
+      "fp": 0,
+      "fn": 0,
+      "candidate_missed_events": [],
+      "wrongly_rejected_events": [],
+      "boundary_errors": [
+        {
+          "prediction": 0,
+          "truth": 0,
+          "start_error_seconds": 0.0,
+          "end_error_seconds": 0.0
+        }
+      ]
+    },
+    {
+      "case_id": "seg_011",
+      "excluded": false,
+      "gold_events": [],
+      "predicted_events": [],
+      "tp": 0,
+      "fp": 0,
+      "fn": 0,
+      "candidate_missed_events": [],
+      "wrongly_rejected_events": [],
+      "boundary_errors": []
+    },
+    {
+      "case_id": "seg_012",
+      "excluded": false,
+      "gold_events": [
+        [
+          8952.2,
+          8953.7
+        ],
+        [
+          8955.7,
+          8957.2
+        ],
+        [
+          8959.2,
+          8960.7
+        ]
+      ],
+      "predicted_events": [
+        [
+          8952.2,
+          8953.7
+        ],
+        [
+          8955.7,
+          8957.2
+        ],
+        [
+          8959.2,
+          8960.7
+        ]
+      ],
+      "tp": 3,
+      "fp": 0,
+      "fn": 0,
+      "candidate_missed_events": [],
+      "wrongly_rejected_events": [],
+      "boundary_errors": [
+        {
+          "prediction": 0,
+          "truth": 0,
+          "start_error_seconds": 0.0,
+          "end_error_seconds": 0.0
+        },
+        {
+          "prediction": 1,
+          "truth": 1,
+          "start_error_seconds": 0.0,
+          "end_error_seconds": 0.0
+        },
+        {
+          "prediction": 2,
+          "truth": 2,
+          "start_error_seconds": 0.0,
+          "end_error_seconds": 0.0
+        }
+      ]
+    },
+    {
+      "case_id": "seg_013",
+      "excluded": false,
+      "gold_events": [
+        [
+          56404.5,
+          56406.6
+        ]
+      ],
+      "predicted_events": [
+        [
+          56404.5,
+          56406.6
+        ]
+      ],
+      "tp": 1,
+      "fp": 0,
+      "fn": 0,
+      "candidate_missed_events": [],
+      "wrongly_rejected_events": [],
+      "boundary_errors": [
+        {
+          "prediction": 0,
+          "truth": 0,
+          "start_error_seconds": 0.0,
+          "end_error_seconds": 0.0
+        }
+      ]
+    },
+    {
+      "case_id": "seg_014",
+      "excluded": false,
+      "gold_events": [
+        [
+          39130.4,
+          39132.9
+        ]
+      ],
+      "predicted_events": [
+        [
+          39130.4,
+          39132.9
+        ]
+      ],
+      "tp": 1,
+      "fp": 0,
+      "fn": 0,
+      "candidate_missed_events": [],
+      "wrongly_rejected_events": [],
+      "boundary_errors": [
+        {
+          "prediction": 0,
+          "truth": 0,
+          "start_error_seconds": 0.0,
+          "end_error_seconds": 0.0
+        }
+      ]
+    },
+    {
+      "case_id": "seg_015",
+      "excluded": false,
+      "gold_events": [
+        [
+          50847.1,
+          50850.2
+        ]
+      ],
+      "predicted_events": [
+        [
+          50847.1,
+          50850.2
+        ]
+      ],
+      "tp": 1,
+      "fp": 0,
+      "fn": 0,
+      "candidate_missed_events": [],
+      "wrongly_rejected_events": [],
+      "boundary_errors": [
+        {
+          "prediction": 0,
+          "truth": 0,
+          "start_error_seconds": 0.0,
+          "end_error_seconds": 0.0
+        }
+      ]
+    },
+    {
+      "case_id": "seg_016",
+      "excluded": false,
+      "gold_events": [
+        [
+          37460.6,
+          37462.6
+        ]
+      ],
+      "predicted_events": [
+        [
+          37460.6,
+          37462.6
+        ]
+      ],
+      "tp": 1,
+      "fp": 0,
+      "fn": 0,
+      "candidate_missed_events": [],
+      "wrongly_rejected_events": [],
+      "boundary_errors": [
+        {
+          "prediction": 0,
+          "truth": 0,
+          "start_error_seconds": 0.0,
+          "end_error_seconds": 0.0
+        }
+      ]
+    },
+    {
+      "case_id": "seg_017",
+      "excluded": false,
+      "gold_events": [],
+      "predicted_events": [],
+      "tp": 0,
+      "fp": 0,
+      "fn": 0,
+      "candidate_missed_events": [],
+      "wrongly_rejected_events": [],
+      "boundary_errors": []
+    },
+    {
+      "case_id": "seg_018",
+      "excluded": false,
+      "gold_events": [
+        [
+          53097.6,
+          53099.8
+        ]
+      ],
+      "predicted_events": [
+        [
+          53097.6,
+          53099.8
+        ]
+      ],
+      "tp": 1,
+      "fp": 0,
+      "fn": 0,
+      "candidate_missed_events": [],
+      "wrongly_rejected_events": [],
+      "boundary_errors": [
+        {
+          "prediction": 0,
+          "truth": 0,
+          "start_error_seconds": 0.0,
+          "end_error_seconds": 0.0
+        }
+      ]
+    },
+    {
+      "case_id": "seg_019",
+      "excluded": false,
+      "gold_events": [
+        [
+          33977.9,
+          33981.0
+        ]
+      ],
+      "predicted_events": [
+        [
+          33977.9,
+          33981.0
+        ]
+      ],
+      "tp": 1,
+      "fp": 0,
+      "fn": 0,
+      "candidate_missed_events": [],
+      "wrongly_rejected_events": [],
+      "boundary_errors": [
+        {
+          "prediction": 0,
+          "truth": 0,
+          "start_error_seconds": 0.0,
+          "end_error_seconds": 0.0
+        }
+      ]
+    },
+    {
+      "case_id": "seg_020",
+      "excluded": false,
+      "gold_events": [
+        [
+          45135.6,
+          45138.4
+        ]
+      ],
+      "predicted_events": [
+        [
+          45135.6,
+          45138.4
+        ]
+      ],
+      "tp": 1,
+      "fp": 0,
+      "fn": 0,
+      "candidate_missed_events": [],
+      "wrongly_rejected_events": [],
+      "boundary_errors": [
+        {
+          "prediction": 0,
+          "truth": 0,
+          "start_error_seconds": 0.0,
+          "end_error_seconds": 0.0
+        }
+      ]
+    },
+    {
+      "case_id": "seg_021",
+      "excluded": false,
+      "gold_events": [
+        [
+          2646.2,
+          2649.2
+        ]
+      ],
+      "predicted_events": [
+        [
+          2646.2,
+          2649.2
+        ]
+      ],
+      "tp": 1,
+      "fp": 0,
+      "fn": 0,
+      "candidate_missed_events": [],
+      "wrongly_rejected_events": [],
+      "boundary_errors": [
+        {
+          "prediction": 0,
+          "truth": 0,
+          "start_error_seconds": 0.0,
+          "end_error_seconds": 0.0
+        }
+      ]
+    },
+    {
+      "case_id": "seg_022",
+      "excluded": true,
+      "reason": "data_issue"
+    },
+    {
+      "case_id": "seg_023",
+      "excluded": true,
+      "reason": "data_issue"
+    },
+    {
+      "case_id": "seg_024",
+      "excluded": true,
+      "reason": "data_issue"
+    },
+    {
+      "case_id": "seg_025",
+      "excluded": false,
+      "gold_events": [
+        [
+          37673.5,
+          37676.6
+        ]
+      ],
+      "predicted_events": [
+        [
+          37673.5,
+          37676.6
+        ]
+      ],
+      "tp": 1,
+      "fp": 0,
+      "fn": 0,
+      "candidate_missed_events": [],
+      "wrongly_rejected_events": [],
+      "boundary_errors": [
+        {
+          "prediction": 0,
+          "truth": 0,
+          "start_error_seconds": 0.0,
+          "end_error_seconds": 0.0
+        }
+      ]
+    },
+    {
+      "case_id": "seg_026",
+      "excluded": false,
+      "gold_events": [
+        [
+          43158.8,
+          43161.8
+        ]
+      ],
+      "predicted_events": [
+        [
+          43158.8,
+          43161.8
+        ]
+      ],
+      "tp": 1,
+      "fp": 0,
+      "fn": 0,
+      "candidate_missed_events": [],
+      "wrongly_rejected_events": [],
+      "boundary_errors": [
+        {
+          "prediction": 0,
+          "truth": 0,
+          "start_error_seconds": 0.0,
+          "end_error_seconds": 0.0
+        }
+      ]
+    },
+    {
+      "case_id": "seg_027",
+      "excluded": false,
+      "gold_events": [
+        [
+          17271.2,
+          17274.2
+        ]
+      ],
+      "predicted_events": [
+        [
+          17271.2,
+          17274.2
+        ]
+      ],
+      "tp": 1,
+      "fp": 0,
+      "fn": 0,
+      "candidate_missed_events": [],
+      "wrongly_rejected_events": [],
+      "boundary_errors": [
+        {
+          "prediction": 0,
+          "truth": 0,
+          "start_error_seconds": 0.0,
+          "end_error_seconds": 0.0
+        }
+      ]
+    },
+    {
+      "case_id": "seg_028",
+      "excluded": false,
+      "gold_events": [
+        [
+          6743.1,
+          6746.1
+        ]
+      ],
+      "predicted_events": [
+        [
+          6743.1,
+          6746.1
+        ]
+      ],
+      "tp": 1,
+      "fp": 0,
+      "fn": 0,
+      "candidate_missed_events": [],
+      "wrongly_rejected_events": [],
+      "boundary_errors": [
+        {
+          "prediction": 0,
+          "truth": 0,
+          "start_error_seconds": 0.0,
+          "end_error_seconds": 0.0
+        }
+      ]
+    },
+    {
+      "case_id": "seg_029",
+      "excluded": false,
+      "gold_events": [
+        [
+          6945.9,
+          6949.1
+        ]
+      ],
+      "predicted_events": [
+        [
+          6945.9,
+          6949.1
+        ]
+      ],
+      "tp": 1,
+      "fp": 0,
+      "fn": 0,
+      "candidate_missed_events": [],
+      "wrongly_rejected_events": [],
+      "boundary_errors": [
+        {
+          "prediction": 0,
+          "truth": 0,
+          "start_error_seconds": 0.0,
+          "end_error_seconds": 0.0
+        }
+      ]
+    },
+    {
+      "case_id": "seg_030",
+      "excluded": false,
+      "gold_events": [
+        [
+          48196.6,
+          48199.9
+        ]
+      ],
+      "predicted_events": [],
+      "tp": 0,
+      "fp": 0,
+      "fn": 1,
+      "candidate_missed_events": [],
+      "wrongly_rejected_events": [],
+      "boundary_errors": []
+    }
+  ],
+  "boundary_error_summary": {
+    "start_error_seconds": 0.0,
+    "end_error_seconds": 0.0,
+    "matched_events": 26
+  },
+  "quality_checks": [
+    {
+      "case_id": "seg_022",
+      "quality_issue_detected": true,
+      "no_automatic_decision": true,
+      "no_model_call": true,
+      "candidate_count": 1,
+      "passed": true
+    },
+    {
+      "case_id": "seg_023",
+      "quality_issue_detected": true,
+      "no_automatic_decision": true,
+      "no_model_call": true,
+      "candidate_count": 2,
+      "passed": true
+    },
+    {
+      "case_id": "seg_024",
+      "quality_issue_detected": true,
+      "no_automatic_decision": true,
+      "no_model_call": true,
+      "candidate_count": 0,
+      "passed": true
+    }
+  ],
+  "data_quality_handling_rate": 1.0,
+  "candidate_status_counts": {
+    "ai_confirmed_event": 25,
+    "ai_rejected_candidate": 1,
+    "needs_human": 4
+  },
+  "model_calls": [
+    {
+      "provider": "deepseek",
+      "model": "deepseek-flash",
+      "reasoning_effort": "low",
+      "status": "completed",
+      "latency_seconds": 12.024658,
+      "request_attempts": 1,
+      "retry_count": 0,
+      "prompt_tokens": 6532,
+      "completion_tokens": 2101,
+      "total_tokens": 8633,
+      "cached_prompt_tokens": 384,
+      "cache_miss_prompt_tokens": 6148,
+      "reasoning_tokens": 1583,
+      "cost_usd": null,
+      "request_id": "745262bc-b409-4b50-b8b2-8313f4495e3b",
+      "finish_reason": "stop",
+      "error_type": null,
+      "case_id": "seg_001",
+      "candidate_id": "C001",
+      "purpose": "event_review"
+    },
+    {
+      "provider": "deepseek",
+      "model": "deepseek-flash",
+      "reasoning_effort": "low",
+      "status": "completed",
+      "latency_seconds": 7.421415,
+      "request_attempts": 1,
+      "retry_count": 0,
+      "prompt_tokens": 28389,
+      "completion_tokens": 1232,
+      "total_tokens": 29621,
+      "cached_prompt_tokens": 128,
+      "cache_miss_prompt_tokens": 28261,
+      "reasoning_tokens": 771,
+      "cost_usd": null,
+      "request_id": "6b2bc5b4-ab05-4c3c-b470-952c6a40618c",
+      "finish_reason": "stop",
+      "error_type": null,
+      "case_id": "seg_001",
+      "candidate_id": "C001",
+      "purpose": "investigation"
+    },
+    {
+      "provider": "deepseek",
+      "model": "deepseek-flash",
+      "reasoning_effort": "low",
+      "status": "completed",
+      "latency_seconds": 14.58644,
+      "request_attempts": 1,
+      "retry_count": 0,
+      "prompt_tokens": 6297,
+      "completion_tokens": 2435,
+      "total_tokens": 8732,
+      "cached_prompt_tokens": 384,
+      "cache_miss_prompt_tokens": 5913,
+      "reasoning_tokens": 1948,
+      "cost_usd": null,
+      "request_id": "a5e3c15a-5a94-456e-a187-5515b1269fd1",
+      "finish_reason": "stop",
+      "error_type": null,
+      "case_id": "seg_002",
+      "candidate_id": "C001",
+      "purpose": "event_review"
+    },
+    {
+      "provider": "deepseek",
+      "model": "deepseek-flash",
+      "reasoning_effort": "low",
+      "status": "completed",
+      "latency_seconds": 12.403882,
+      "request_attempts": 1,
+      "retry_count": 0,
+      "prompt_tokens": 27176,
+      "completion_tokens": 2012,
+      "total_tokens": 29188,
+      "cached_prompt_tokens": 128,
+      "cache_miss_prompt_tokens": 27048,
+      "reasoning_tokens": 1551,
+      "cost_usd": null,
+      "request_id": "77191ac5-ff43-49a1-86a0-e5ae7671e3af",
+      "finish_reason": "stop",
+      "error_type": null,
+      "case_id": "seg_002",
+      "candidate_id": "C001",
+      "purpose": "investigation"
+    },
+    {
+      "provider": "deepseek",
+      "model": "deepseek-flash",
+      "reasoning_effort": "low",
+      "status": "completed",
+      "latency_seconds": 10.206715,
+      "request_attempts": 1,
+      "retry_count": 0,
+      "prompt_tokens": 8177,
+      "completion_tokens": 1743,
+      "total_tokens": 9920,
+      "cached_prompt_tokens": 384,
+      "cache_miss_prompt_tokens": 7793,
+      "reasoning_tokens": 1274,
+      "cost_usd": null,
+      "request_id": "62f26b3f-587e-4513-8cf2-d14bbda5932c",
+      "finish_reason": "stop",
+      "error_type": null,
+      "case_id": "seg_003",
+      "candidate_id": "C001",
+      "purpose": "event_review"
+    },
+    {
+      "provider": "deepseek",
+      "model": "deepseek-flash",
+      "reasoning_effort": "low",
+      "status": "completed",
+      "latency_seconds": 7.960492,
+      "request_attempts": 1,
+      "retry_count": 0,
+      "prompt_tokens": 41491,
+      "completion_tokens": 1397,
+      "total_tokens": 42888,
+      "cached_prompt_tokens": 128,
+      "cache_miss_prompt_tokens": 41363,
+      "reasoning_tokens": 936,
+      "cost_usd": null,
+      "request_id": "afb192bd-e072-4db9-9956-01160803d06d",
+      "finish_reason": "stop",
+      "error_type": null,
+      "case_id": "seg_003",
+      "candidate_id": "C001",
+      "purpose": "investigation"
+    },
+    {
+      "provider": "deepseek",
+      "model": "deepseek-flash",
+      "reasoning_effort": "low",
+      "status": "completed",
+      "latency_seconds": 11.847535,
+      "request_attempts": 1,
+      "retry_count": 0,
+      "prompt_tokens": 7002,
+      "completion_tokens": 1974,
+      "total_tokens": 8976,
+      "cached_prompt_tokens": 384,
+      "cache_miss_prompt_tokens": 6618,
+      "reasoning_tokens": 1479,
+      "cost_usd": null,
+      "request_id": "ba563901-358e-4a0b-b1cc-6bfc3e2520f6",
+      "finish_reason": "stop",
+      "error_type": null,
+      "case_id": "seg_004",
+      "candidate_id": "C001",
+      "purpose": "event_review"
+    },
+    {
+      "provider": "deepseek",
+      "model": "deepseek-flash",
+      "reasoning_effort": "low",
+      "status": "completed",
+      "latency_seconds": 12.882706,
+      "request_attempts": 1,
+      "retry_count": 0,
+      "prompt_tokens": 31638,
+      "completion_tokens": 2125,
+      "total_tokens": 33763,
+      "cached_prompt_tokens": 128,
+      "cache_miss_prompt_tokens": 31510,
+      "reasoning_tokens": 1670,
+      "cost_usd": null,
+      "request_id": "38bcd923-7e42-4a24-9f66-6a296d9ea6c5",
+      "finish_reason": "stop",
+      "error_type": null,
+      "case_id": "seg_004",
+      "candidate_id": "C001",
+      "purpose": "investigation"
+    },
+    {
+      "provider": "deepseek",
+      "model": "deepseek-flash",
+      "reasoning_effort": "low",
+      "status": "completed",
+      "latency_seconds": 10.3298,
+      "request_attempts": 1,
+      "retry_count": 0,
+      "prompt_tokens": 6485,
+      "completion_tokens": 1704,
+      "total_tokens": 8189,
+      "cached_prompt_tokens": 384,
+      "cache_miss_prompt_tokens": 6101,
+      "reasoning_tokens": 1201,
+      "cost_usd": null,
+      "request_id": "d2cf9ffe-8e4a-4004-9993-fe4d4a7fe608",
+      "finish_reason": "stop",
+      "error_type": null,
+      "case_id": "seg_005",
+      "candidate_id": "C001",
+      "purpose": "event_review"
+    },
+    {
+      "provider": "deepseek",
+      "model": "deepseek-flash",
+      "reasoning_effort": "low",
+      "status": "completed",
+      "latency_seconds": 10.384701,
+      "request_attempts": 1,
+      "retry_count": 0,
+      "prompt_tokens": 28746,
+      "completion_tokens": 1851,
+      "total_tokens": 30597,
+      "cached_prompt_tokens": 128,
+      "cache_miss_prompt_tokens": 28618,
+      "reasoning_tokens": 1335,
+      "cost_usd": null,
+      "request_id": "6636a38a-c33f-4ae3-99c0-bb8f032ff698",
+      "finish_reason": "stop",
+      "error_type": null,
+      "case_id": "seg_005",
+      "candidate_id": "C001",
+      "purpose": "investigation"
+    },
+    {
+      "provider": "deepseek",
+      "model": "deepseek-flash",
+      "reasoning_effort": "low",
+      "status": "completed",
+      "latency_seconds": 10.708828,
+      "request_attempts": 1,
+      "retry_count": 0,
+      "prompt_tokens": 8119,
+      "completion_tokens": 1929,
+      "total_tokens": 10048,
+      "cached_prompt_tokens": 384,
+      "cache_miss_prompt_tokens": 7735,
+      "reasoning_tokens": 1423,
+      "cost_usd": null,
+      "request_id": "53353a8b-2c7d-4e4d-8e60-e1ff006d6697",
+      "finish_reason": "stop",
+      "error_type": null,
+      "case_id": "seg_008",
+      "candidate_id": "C001",
+      "purpose": "event_review"
+    },
+    {
+      "provider": "deepseek",
+      "model": "deepseek-flash",
+      "reasoning_effort": "low",
+      "status": "completed",
+      "latency_seconds": 12.257344,
+      "request_attempts": 1,
+      "retry_count": 0,
+      "prompt_tokens": 55032,
+      "completion_tokens": 2243,
+      "total_tokens": 57275,
+      "cached_prompt_tokens": 128,
+      "cache_miss_prompt_tokens": 54904,
+      "reasoning_tokens": 1341,
+      "cost_usd": null,
+      "request_id": "1992acaf-a617-49c6-a151-833ecd578578",
+      "finish_reason": "stop",
+      "error_type": null,
+      "case_id": "seg_008",
+      "candidate_id": "C001",
+      "purpose": "investigation"
+    },
+    {
+      "provider": "deepseek",
+      "model": "deepseek-flash",
+      "reasoning_effort": "low",
+      "status": "completed",
+      "latency_seconds": 12.625609,
+      "request_attempts": 1,
+      "retry_count": 0,
+      "prompt_tokens": 6297,
+      "completion_tokens": 2236,
+      "total_tokens": 8533,
+      "cached_prompt_tokens": 384,
+      "cache_miss_prompt_tokens": 5913,
+      "reasoning_tokens": 1633,
+      "cost_usd": null,
+      "request_id": "40214a04-fed4-4644-abed-b2a77cfbcb24",
+      "finish_reason": "stop",
+      "error_type": null,
+      "case_id": "seg_009",
+      "candidate_id": "C001",
+      "purpose": "event_review"
+    },
+    {
+      "provider": "deepseek",
+      "model": "deepseek-flash",
+      "reasoning_effort": "low",
+      "status": "completed",
+      "latency_seconds": 8.252921,
+      "request_attempts": 1,
+      "retry_count": 0,
+      "prompt_tokens": 6297,
+      "completion_tokens": 1402,
+      "total_tokens": 7699,
+      "cached_prompt_tokens": 384,
+      "cache_miss_prompt_tokens": 5913,
+      "reasoning_tokens": 816,
+      "cost_usd": null,
+      "request_id": "82864fad-bcb3-41f5-966c-d4ac05c5ec5b",
+      "finish_reason": "stop",
+      "error_type": null,
+      "case_id": "seg_009",
+      "candidate_id": "C002",
+      "purpose": "event_review"
+    },
+    {
+      "provider": "deepseek",
+      "model": "deepseek-flash",
+      "reasoning_effort": "low",
+      "status": "completed",
+      "latency_seconds": 8.817216,
+      "request_attempts": 1,
+      "retry_count": 0,
+      "prompt_tokens": 26101,
+      "completion_tokens": 1541,
+      "total_tokens": 27642,
+      "cached_prompt_tokens": 128,
+      "cache_miss_prompt_tokens": 25973,
+      "reasoning_tokens": 1025,
+      "cost_usd": null,
+      "request_id": "eb07088f-b651-46f1-a42d-324e7daf239b",
+      "finish_reason": "stop",
+      "error_type": null,
+      "case_id": "seg_009",
+      "candidate_id": "C001",
+      "purpose": "investigation"
+    },
+    {
+      "provider": "deepseek",
+      "model": "deepseek-flash",
+      "reasoning_effort": "low",
+      "status": "completed",
+      "latency_seconds": 3.850533,
+      "request_attempts": 1,
+      "retry_count": 0,
+      "prompt_tokens": 26029,
+      "completion_tokens": 774,
+      "total_tokens": 26803,
+      "cached_prompt_tokens": 128,
+      "cache_miss_prompt_tokens": 25901,
+      "reasoning_tokens": 258,
+      "cost_usd": null,
+      "request_id": "c61b2a51-3761-40ed-a376-d314dc68f76a",
+      "finish_reason": "stop",
+      "error_type": null,
+      "case_id": "seg_009",
+      "candidate_id": "C002",
+      "purpose": "investigation"
+    },
+    {
+      "provider": "deepseek",
+      "model": "deepseek-flash",
+      "reasoning_effort": "low",
+      "status": "completed",
+      "latency_seconds": 10.658365,
+      "request_attempts": 1,
+      "retry_count": 0,
+      "prompt_tokens": 7002,
+      "completion_tokens": 2171,
+      "total_tokens": 9173,
+      "cached_prompt_tokens": 384,
+      "cache_miss_prompt_tokens": 6618,
+      "reasoning_tokens": 1590,
+      "cost_usd": null,
+      "request_id": "2a622278-33c0-4a28-8171-60da4197929f",
+      "finish_reason": "stop",
+      "error_type": null,
+      "case_id": "seg_010",
+      "candidate_id": "C001",
+      "purpose": "event_review"
+    },
+    {
+      "provider": "deepseek",
+      "model": "deepseek-flash",
+      "reasoning_effort": "low",
+      "status": "completed",
+      "latency_seconds": 7.275678,
+      "request_attempts": 1,
+      "retry_count": 0,
+      "prompt_tokens": 31554,
+      "completion_tokens": 1096,
+      "total_tokens": 32650,
+      "cached_prompt_tokens": 128,
+      "cache_miss_prompt_tokens": 31426,
+      "reasoning_tokens": 635,
+      "cost_usd": null,
+      "request_id": "37b65dc3-18c0-4f18-af10-6bd8597561f8",
+      "finish_reason": "stop",
+      "error_type": null,
+      "case_id": "seg_010",
+      "candidate_id": "C001",
+      "purpose": "investigation"
+    },
+    {
+      "provider": "deepseek",
+      "model": "deepseek-flash",
+      "reasoning_effort": "low",
+      "status": "completed",
+      "latency_seconds": 14.41519,
+      "request_attempts": 1,
+      "retry_count": 0,
+      "prompt_tokens": 6875,
+      "completion_tokens": 2573,
+      "total_tokens": 9448,
+      "cached_prompt_tokens": 384,
+      "cache_miss_prompt_tokens": 6491,
+      "reasoning_tokens": 2096,
+      "cost_usd": null,
+      "request_id": "dcc0ee28-d013-4183-8c47-80bf771766e7",
+      "finish_reason": "stop",
+      "error_type": null,
+      "case_id": "seg_011",
+      "candidate_id": "C001",
+      "purpose": "event_review"
+    },
+    {
+      "provider": "deepseek",
+      "model": "deepseek-flash",
+      "reasoning_effort": "low",
+      "status": "completed",
+      "latency_seconds": 11.463972,
+      "request_attempts": 1,
+      "retry_count": 0,
+      "prompt_tokens": 5827,
+      "completion_tokens": 2119,
+      "total_tokens": 7946,
+      "cached_prompt_tokens": 384,
+      "cache_miss_prompt_tokens": 5443,
+      "reasoning_tokens": 1523,
+      "cost_usd": null,
+      "request_id": "695f7840-6298-4eaf-be38-a41b7e6c48f8",
+      "finish_reason": "stop",
+      "error_type": null,
+      "case_id": "seg_012",
+      "candidate_id": "C001",
+      "purpose": "event_review"
+    },
+    {
+      "provider": "deepseek",
+      "model": "deepseek-flash",
+      "reasoning_effort": "low",
+      "status": "completed",
+      "latency_seconds": 11.974179,
+      "request_attempts": 1,
+      "retry_count": 0,
+      "prompt_tokens": 5827,
+      "completion_tokens": 2120,
+      "total_tokens": 7947,
+      "cached_prompt_tokens": 384,
+      "cache_miss_prompt_tokens": 5443,
+      "reasoning_tokens": 1641,
+      "cost_usd": null,
+      "request_id": "07b7d2c5-6b82-4910-8c3b-81705cea0cd6",
+      "finish_reason": "stop",
+      "error_type": null,
+      "case_id": "seg_012",
+      "candidate_id": "C002",
+      "purpose": "event_review"
+    },
+    {
+      "provider": "deepseek",
+      "model": "deepseek-flash",
+      "reasoning_effort": "low",
+      "status": "completed",
+      "latency_seconds": 11.804116,
+      "request_attempts": 1,
+      "retry_count": 0,
+      "prompt_tokens": 5827,
+      "completion_tokens": 2164,
+      "total_tokens": 7991,
+      "cached_prompt_tokens": 384,
+      "cache_miss_prompt_tokens": 5443,
+      "reasoning_tokens": 1683,
+      "cost_usd": null,
+      "request_id": "a4c9e72c-499d-49f4-8e06-5b7825e871e8",
+      "finish_reason": "stop",
+      "error_type": null,
+      "case_id": "seg_012",
+      "candidate_id": "C003",
+      "purpose": "event_review"
+    },
+    {
+      "provider": "deepseek",
+      "model": "deepseek-flash",
+      "reasoning_effort": "low",
+      "status": "completed",
+      "latency_seconds": 10.022548,
+      "request_attempts": 1,
+      "retry_count": 0,
+      "prompt_tokens": 22472,
+      "completion_tokens": 1714,
+      "total_tokens": 24186,
+      "cached_prompt_tokens": 128,
+      "cache_miss_prompt_tokens": 22344,
+      "reasoning_tokens": 1129,
+      "cost_usd": null,
+      "request_id": "44424695-a831-4c66-a779-21dad509a406",
+      "finish_reason": "stop",
+      "error_type": null,
+      "case_id": "seg_012",
+      "candidate_id": "C001",
+      "purpose": "investigation"
+    },
+    {
+      "provider": "deepseek",
+      "model": "deepseek-flash",
+      "reasoning_effort": "low",
+      "status": "completed",
+      "latency_seconds": 9.940915,
+      "request_attempts": 1,
+      "retry_count": 0,
+      "prompt_tokens": 22474,
+      "completion_tokens": 1413,
+      "total_tokens": 23887,
+      "cached_prompt_tokens": 128,
+      "cache_miss_prompt_tokens": 22346,
+      "reasoning_tokens": 897,
+      "cost_usd": null,
+      "request_id": "42a81719-a07c-457a-9d6d-e6b5c37e9c3b",
+      "finish_reason": "stop",
+      "error_type": null,
+      "case_id": "seg_012",
+      "candidate_id": "C002",
+      "purpose": "investigation"
+    },
+    {
+      "provider": "deepseek",
+      "model": "deepseek-flash",
+      "reasoning_effort": "low",
+      "status": "completed",
+      "latency_seconds": 7.008348,
+      "request_attempts": 1,
+      "retry_count": 0,
+      "prompt_tokens": 22399,
+      "completion_tokens": 1228,
+      "total_tokens": 23627,
+      "cached_prompt_tokens": 128,
+      "cache_miss_prompt_tokens": 22271,
+      "reasoning_tokens": 712,
+      "cost_usd": null,
+      "request_id": "b7b1585c-738b-4e37-bc12-9b0194f7e615",
+      "finish_reason": "stop",
+      "error_type": null,
+      "case_id": "seg_012",
+      "candidate_id": "C003",
+      "purpose": "investigation"
+    },
+    {
+      "provider": "deepseek",
+      "model": "deepseek-flash",
+      "reasoning_effort": "low",
+      "status": "completed",
+      "latency_seconds": 9.674138,
+      "request_attempts": 1,
+      "retry_count": 0,
+      "prompt_tokens": 6062,
+      "completion_tokens": 1654,
+      "total_tokens": 7716,
+      "cached_prompt_tokens": 384,
+      "cache_miss_prompt_tokens": 5678,
+      "reasoning_tokens": 1187,
+      "cost_usd": null,
+      "request_id": "39947c54-b60a-4ba3-9568-6915a27d039c",
+      "finish_reason": "stop",
+      "error_type": null,
+      "case_id": "seg_013",
+      "candidate_id": "C001",
+      "purpose": "event_review"
+    },
+    {
+      "provider": "deepseek",
+      "model": "deepseek-flash",
+      "reasoning_effort": "low",
+      "status": "completed",
+      "latency_seconds": 8.188076,
+      "request_attempts": 1,
+      "retry_count": 0,
+      "prompt_tokens": 25021,
+      "completion_tokens": 1381,
+      "total_tokens": 26402,
+      "cached_prompt_tokens": 128,
+      "cache_miss_prompt_tokens": 24893,
+      "reasoning_tokens": 865,
+      "cost_usd": null,
+      "request_id": "80f0228d-7f11-40ac-99dc-6816490d8238",
+      "finish_reason": "stop",
+      "error_type": null,
+      "case_id": "seg_013",
+      "candidate_id": "C001",
+      "purpose": "investigation"
+    },
+    {
+      "provider": "deepseek",
+      "model": "deepseek-flash",
+      "reasoning_effort": "low",
+      "status": "completed",
+      "latency_seconds": 14.620617,
+      "request_attempts": 1,
+      "retry_count": 0,
+      "prompt_tokens": 6297,
+      "completion_tokens": 2533,
+      "total_tokens": 8830,
+      "cached_prompt_tokens": 384,
+      "cache_miss_prompt_tokens": 5913,
+      "reasoning_tokens": 2052,
+      "cost_usd": null,
+      "request_id": "0ddc1c23-57e6-43b9-ad03-3be4aaa79e15",
+      "finish_reason": "stop",
+      "error_type": null,
+      "case_id": "seg_014",
+      "candidate_id": "C001",
+      "purpose": "event_review"
+    },
+    {
+      "provider": "deepseek",
+      "model": "deepseek-flash",
+      "reasoning_effort": "low",
+      "status": "completed",
+      "latency_seconds": 9.15674,
+      "request_attempts": 1,
+      "retry_count": 0,
+      "prompt_tokens": 26462,
+      "completion_tokens": 1645,
+      "total_tokens": 28107,
+      "cached_prompt_tokens": 128,
+      "cache_miss_prompt_tokens": 26334,
+      "reasoning_tokens": 1129,
+      "cost_usd": null,
+      "request_id": "f5950e66-54f4-4000-b7e8-f616d72fec06",
+      "finish_reason": "stop",
+      "error_type": null,
+      "case_id": "seg_014",
+      "candidate_id": "C001",
+      "purpose": "investigation"
+    },
+    {
+      "provider": "deepseek",
+      "model": "deepseek-flash",
+      "reasoning_effort": "low",
+      "status": "completed",
+      "latency_seconds": 9.949393,
+      "request_attempts": 1,
+      "retry_count": 0,
+      "prompt_tokens": 6532,
+      "completion_tokens": 1626,
+      "total_tokens": 8158,
+      "cached_prompt_tokens": 384,
+      "cache_miss_prompt_tokens": 6148,
+      "reasoning_tokens": 1142,
+      "cost_usd": null,
+      "request_id": "ee1d99b7-7ad2-410a-82cf-87c49f52b8d6",
+      "finish_reason": "stop",
+      "error_type": null,
+      "case_id": "seg_015",
+      "candidate_id": "C001",
+      "purpose": "event_review"
+    },
+    {
+      "provider": "deepseek",
+      "model": "deepseek-flash",
+      "reasoning_effort": "low",
+      "status": "completed",
+      "latency_seconds": 10.760116,
+      "request_attempts": 1,
+      "retry_count": 0,
+      "prompt_tokens": 28728,
+      "completion_tokens": 1692,
+      "total_tokens": 30420,
+      "cached_prompt_tokens": 128,
+      "cache_miss_prompt_tokens": 28600,
+      "reasoning_tokens": 1231,
+      "cost_usd": null,
+      "request_id": "8dd876af-4f0c-4578-8fbe-c52856b74145",
+      "finish_reason": "stop",
+      "error_type": null,
+      "case_id": "seg_015",
+      "candidate_id": "C001",
+      "purpose": "investigation"
+    },
+    {
+      "provider": "deepseek",
+      "model": "deepseek-flash",
+      "reasoning_effort": "low",
+      "status": "completed",
+      "latency_seconds": 10.787661,
+      "request_attempts": 1,
+      "retry_count": 0,
+      "prompt_tokens": 5968,
+      "completion_tokens": 1813,
+      "total_tokens": 7781,
+      "cached_prompt_tokens": 384,
+      "cache_miss_prompt_tokens": 5584,
+      "reasoning_tokens": 1302,
+      "cost_usd": null,
+      "request_id": "11d7941f-a5da-44e5-8dd0-48ad9976bc58",
+      "finish_reason": "stop",
+      "error_type": null,
+      "case_id": "seg_016",
+      "candidate_id": "C001",
+      "purpose": "event_review"
+    },
+    {
+      "provider": "deepseek",
+      "model": "deepseek-flash",
+      "reasoning_effort": "low",
+      "status": "completed",
+      "latency_seconds": 20.299323,
+      "request_attempts": 1,
+      "retry_count": 0,
+      "prompt_tokens": 24566,
+      "completion_tokens": 3218,
+      "total_tokens": 27784,
+      "cached_prompt_tokens": 128,
+      "cache_miss_prompt_tokens": 24438,
+      "reasoning_tokens": 2757,
+      "cost_usd": null,
+      "request_id": "66ef2c7a-55c3-4b89-ba7e-663336cfda70",
+      "finish_reason": "stop",
+      "error_type": null,
+      "case_id": "seg_016",
+      "candidate_id": "C001",
+      "purpose": "investigation"
+    },
+    {
+      "provider": "deepseek",
+      "model": "deepseek-flash",
+      "reasoning_effort": "low",
+      "status": "completed",
+      "latency_seconds": 15.373041,
+      "request_attempts": 1,
+      "retry_count": 0,
+      "prompt_tokens": 6109,
+      "completion_tokens": 2533,
+      "total_tokens": 8642,
+      "cached_prompt_tokens": 384,
+      "cache_miss_prompt_tokens": 5725,
+      "reasoning_tokens": 2027,
+      "cost_usd": null,
+      "request_id": "a9da7e79-cfe9-4af7-8b26-7539cf8f4c7c",
+      "finish_reason": "stop",
+      "error_type": null,
+      "case_id": "seg_018",
+      "candidate_id": "C001",
+      "purpose": "event_review"
+    },
+    {
+      "provider": "deepseek",
+      "model": "deepseek-flash",
+      "reasoning_effort": "low",
+      "status": "completed",
+      "latency_seconds": 14.733178,
+      "request_attempts": 1,
+      "retry_count": 0,
+      "prompt_tokens": 25382,
+      "completion_tokens": 2401,
+      "total_tokens": 27783,
+      "cached_prompt_tokens": 128,
+      "cache_miss_prompt_tokens": 25254,
+      "reasoning_tokens": 1944,
+      "cost_usd": null,
+      "request_id": "b5174007-72be-4379-a399-2f7a5d3a8521",
+      "finish_reason": "stop",
+      "error_type": null,
+      "case_id": "seg_018",
+      "candidate_id": "C001",
+      "purpose": "investigation"
+    },
+    {
+      "provider": "deepseek",
+      "model": "deepseek-flash",
+      "reasoning_effort": "low",
+      "status": "completed",
+      "latency_seconds": 14.287045,
+      "request_attempts": 1,
+      "retry_count": 0,
+      "prompt_tokens": 6532,
+      "completion_tokens": 2656,
+      "total_tokens": 9188,
+      "cached_prompt_tokens": 384,
+      "cache_miss_prompt_tokens": 6148,
+      "reasoning_tokens": 2033,
+      "cost_usd": null,
+      "request_id": "9caa60ca-90aa-4665-a63d-e8fa48ec8aae",
+      "finish_reason": "stop",
+      "error_type": null,
+      "case_id": "seg_019",
+      "candidate_id": "C001",
+      "purpose": "event_review"
+    },
+    {
+      "provider": "deepseek",
+      "model": "deepseek-flash",
+      "reasoning_effort": "low",
+      "status": "completed",
+      "latency_seconds": 9.882997,
+      "request_attempts": 1,
+      "retry_count": 0,
+      "prompt_tokens": 34860,
+      "completion_tokens": 1491,
+      "total_tokens": 36351,
+      "cached_prompt_tokens": 128,
+      "cache_miss_prompt_tokens": 34732,
+      "reasoning_tokens": 981,
+      "cost_usd": null,
+      "request_id": "a19c921f-b6ff-4936-a3ef-ae45b36fb2cd",
+      "finish_reason": "stop",
+      "error_type": null,
+      "case_id": "seg_019",
+      "candidate_id": "C001",
+      "purpose": "investigation"
+    },
+    {
+      "provider": "deepseek",
+      "model": "deepseek-flash",
+      "reasoning_effort": "low",
+      "status": "completed",
+      "latency_seconds": 15.626305,
+      "request_attempts": 1,
+      "retry_count": 0,
+      "prompt_tokens": 6344,
+      "completion_tokens": 2958,
+      "total_tokens": 9302,
+      "cached_prompt_tokens": 384,
+      "cache_miss_prompt_tokens": 5960,
+      "reasoning_tokens": 2503,
+      "cost_usd": null,
+      "request_id": "fc3fbf26-cec1-4337-9a5c-b72074176e73",
+      "finish_reason": "stop",
+      "error_type": null,
+      "case_id": "seg_020",
+      "candidate_id": "C001",
+      "purpose": "event_review"
+    },
+    {
+      "provider": "deepseek",
+      "model": "deepseek-flash",
+      "reasoning_effort": "low",
+      "status": "completed",
+      "latency_seconds": 9.206365,
+      "request_attempts": 1,
+      "retry_count": 0,
+      "prompt_tokens": 27605,
+      "completion_tokens": 1433,
+      "total_tokens": 29038,
+      "cached_prompt_tokens": 128,
+      "cache_miss_prompt_tokens": 27477,
+      "reasoning_tokens": 917,
+      "cost_usd": null,
+      "request_id": "7a2f4956-72a0-42fd-a3be-befe8762bc22",
+      "finish_reason": "stop",
+      "error_type": null,
+      "case_id": "seg_020",
+      "candidate_id": "C001",
+      "purpose": "investigation"
+    },
+    {
+      "provider": "deepseek",
+      "model": "deepseek-flash",
+      "reasoning_effort": "low",
+      "status": "completed",
+      "latency_seconds": 11.736503,
+      "request_attempts": 1,
+      "retry_count": 0,
+      "prompt_tokens": 6532,
+      "completion_tokens": 2128,
+      "total_tokens": 8660,
+      "cached_prompt_tokens": 384,
+      "cache_miss_prompt_tokens": 6148,
+      "reasoning_tokens": 1626,
+      "cost_usd": null,
+      "request_id": "0fb6177d-48bd-467d-b942-69f9e44dfe38",
+      "finish_reason": "stop",
+      "error_type": null,
+      "case_id": "seg_021",
+      "candidate_id": "C001",
+      "purpose": "event_review"
+    },
+    {
+      "provider": "deepseek",
+      "model": "deepseek-flash",
+      "reasoning_effort": "low",
+      "status": "completed",
+      "latency_seconds": 11.252713,
+      "request_attempts": 1,
+      "retry_count": 0,
+      "prompt_tokens": 27060,
+      "completion_tokens": 1863,
+      "total_tokens": 28923,
+      "cached_prompt_tokens": 128,
+      "cache_miss_prompt_tokens": 26932,
+      "reasoning_tokens": 1402,
+      "cost_usd": null,
+      "request_id": "55bb2d2d-6a04-4db3-9afb-6bc509d8b59c",
+      "finish_reason": "stop",
+      "error_type": null,
+      "case_id": "seg_021",
+      "candidate_id": "C001",
+      "purpose": "investigation"
+    },
+    {
+      "provider": "deepseek",
+      "model": "deepseek-flash",
+      "reasoning_effort": "low",
+      "status": "completed",
+      "latency_seconds": 14.326996,
+      "request_attempts": 1,
+      "retry_count": 0,
+      "prompt_tokens": 6532,
+      "completion_tokens": 2451,
+      "total_tokens": 8983,
+      "cached_prompt_tokens": 384,
+      "cache_miss_prompt_tokens": 6148,
+      "reasoning_tokens": 1955,
+      "cost_usd": null,
+      "request_id": "d62b7de8-1e92-419d-b4d1-eb5893f35af0",
+      "finish_reason": "stop",
+      "error_type": null,
+      "case_id": "seg_025",
+      "candidate_id": "C001",
+      "purpose": "event_review"
+    },
+    {
+      "provider": "deepseek",
+      "model": "deepseek-flash",
+      "reasoning_effort": "low",
+      "status": "completed",
+      "latency_seconds": 18.38981,
+      "request_attempts": 1,
+      "retry_count": 0,
+      "prompt_tokens": 27987,
+      "completion_tokens": 2866,
+      "total_tokens": 30853,
+      "cached_prompt_tokens": 128,
+      "cache_miss_prompt_tokens": 27859,
+      "reasoning_tokens": 2394,
+      "cost_usd": null,
+      "request_id": "48d128c9-20cd-49b8-8306-b24bad4c5ae5",
+      "finish_reason": "stop",
+      "error_type": null,
+      "case_id": "seg_025",
+      "candidate_id": "C001",
+      "purpose": "investigation"
+    },
+    {
+      "provider": "deepseek",
+      "model": "deepseek-flash",
+      "reasoning_effort": "low",
+      "status": "completed",
+      "latency_seconds": 9.76362,
+      "request_attempts": 1,
+      "retry_count": 0,
+      "prompt_tokens": 6532,
+      "completion_tokens": 1589,
+      "total_tokens": 8121,
+      "cached_prompt_tokens": 384,
+      "cache_miss_prompt_tokens": 6148,
+      "reasoning_tokens": 1092,
+      "cost_usd": null,
+      "request_id": "46880611-2f9e-4ab3-a094-c6c962006441",
+      "finish_reason": "stop",
+      "error_type": null,
+      "case_id": "seg_026",
+      "candidate_id": "C001",
+      "purpose": "event_review"
+    },
+    {
+      "provider": "deepseek",
+      "model": "deepseek-flash",
+      "reasoning_effort": "low",
+      "status": "completed",
+      "latency_seconds": 17.891199,
+      "request_attempts": 1,
+      "retry_count": 0,
+      "prompt_tokens": 27627,
+      "completion_tokens": 2676,
+      "total_tokens": 30303,
+      "cached_prompt_tokens": 128,
+      "cache_miss_prompt_tokens": 27499,
+      "reasoning_tokens": 2208,
+      "cost_usd": null,
+      "request_id": "296153be-e4d9-40fe-812c-ace57844b130",
+      "finish_reason": "stop",
+      "error_type": null,
+      "case_id": "seg_026",
+      "candidate_id": "C001",
+      "purpose": "investigation"
+    },
+    {
+      "provider": "deepseek",
+      "model": "deepseek-flash",
+      "reasoning_effort": "low",
+      "status": "completed",
+      "latency_seconds": 10.280301,
+      "request_attempts": 1,
+      "retry_count": 0,
+      "prompt_tokens": 6532,
+      "completion_tokens": 1740,
+      "total_tokens": 8272,
+      "cached_prompt_tokens": 384,
+      "cache_miss_prompt_tokens": 6148,
+      "reasoning_tokens": 1226,
+      "cost_usd": null,
+      "request_id": "aecf5469-59e2-4e05-8a3a-b35782efc471",
+      "finish_reason": "stop",
+      "error_type": null,
+      "case_id": "seg_027",
+      "candidate_id": "C001",
+      "purpose": "event_review"
+    },
+    {
+      "provider": "deepseek",
+      "model": "deepseek-flash",
+      "reasoning_effort": "low",
+      "status": "completed",
+      "latency_seconds": 18.197622,
+      "request_attempts": 1,
+      "retry_count": 0,
+      "prompt_tokens": 28480,
+      "completion_tokens": 2908,
+      "total_tokens": 31388,
+      "cached_prompt_tokens": 128,
+      "cache_miss_prompt_tokens": 28352,
+      "reasoning_tokens": 2442,
+      "cost_usd": null,
+      "request_id": "2410d28d-16cb-49e3-baaa-9ec20022beac",
+      "finish_reason": "stop",
+      "error_type": null,
+      "case_id": "seg_027",
+      "candidate_id": "C001",
+      "purpose": "investigation"
+    },
+    {
+      "provider": "deepseek",
+      "model": "deepseek-flash",
+      "reasoning_effort": "low",
+      "status": "completed",
+      "latency_seconds": 10.858092,
+      "request_attempts": 1,
+      "retry_count": 0,
+      "prompt_tokens": 6532,
+      "completion_tokens": 1886,
+      "total_tokens": 8418,
+      "cached_prompt_tokens": 384,
+      "cache_miss_prompt_tokens": 6148,
+      "reasoning_tokens": 1385,
+      "cost_usd": null,
+      "request_id": "299fba7d-b04d-48ca-a1f2-ac64e5c19da3",
+      "finish_reason": "stop",
+      "error_type": null,
+      "case_id": "seg_028",
+      "candidate_id": "C001",
+      "purpose": "event_review"
+    },
+    {
+      "provider": "deepseek",
+      "model": "deepseek-flash",
+      "reasoning_effort": "low",
+      "status": "failed",
+      "latency_seconds": 0.906088,
+      "request_attempts": 1,
+      "retry_count": 0,
+      "prompt_tokens": null,
+      "completion_tokens": null,
+      "total_tokens": null,
+      "cached_prompt_tokens": null,
+      "cache_miss_prompt_tokens": null,
+      "reasoning_tokens": null,
+      "cost_usd": null,
+      "request_id": null,
+      "finish_reason": null,
+      "error_type": "APIStatusError",
+      "case_id": "seg_028",
+      "candidate_id": "C001",
+      "purpose": "investigation"
+    },
+    {
+      "provider": "deepseek",
+      "model": "deepseek-flash",
+      "reasoning_effort": "low",
+      "status": "completed",
+      "latency_seconds": 19.052279,
+      "request_attempts": 1,
+      "retry_count": 0,
+      "prompt_tokens": 6626,
+      "completion_tokens": 3478,
+      "total_tokens": 10104,
+      "cached_prompt_tokens": 384,
+      "cache_miss_prompt_tokens": 6242,
+      "reasoning_tokens": 2880,
+      "cost_usd": null,
+      "request_id": "a0f64432-5055-4c95-98bd-9b45d71c28ab",
+      "finish_reason": "stop",
+      "error_type": null,
+      "case_id": "seg_029",
+      "candidate_id": "C001",
+      "purpose": "event_review"
+    },
+    {
+      "provider": "deepseek",
+      "model": "deepseek-flash",
+      "reasoning_effort": "low",
+      "status": "failed",
+      "latency_seconds": 0.530707,
+      "request_attempts": 1,
+      "retry_count": 0,
+      "prompt_tokens": null,
+      "completion_tokens": null,
+      "total_tokens": null,
+      "cached_prompt_tokens": null,
+      "cache_miss_prompt_tokens": null,
+      "reasoning_tokens": null,
+      "cost_usd": null,
+      "request_id": null,
+      "finish_reason": null,
+      "error_type": "APIStatusError",
+      "case_id": "seg_029",
+      "candidate_id": "C001",
+      "purpose": "investigation"
+    }
+  ],
+  "model_call_count": 51,
+  "observation_design_agreement": {
+    "matched": 26,
+    "assessed": 26,
+    "not_assessed": 0,
+    "rate": 1.0,
+    "meaning": "程序观测分类与仿真设计预期的一致性；不是AI建议有用率或根因准确率"
+  },
+  "dataset_name": "sim-batch-02 · 场景合成数据评测",
+  "reference_method": "program_reference_verified_by_human_not_blind",
+  "completed_at": "2026-10-15T06:15:53.479316+00:00",
+  "metric_rules": {
+    "event_iou": 0.5,
+    "candidate_coverage": 0.9,
+    "rejection_coverage": 0.5
+  }
+}

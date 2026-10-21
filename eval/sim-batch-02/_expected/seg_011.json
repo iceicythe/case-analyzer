@@ -1,0 +1,23 @@
+{
+  "case_id": "seg_011",
+  "scene": "受控边界样本：半秒窗口降幅 0.998 m/s，低于门槛但高于候选粗筛",
+  "t0": 54782.4,
+  "duration": 30.0,
+  "design_events": [],
+  "expect_candidates": 1,
+  "expect_verdict": "below_numeric_rule",
+  "expect_statuses": [],
+  "expect_boundary": false,
+  "expect_object": "normal",
+  "expect_import_warning": false,
+  "label_decision": "negative",
+  "note": "典型误报样本：程序会报候选，但按数值规则不该算事件。",
+  "has_object_log": true,
+  "jitter": false,
+  "vehicle_gaps": [],
+  "planning_gaps": [],
+  "control_gaps": [],
+  "object_gaps": [],
+  "planning_offset": 0.0,
+  "planning_period": 0.1
+}

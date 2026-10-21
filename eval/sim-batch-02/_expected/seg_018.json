@@ -1,0 +1,30 @@
+{
+  "case_id": "seg_018",
+  "scene": "车流波动：先加速跟进，随后跟随减速",
+  "t0": 53088.6,
+  "duration": 28.0,
+  "design_events": [
+    [
+      9.0,
+      11.2
+    ]
+  ],
+  "expect_candidates": 1,
+  "expect_verdict": "meets_numeric_rule",
+  "expect_statuses": [
+    "planning_trigger_needs_review"
+  ],
+  "expect_boundary": false,
+  "expect_object": "normal",
+  "expect_import_warning": false,
+  "label_decision": "positive",
+  "note": "",
+  "has_object_log": true,
+  "jitter": true,
+  "vehicle_gaps": [],
+  "planning_gaps": [],
+  "control_gaps": [],
+  "object_gaps": [],
+  "planning_offset": 0.0,
+  "planning_period": 0.1
+}

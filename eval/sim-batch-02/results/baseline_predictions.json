@@ -1,0 +1,520 @@
+{
+  "cases": {
+    "seg_001": {
+      "candidates": [
+        {
+          "candidate_id": "C001",
+          "interval": [
+            59312.6,
+            59316.0
+          ],
+          "status": "ai_confirmed_event",
+          "confirmed_intervals": [
+            [
+              59312.8,
+              59315.8
+            ]
+          ]
+        }
+      ]
+    },
+    "seg_002": {
+      "candidates": [
+        {
+          "candidate_id": "C001",
+          "interval": [
+            61610.8,
+            61613.7
+          ],
+          "status": "ai_confirmed_event",
+          "confirmed_intervals": [
+            [
+              61610.9,
+              61613.6
+            ]
+          ]
+        }
+      ]
+    },
+    "seg_003": {
+      "candidates": [
+        {
+          "candidate_id": "C001",
+          "interval": [
+            54261.0,
+            54267.9
+          ],
+          "status": "ai_confirmed_event",
+          "confirmed_intervals": [
+            [
+              54261.2,
+              54267.7
+            ]
+          ]
+        }
+      ]
+    },
+    "seg_004": {
+      "candidates": [
+        {
+          "candidate_id": "C001",
+          "interval": [
+            17217.6,
+            17222.0
+          ],
+          "status": "ai_confirmed_event",
+          "confirmed_intervals": [
+            [
+              17217.8,
+              17221.8
+            ]
+          ]
+        }
+      ]
+    },
+    "seg_005": {
+      "candidates": [
+        {
+          "candidate_id": "C001",
+          "interval": [
+            6160.7,
+            6164.0
+          ],
+          "status": "ai_confirmed_event",
+          "confirmed_intervals": [
+            [
+              6160.8,
+              6163.9
+            ]
+          ]
+        }
+      ]
+    },
+    "seg_006": {
+      "candidates": []
+    },
+    "seg_007": {
+      "candidates": []
+    },
+    "seg_008": {
+      "candidates": [
+        {
+          "candidate_id": "C001",
+          "interval": [
+            37775.5,
+            37782.2
+          ],
+          "status": "ai_confirmed_event",
+          "confirmed_intervals": [
+            [
+              37775.7,
+              37778.7
+            ],
+            [
+              37779.0,
+              37782.0
+            ]
+          ]
+        }
+      ]
+    },
+    "seg_009": {
+      "candidates": [
+        {
+          "candidate_id": "C001",
+          "interval": [
+            11886.8,
+            11889.7
+          ],
+          "status": "ai_confirmed_event",
+          "confirmed_intervals": [
+            [
+              11887.0,
+              11889.5
+            ]
+          ]
+        },
+        {
+          "candidate_id": "C002",
+          "interval": [
+            11893.8,
+            11896.7
+          ],
+          "status": "ai_confirmed_event",
+          "confirmed_intervals": [
+            [
+              11894.0,
+              11896.5
+            ]
+          ]
+        }
+      ]
+    },
+    "seg_010": {
+      "candidates": [
+        {
+          "candidate_id": "C001",
+          "interval": [
+            41103.7,
+            41108.1
+          ],
+          "status": "ai_confirmed_event",
+          "confirmed_intervals": [
+            [
+              41103.9,
+              41107.9
+            ]
+          ]
+        }
+      ]
+    },
+    "seg_011": {
+      "candidates": [
+        {
+          "candidate_id": "C001",
+          "interval": [
+            54790.3,
+            54794.5
+          ],
+          "status": "ai_rejected_candidate",
+          "confirmed_intervals": []
+        }
+      ]
+    },
+    "seg_012": {
+      "candidates": [
+        {
+          "candidate_id": "C001",
+          "interval": [
+            8952.0,
+            8953.9
+          ],
+          "status": "ai_confirmed_event",
+          "confirmed_intervals": [
+            [
+              8952.2,
+              8953.7
+            ]
+          ]
+        },
+        {
+          "candidate_id": "C002",
+          "interval": [
+            8955.5,
+            8957.4
+          ],
+          "status": "ai_confirmed_event",
+          "confirmed_intervals": [
+            [
+              8955.7,
+              8957.2
+            ]
+          ]
+        },
+        {
+          "candidate_id": "C003",
+          "interval": [
+            8959.0,
+            8960.9
+          ],
+          "status": "ai_confirmed_event",
+          "confirmed_intervals": [
+            [
+              8959.2,
+              8960.7
+            ]
+          ]
+        }
+      ]
+    },
+    "seg_013": {
+      "candidates": [
+        {
+          "candidate_id": "C001",
+          "interval": [
+            56404.4,
+            56406.8
+          ],
+          "status": "ai_confirmed_event",
+          "confirmed_intervals": [
+            [
+              56404.5,
+              56406.6
+            ]
+          ]
+        }
+      ]
+    },
+    "seg_014": {
+      "candidates": [
+        {
+          "candidate_id": "C001",
+          "interval": [
+            39130.2,
+            39133.1
+          ],
+          "status": "ai_confirmed_event",
+          "confirmed_intervals": [
+            [
+              39130.4,
+              39132.9
+            ]
+          ]
+        }
+      ]
+    },
+    "seg_015": {
+      "candidates": [
+        {
+          "candidate_id": "C001",
+          "interval": [
+            50847.0,
+            50850.4
+          ],
+          "status": "ai_confirmed_event",
+          "confirmed_intervals": [
+            [
+              50847.1,
+              50850.2
+            ]
+          ]
+        }
+      ]
+    },
+    "seg_016": {
+      "candidates": [
+        {
+          "candidate_id": "C001",
+          "interval": [
+            37460.5,
+            37462.7
+          ],
+          "status": "ai_confirmed_event",
+          "confirmed_intervals": [
+            [
+              37460.6,
+              37462.6
+            ]
+          ]
+        }
+      ]
+    },
+    "seg_017": {
+      "candidates": []
+    },
+    "seg_018": {
+      "candidates": [
+        {
+          "candidate_id": "C001",
+          "interval": [
+            53097.5,
+            53100.0
+          ],
+          "status": "ai_confirmed_event",
+          "confirmed_intervals": [
+            [
+              53097.6,
+              53099.8
+            ]
+          ]
+        }
+      ]
+    },
+    "seg_019": {
+      "candidates": [
+        {
+          "candidate_id": "C001",
+          "interval": [
+            33977.7,
+            33981.1
+          ],
+          "status": "ai_confirmed_event",
+          "confirmed_intervals": [
+            [
+              33977.9,
+              33981.0
+            ]
+          ]
+        }
+      ]
+    },
+    "seg_020": {
+      "candidates": [
+        {
+          "candidate_id": "C001",
+          "interval": [
+            45135.5,
+            45138.5
+          ],
+          "status": "ai_confirmed_event",
+          "confirmed_intervals": [
+            [
+              45135.6,
+              45138.4
+            ]
+          ]
+        }
+      ]
+    },
+    "seg_021": {
+      "candidates": [
+        {
+          "candidate_id": "C001",
+          "interval": [
+            2646.0,
+            2649.4
+          ],
+          "status": "ai_confirmed_event",
+          "confirmed_intervals": [
+            [
+              2646.2,
+              2649.2
+            ]
+          ]
+        }
+      ]
+    },
+    "seg_022": {
+      "candidates": [
+        {
+          "candidate_id": "C001",
+          "interval": [
+            48093.0,
+            48096.4
+          ],
+          "status": "needs_human",
+          "confirmed_intervals": []
+        }
+      ]
+    },
+    "seg_023": {
+      "candidates": [
+        {
+          "candidate_id": "C001",
+          "interval": [
+            54735.0,
+            54740.9
+          ],
+          "status": "needs_human",
+          "confirmed_intervals": []
+        },
+        {
+          "candidate_id": "C002",
+          "interval": [
+            54741.3,
+            54743.4
+          ],
+          "status": "needs_human",
+          "confirmed_intervals": []
+        }
+      ]
+    },
+    "seg_024": {
+      "candidates": []
+    },
+    "seg_025": {
+      "candidates": [
+        {
+          "candidate_id": "C001",
+          "interval": [
+            37673.3,
+            37676.7
+          ],
+          "status": "ai_confirmed_event",
+          "confirmed_intervals": [
+            [
+              37673.5,
+              37676.6
+            ]
+          ]
+        }
+      ]
+    },
+    "seg_026": {
+      "candidates": [
+        {
+          "candidate_id": "C001",
+          "interval": [
+            43158.6,
+            43162.0
+          ],
+          "status": "ai_confirmed_event",
+          "confirmed_intervals": [
+            [
+              43158.8,
+              43161.8
+            ]
+          ]
+        }
+      ]
+    },
+    "seg_027": {
+      "candidates": [
+        {
+          "candidate_id": "C001",
+          "interval": [
+            17271.0,
+            17274.4
+          ],
+          "status": "ai_confirmed_event",
+          "confirmed_intervals": [
+            [
+              17271.2,
+              17274.2
+            ]
+          ]
+        }
+      ]
+    },
+    "seg_028": {
+      "candidates": [
+        {
+          "candidate_id": "C001",
+          "interval": [
+            6742.9,
+            6746.3
+          ],
+          "status": "ai_confirmed_event",
+          "confirmed_intervals": [
+            [
+              6743.1,
+              6746.1
+            ]
+          ]
+        }
+      ]
+    },
+    "seg_029": {
+      "candidates": [
+        {
+          "candidate_id": "C001",
+          "interval": [
+            6945.7,
+            6949.3
+          ],
+          "status": "ai_confirmed_event",
+          "confirmed_intervals": [
+            [
+              6945.9,
+              6949.1
+            ]
+          ]
+        }
+      ]
+    },
+    "seg_030": {
+      "candidates": [
+        {
+          "candidate_id": "C001",
+          "interval": [
+            48196.4,
+            48199.9
+          ],
+          "status": "needs_human",
+          "confirmed_intervals": []
+        }
+      ]
+    }
+  },
+  "reports": {}
+}

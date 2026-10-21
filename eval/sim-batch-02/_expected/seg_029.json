@@ -1,0 +1,30 @@
+{
+  "case_id": "seg_029",
+  "scene": "规划以 5 Hz 输出（0.2 秒周期），车辆为 10 Hz 采样",
+  "t0": 6936.9,
+  "duration": 29.0,
+  "design_events": [
+    [
+      9.0,
+      12.2
+    ]
+  ],
+  "expect_candidates": 1,
+  "expect_verdict": "meets_numeric_rule",
+  "expect_statuses": [
+    "vehicle_response_unexplained"
+  ],
+  "expect_boundary": false,
+  "expect_object": "normal",
+  "expect_import_warning": false,
+  "label_decision": "positive",
+  "note": "模块输出速率不同：落在规划周期中点的车辆采样对齐歧义，链路应判证据不足。",
+  "has_object_log": true,
+  "jitter": true,
+  "vehicle_gaps": [],
+  "planning_gaps": [],
+  "control_gaps": [],
+  "object_gaps": [],
+  "planning_offset": 0.0,
+  "planning_period": 0.2
+}

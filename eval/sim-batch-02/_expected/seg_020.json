@@ -1,0 +1,30 @@
+{
+  "case_id": "seg_020",
+  "scene": "事件中目标轨迹重联（跟踪标识切换）",
+  "t0": 45126.7,
+  "duration": 28.0,
+  "design_events": [
+    [
+      9.0,
+      11.6
+    ]
+  ],
+  "expect_candidates": 1,
+  "expect_verdict": "meets_numeric_rule",
+  "expect_statuses": [
+    "planning_trigger_needs_review"
+  ],
+  "expect_boundary": false,
+  "expect_object": "normal",
+  "expect_import_warning": false,
+  "label_decision": "positive",
+  "note": "同一前车的跟踪标识在事件中段切换；每时刻仅一条记录，目标证据应保持正常对齐。",
+  "has_object_log": true,
+  "jitter": true,
+  "vehicle_gaps": [],
+  "planning_gaps": [],
+  "control_gaps": [],
+  "object_gaps": [],
+  "planning_offset": 0.0,
+  "planning_period": 0.1
+}

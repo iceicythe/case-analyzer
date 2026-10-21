@@ -1,0 +1,23 @@
+{
+  "case_id": "seg_017",
+  "scene": "长下坡松油门滑行，缓慢单调降速（阴性对照）",
+  "t0": 52257.2,
+  "duration": 30.0,
+  "design_events": [],
+  "expect_candidates": 0,
+  "expect_verdict": "none",
+  "expect_statuses": [],
+  "expect_boundary": false,
+  "expect_object": "absent",
+  "expect_import_warning": false,
+  "label_decision": "negative",
+  "note": "",
+  "has_object_log": false,
+  "jitter": true,
+  "vehicle_gaps": [],
+  "planning_gaps": [],
+  "control_gaps": [],
+  "object_gaps": [],
+  "planning_offset": 0.0,
+  "planning_period": 0.1
+}

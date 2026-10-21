@@ -1,0 +1,35 @@
+{
+  "case_id": "seg_009",
+  "scene": "两次相隔较远的独立减速事件",
+  "t0": 11881.0,
+  "duration": 30.0,
+  "design_events": [
+    [
+      6.0,
+      8.5
+    ],
+    [
+      13.0,
+      15.5
+    ]
+  ],
+  "expect_candidates": 2,
+  "expect_verdict": "meets_numeric_rule",
+  "expect_statuses": [
+    "planning_trigger_needs_review",
+    "planning_trigger_needs_review"
+  ],
+  "expect_boundary": false,
+  "expect_object": "normal",
+  "expect_import_warning": false,
+  "label_decision": "positive",
+  "note": "",
+  "has_object_log": true,
+  "jitter": true,
+  "vehicle_gaps": [],
+  "planning_gaps": [],
+  "control_gaps": [],
+  "object_gaps": [],
+  "planning_offset": 0.0,
+  "planning_period": 0.1
+}

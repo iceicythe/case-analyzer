@@ -1,0 +1,30 @@
+{
+  "case_id": "seg_027",
+  "scene": "规划时钟相位差半格（+0.05 秒）",
+  "t0": 17261.2,
+  "duration": 29.0,
+  "design_events": [
+    [
+      10.0,
+      13.0
+    ]
+  ],
+  "expect_candidates": 1,
+  "expect_verdict": "meets_numeric_rule",
+  "expect_statuses": [
+    "vehicle_response_unexplained"
+  ],
+  "expect_boundary": false,
+  "expect_object": "normal",
+  "expect_import_warning": false,
+  "label_decision": "positive",
+  "note": "规划时间戳整体偏移半个采样周期：每个车辆采样到最近规划行均为等距并列，全时段对齐歧义。",
+  "has_object_log": true,
+  "jitter": true,
+  "vehicle_gaps": [],
+  "planning_gaps": [],
+  "control_gaps": [],
+  "object_gaps": [],
+  "planning_offset": 0.05,
+  "planning_period": 0.1
+}

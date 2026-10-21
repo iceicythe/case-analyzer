@@ -1,0 +1,40 @@
+{
+  "case_id": "seg_023",
+  "scene": "事件中段存在 0.3 秒采样缺口（单次连续减速被拆分）",
+  "t0": 54727.2,
+  "duration": 30.0,
+  "design_events": [
+    [
+      8.0,
+      13.7
+    ],
+    [
+      14.1,
+      16.0
+    ]
+  ],
+  "expect_candidates": 2,
+  "expect_verdict": "source_unverified",
+  "expect_statuses": [
+    "planning_trigger_needs_review",
+    "planning_trigger_needs_review"
+  ],
+  "expect_boundary": false,
+  "expect_object": "normal",
+  "expect_import_warning": true,
+  "label_decision": "positive",
+  "note": "缺口穿过事件内部：桥接合并被禁用，应拆分为两个区间且均判 source_unverified。",
+  "has_object_log": true,
+  "jitter": true,
+  "vehicle_gaps": [
+    [
+      13.8,
+      14.1
+    ]
+  ],
+  "planning_gaps": [],
+  "control_gaps": [],
+  "object_gaps": [],
+  "planning_offset": 0.0,
+  "planning_period": 0.1
+}

@@ -1,0 +1,35 @@
+{
+  "case_id": "seg_025",
+  "scene": "规划日志在事件中段丢失 1 秒",
+  "t0": 37663.5,
+  "duration": 29.0,
+  "design_events": [
+    [
+      10.0,
+      13.0
+    ]
+  ],
+  "expect_candidates": 1,
+  "expect_verdict": "meets_numeric_rule",
+  "expect_statuses": [
+    "vehicle_response_unexplained"
+  ],
+  "expect_boundary": false,
+  "expect_object": "normal",
+  "expect_import_warning": false,
+  "label_decision": "positive",
+  "note": "车辆侧事件正常检出；事件中段规划行缺失，链路证据不足应判 vehicle_response_unexplained。",
+  "has_object_log": true,
+  "jitter": true,
+  "vehicle_gaps": [],
+  "planning_gaps": [
+    [
+      12.0,
+      13.0
+    ]
+  ],
+  "control_gaps": [],
+  "object_gaps": [],
+  "planning_offset": 0.0,
+  "planning_period": 0.1
+}

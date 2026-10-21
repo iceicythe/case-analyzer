@@ -1,0 +1,548 @@
+{
+  "seg_001": {
+    "quality": {
+      "can_complete": true,
+      "issues": [],
+      "original_can": {
+        "verified": true,
+        "issues": [],
+        "gaps": [],
+        "metadata_sha256": "27b8b28cdd0f207262e189752772474b0a909e86cbaa9e5611bc95fe3e361d55",
+        "original_can_sha256": null,
+        "source_type": "synthetic",
+        "source_label": "合成数据；已核对导入完整性，非真实道路采集",
+        "source_sha256": "05010b751f97b66c527bb3fb9b9e698f2d5a4d6650721dd0eed647440359ddb5"
+      },
+      "boundary_review_required": false
+    },
+    "boundary_review_required": false
+  },
+  "seg_002": {
+    "quality": {
+      "can_complete": true,
+      "issues": [],
+      "original_can": {
+        "verified": true,
+        "issues": [],
+        "gaps": [],
+        "metadata_sha256": "dc53629751508a69f9f4753082cee14cfc86bbdf6fee24b583eeeb2ab65b68fb",
+        "original_can_sha256": null,
+        "source_type": "synthetic",
+        "source_label": "合成数据；已核对导入完整性，非真实道路采集",
+        "source_sha256": "92f07e3f96bb6260d63cd35fe320f2b7a75bbeb12f8abc78502f64d57bf00fbe"
+      },
+      "boundary_review_required": false
+    },
+    "boundary_review_required": false
+  },
+  "seg_003": {
+    "quality": {
+      "can_complete": true,
+      "issues": [],
+      "original_can": {
+        "verified": true,
+        "issues": [],
+        "gaps": [],
+        "metadata_sha256": "b6d72095e4a7d7c897d210b7e895dfa64c889320a0737849a4d334d422621eac",
+        "original_can_sha256": null,
+        "source_type": "synthetic",
+        "source_label": "合成数据；已核对导入完整性，非真实道路采集",
+        "source_sha256": "b9137ecce1bdfe02bce38191e035eec5e4dc708517b807028e2448990e0e9862"
+      },
+      "boundary_review_required": false
+    },
+    "boundary_review_required": false
+  },
+  "seg_004": {
+    "quality": {
+      "can_complete": true,
+      "issues": [],
+      "original_can": {
+        "verified": true,
+        "issues": [],
+        "gaps": [],
+        "metadata_sha256": "3d829b7e5d71ce037c554891878a59cfea2166154cffb75439b6e0000a9c1129",
+        "original_can_sha256": null,
+        "source_type": "synthetic",
+        "source_label": "合成数据；已核对导入完整性，非真实道路采集",
+        "source_sha256": "748bfb7d1bd4deb314922e634b39ba6afa913950c89aa34e6c6828a53a53a6e5"
+      },
+      "boundary_review_required": false
+    },
+    "boundary_review_required": false
+  },
+  "seg_005": {
+    "quality": {
+      "can_complete": true,
+      "issues": [],
+      "original_can": {
+        "verified": true,
+        "issues": [],
+        "gaps": [],
+        "metadata_sha256": "091ca1b5ad209e0450dffa8cec58d18ceded07a3d94a2445d1f33a88bd12bbc0",
+        "original_can_sha256": null,
+        "source_type": "synthetic",
+        "source_label": "合成数据；已核对导入完整性，非真实道路采集",
+        "source_sha256": "08e0d8c5b092df49f00ccdddc1f8126aa1eac3f60a4ff9f23dd8599ab0b4c88a"
+      },
+      "boundary_review_required": false
+    },
+    "boundary_review_required": false
+  },
+  "seg_006": {
+    "quality": {
+      "can_complete": true,
+      "issues": [],
+      "original_can": {
+        "verified": true,
+        "issues": [],
+        "gaps": [],
+        "metadata_sha256": "7502240a875f9cbdde8903b248dfc368483d53428ffa3a14da05d18be3f9c33f",
+        "original_can_sha256": null,
+        "source_type": "synthetic",
+        "source_label": "合成数据；已核对导入完整性，非真实道路采集",
+        "source_sha256": "1bdbbfa6b01340b31d06c374f0d5fc1d591a7311f55cfd0284f99ebe2e440197"
+      },
+      "boundary_review_required": false
+    },
+    "boundary_review_required": false
+  },
+  "seg_007": {
+    "quality": {
+      "can_complete": true,
+      "issues": [],
+      "original_can": {
+        "verified": true,
+        "issues": [],
+        "gaps": [],
+        "metadata_sha256": "0157fc7ea8b56bef22aff51f9fe292c358594efa1bedb87c2301e0480bdc7097",
+        "original_can_sha256": null,
+        "source_type": "synthetic",
+        "source_label": "合成数据；已核对导入完整性，非真实道路采集",
+        "source_sha256": "44fe36ec867bd8f2764e7f22a6d1a27978ac94883cb08a38239b1550290f96a6"
+      },
+      "boundary_review_required": false
+    },
+    "boundary_review_required": false
+  },
+  "seg_008": {
+    "quality": {
+      "can_complete": true,
+      "issues": [],
+      "original_can": {
+        "verified": true,
+        "issues": [],
+        "gaps": [],
+        "metadata_sha256": "d3f745b573b5fc53d648f0f294428812b911326bb1f43f9eda3d0d53312b6f0c",
+        "original_can_sha256": null,
+        "source_type": "synthetic",
+        "source_label": "合成数据；已核对导入完整性，非真实道路采集",
+        "source_sha256": "781c153beb94cf9f85e0091e1378e654a96631b688c07412b1e8257139748518"
+      },
+      "boundary_review_required": false
+    },
+    "boundary_review_required": false
+  },
+  "seg_009": {
+    "quality": {
+      "can_complete": true,
+      "issues": [],
+      "original_can": {
+        "verified": true,
+        "issues": [],
+        "gaps": [],
+        "metadata_sha256": "2658d4c1b578c9cad06f3662e3288443658526d3c47672fa92bdfbeaad1a1085",
+        "original_can_sha256": null,
+        "source_type": "synthetic",
+        "source_label": "合成数据；已核对导入完整性，非真实道路采集",
+        "source_sha256": "a751b9d5a7e3f28e405528c1a4fdc3e34493138a1b9b5f045dc11eeea4f4317b"
+      },
+      "boundary_review_required": false
+    },
+    "boundary_review_required": false
+  },
+  "seg_010": {
+    "quality": {
+      "can_complete": true,
+      "issues": [],
+      "original_can": {
+        "verified": true,
+        "issues": [],
+        "gaps": [],
+        "metadata_sha256": "6afaa08bf7dc341dfc7dd0595a89c75108441d1750c41d5d46d9de889ab2c9ff",
+        "original_can_sha256": null,
+        "source_type": "synthetic",
+        "source_label": "合成数据；已核对导入完整性，非真实道路采集",
+        "source_sha256": "a741aca0382b903937cda2b4b5245558d72016ffea624b8892094ed35b341e15"
+      },
+      "boundary_review_required": false
+    },
+    "boundary_review_required": false
+  },
+  "seg_011": {
+    "quality": {
+      "can_complete": true,
+      "issues": [],
+      "original_can": {
+        "verified": true,
+        "issues": [],
+        "gaps": [],
+        "metadata_sha256": "7808708df07e216c400899a1aef466711ea25f56eeef7a54e492ed9a66cdc8fe",
+        "original_can_sha256": null,
+        "source_type": "synthetic",
+        "source_label": "合成数据；已核对导入完整性，非真实道路采集",
+        "source_sha256": "37d3fb8df86169dcd2320420bb0568a7de40eb6ac5be776386d0dab134f49c5b"
+      },
+      "boundary_review_required": false
+    },
+    "boundary_review_required": false
+  },
+  "seg_012": {
+    "quality": {
+      "can_complete": true,
+      "issues": [],
+      "original_can": {
+        "verified": true,
+        "issues": [],
+        "gaps": [],
+        "metadata_sha256": "f4d87acfc17bb9e3e78ef6ba28a2443ac25df8d2e87787f39e0bed38de49a899",
+        "original_can_sha256": null,
+        "source_type": "synthetic",
+        "source_label": "合成数据；已核对导入完整性，非真实道路采集",
+        "source_sha256": "7c72a484dac2ea7ebf40477c603acc13d46ab78d90a08e07d16aa4ed115a0aca"
+      },
+      "boundary_review_required": false
+    },
+    "boundary_review_required": false
+  },
+  "seg_013": {
+    "quality": {
+      "can_complete": true,
+      "issues": [],
+      "original_can": {
+        "verified": true,
+        "issues": [],
+        "gaps": [],
+        "metadata_sha256": "d4c8b598d4dfedb8d0d5c4c88d7385b306236d31bbb7317ce5b924ea45ca6822",
+        "original_can_sha256": null,
+        "source_type": "synthetic",
+        "source_label": "合成数据；已核对导入完整性，非真实道路采集",
+        "source_sha256": "e36fea304175a6f26abae0a52e323ed55a41d3049d86cc695d466d18e87b029c"
+      },
+      "boundary_review_required": false
+    },
+    "boundary_review_required": false
+  },
+  "seg_014": {
+    "quality": {
+      "can_complete": true,
+      "issues": [],
+      "original_can": {
+        "verified": true,
+        "issues": [],
+        "gaps": [],
+        "metadata_sha256": "10565349bca67e4fa7ce9de12839c64d359665f5157e0c0096672ad17a23f1a9",
+        "original_can_sha256": null,
+        "source_type": "synthetic",
+        "source_label": "合成数据；已核对导入完整性，非真实道路采集",
+        "source_sha256": "515a2b0942dc44ced8b623b4350293fd7f4e0ef903917315808f29a8b603e70d"
+      },
+      "boundary_review_required": false
+    },
+    "boundary_review_required": false
+  },
+  "seg_015": {
+    "quality": {
+      "can_complete": true,
+      "issues": [],
+      "original_can": {
+        "verified": true,
+        "issues": [],
+        "gaps": [],
+        "metadata_sha256": "2124e7f2d22a05a57e3ab92f3f4d674eed589bbe493559ef32149b6051956cc7",
+        "original_can_sha256": null,
+        "source_type": "synthetic",
+        "source_label": "合成数据；已核对导入完整性，非真实道路采集",
+        "source_sha256": "33c668089fa5b4d6f4bfd3fcaddc7770b4b890a74d85f3d86519e3ac9b6b1d65"
+      },
+      "boundary_review_required": false
+    },
+    "boundary_review_required": false
+  },
+  "seg_016": {
+    "quality": {
+      "can_complete": true,
+      "issues": [],
+      "original_can": {
+        "verified": true,
+        "issues": [],
+        "gaps": [],
+        "metadata_sha256": "dcc333d2da8ff20bf78cfb2afd687a27b20eec98766311ad2277dc2157279a83",
+        "original_can_sha256": null,
+        "source_type": "synthetic",
+        "source_label": "合成数据；已核对导入完整性，非真实道路采集",
+        "source_sha256": "6a2e98892276a3e8011a50a8112da87d187cc2d06230be28f9264e3220c9c014"
+      },
+      "boundary_review_required": false
+    },
+    "boundary_review_required": false
+  },
+  "seg_017": {
+    "quality": {
+      "can_complete": true,
+      "issues": [],
+      "original_can": {
+        "verified": true,
+        "issues": [],
+        "gaps": [],
+        "metadata_sha256": "54ee7ac6dd903b60bbaf10819a4ec92f98811161aa8f0e2b8f7e2370c1cd2a9a",
+        "original_can_sha256": null,
+        "source_type": "synthetic",
+        "source_label": "合成数据；已核对导入完整性，非真实道路采集",
+        "source_sha256": "9fbbbbb2682d55e1e9e7073a6f7d3fc7f508b1c6b74250b82c0ea0467616e270"
+      },
+      "boundary_review_required": false
+    },
+    "boundary_review_required": false
+  },
+  "seg_018": {
+    "quality": {
+      "can_complete": true,
+      "issues": [],
+      "original_can": {
+        "verified": true,
+        "issues": [],
+        "gaps": [],
+        "metadata_sha256": "ccf9323800c2f7c8c9fcbfe285316b74a0b39c56c84a693b5c5c373a2fec36c9",
+        "original_can_sha256": null,
+        "source_type": "synthetic",
+        "source_label": "合成数据；已核对导入完整性，非真实道路采集",
+        "source_sha256": "eae95b8e6391f51d1b95bd042cc1bbce55fa8310277aee430048ea23e33827ab"
+      },
+      "boundary_review_required": false
+    },
+    "boundary_review_required": false
+  },
+  "seg_019": {
+    "quality": {
+      "can_complete": true,
+      "issues": [],
+      "original_can": {
+        "verified": true,
+        "issues": [],
+        "gaps": [],
+        "metadata_sha256": "b09dd3785ceda58b39dd1207657e11fb46bea67325c6967501cf0f6722bf9345",
+        "original_can_sha256": null,
+        "source_type": "synthetic",
+        "source_label": "合成数据；已核对导入完整性，非真实道路采集",
+        "source_sha256": "199d2dded92ccf0ab02656d33d294ada87962c7f67d60cf9852cdaee55a48f35"
+      },
+      "boundary_review_required": false
+    },
+    "boundary_review_required": false
+  },
+  "seg_020": {
+    "quality": {
+      "can_complete": true,
+      "issues": [],
+      "original_can": {
+        "verified": true,
+        "issues": [],
+        "gaps": [],
+        "metadata_sha256": "09e19f81328381c40db1bd1c10a6d6e49f443a116619e0419f9a59a820b7d8f8",
+        "original_can_sha256": null,
+        "source_type": "synthetic",
+        "source_label": "合成数据；已核对导入完整性，非真实道路采集",
+        "source_sha256": "961bbe30885370b3e27e58b57130687d3fbc5cd04c8a5e8c56be9d6d94c7d64d"
+      },
+      "boundary_review_required": false
+    },
+    "boundary_review_required": false
+  },
+  "seg_021": {
+    "quality": {
+      "can_complete": true,
+      "issues": [],
+      "original_can": {
+        "verified": true,
+        "issues": [],
+        "gaps": [],
+        "metadata_sha256": "565a6638ba1e34f88c69530804ab70b3d6f09344a37820aef10185febf56053b",
+        "original_can_sha256": null,
+        "source_type": "synthetic",
+        "source_label": "合成数据；已核对导入完整性，非真实道路采集",
+        "source_sha256": "9fb9a3bb932fe4ca0328928b922085f9bd55785a53b747c39ee0f6c093e3d636"
+      },
+      "boundary_review_required": false
+    },
+    "boundary_review_required": false
+  },
+  "seg_022": {
+    "quality": {
+      "can_complete": false,
+      "issues": [
+        "CSV 时间不是连续的 0.1 秒网格，请保持待标注"
+      ],
+      "original_can": {
+        "verified": true,
+        "issues": [],
+        "gaps": [],
+        "metadata_sha256": "0c96935ba0afe20317ea2125d758f79172f0892998f7aed817572ba73254ebd9",
+        "original_can_sha256": null,
+        "source_type": "synthetic",
+        "source_label": "合成数据；已核对导入完整性，非真实道路采集",
+        "source_sha256": "f3ec4fca69ae913baf56e0c4810005aec636614d21e0ff0dba97a99227145e5c"
+      },
+      "boundary_review_required": false
+    },
+    "boundary_review_required": false
+  },
+  "seg_023": {
+    "quality": {
+      "can_complete": false,
+      "issues": [
+        "CSV 时间不是连续的 0.1 秒网格，请保持待标注"
+      ],
+      "original_can": {
+        "verified": true,
+        "issues": [],
+        "gaps": [],
+        "metadata_sha256": "e3b18b06befe5d04e9fd042f6eb3929ba91d45f267fed615bba1a569ed0eb386",
+        "original_can_sha256": null,
+        "source_type": "synthetic",
+        "source_label": "合成数据；已核对导入完整性，非真实道路采集",
+        "source_sha256": "16697b11f55de668471f2d678ac3ec44467a75b8235a921b0fb44bed6729d887"
+      },
+      "boundary_review_required": false
+    },
+    "boundary_review_required": false
+  },
+  "seg_024": {
+    "quality": {
+      "can_complete": false,
+      "issues": [
+        "CSV 时间不是连续的 0.1 秒网格，请保持待标注"
+      ],
+      "original_can": {
+        "verified": true,
+        "issues": [],
+        "gaps": [],
+        "metadata_sha256": "c30ba528409764114f9fc8f5b8869428502eaa5dddf1e96c65b8e0b09f33934b",
+        "original_can_sha256": null,
+        "source_type": "synthetic",
+        "source_label": "合成数据；已核对导入完整性，非真实道路采集",
+        "source_sha256": "78f1f6d21d1df71e76038f0ae9a2de6052b40241a9eb5eef2f6872b0ccbfc6fa"
+      },
+      "boundary_review_required": false
+    },
+    "boundary_review_required": false
+  },
+  "seg_025": {
+    "quality": {
+      "can_complete": true,
+      "issues": [],
+      "original_can": {
+        "verified": true,
+        "issues": [],
+        "gaps": [],
+        "metadata_sha256": "7ef7844201ba8b2e08320acc150b417d808c989b04f05f8db92cde40b2af2445",
+        "original_can_sha256": null,
+        "source_type": "synthetic",
+        "source_label": "合成数据；已核对导入完整性，非真实道路采集",
+        "source_sha256": "cdf43286d108dc9d86599f29e9d424c20bb3d97c2f18270a4791a752df6ad91c"
+      },
+      "boundary_review_required": false
+    },
+    "boundary_review_required": false
+  },
+  "seg_026": {
+    "quality": {
+      "can_complete": true,
+      "issues": [],
+      "original_can": {
+        "verified": true,
+        "issues": [],
+        "gaps": [],
+        "metadata_sha256": "6fbbb13047843c1ae2d23149303767513ab63447b53947a58562535c8dc60f3f",
+        "original_can_sha256": null,
+        "source_type": "synthetic",
+        "source_label": "合成数据；已核对导入完整性，非真实道路采集",
+        "source_sha256": "b4726b8ddbb09d76336ae35aceb7e40ee03a0c21263271e7bfec18176a0f788a"
+      },
+      "boundary_review_required": false
+    },
+    "boundary_review_required": false
+  },
+  "seg_027": {
+    "quality": {
+      "can_complete": true,
+      "issues": [],
+      "original_can": {
+        "verified": true,
+        "issues": [],
+        "gaps": [],
+        "metadata_sha256": "975bee8b181792e2486eb51ed2a0f4e5b33caf6e86e2ad61e54873d6774f687e",
+        "original_can_sha256": null,
+        "source_type": "synthetic",
+        "source_label": "合成数据；已核对导入完整性，非真实道路采集",
+        "source_sha256": "60ad4713c2f184f90f0c0ce290205ad5c038fd39e27d17062eb90f393d313c7b"
+      },
+      "boundary_review_required": false
+    },
+    "boundary_review_required": false
+  },
+  "seg_028": {
+    "quality": {
+      "can_complete": true,
+      "issues": [],
+      "original_can": {
+        "verified": true,
+        "issues": [],
+        "gaps": [],
+        "metadata_sha256": "3f7314805c8029fdc9fac191be02000f6616bb7d6654c0483d60100e3af835a8",
+        "original_can_sha256": null,
+        "source_type": "synthetic",
+        "source_label": "合成数据；已核对导入完整性，非真实道路采集",
+        "source_sha256": "575ae62b4eb78721dfcec19e1440854cf582c17804d7c4ad8be3a6afb979781b"
+      },
+      "boundary_review_required": false
+    },
+    "boundary_review_required": false
+  },
+  "seg_029": {
+    "quality": {
+      "can_complete": true,
+      "issues": [],
+      "original_can": {
+        "verified": true,
+        "issues": [],
+        "gaps": [],
+        "metadata_sha256": "465ed6a1ebf8ed71fca648b7809b7ab7048360e8fd94e22d2206fa672b385dee",
+        "original_can_sha256": null,
+        "source_type": "synthetic",
+        "source_label": "合成数据；已核对导入完整性，非真实道路采集",
+        "source_sha256": "befef649eab62ca7e3760d083a32f36d26b2a0c8e6c493d2208b35105d9452aa"
+      },
+      "boundary_review_required": false
+    },
+    "boundary_review_required": false
+  },
+  "seg_030": {
+    "quality": {
+      "can_complete": true,
+      "issues": [],
+      "original_can": {
+        "verified": true,
+        "issues": [],
+        "gaps": [],
+        "metadata_sha256": "ce9538bc09225e36ee29e4760799a77d56ccf7cc070bd7beee763fde26f13842",
+        "original_can_sha256": null,
+        "source_type": "synthetic",
+        "source_label": "合成数据；已核对导入完整性，非真实道路采集",
+        "source_sha256": "5253584bcfd826bd61977d7b8f93ff029c79c925477cd148ead888599e8ba04c"
+      },
+      "boundary_review_required": true
+    },
+    "boundary_review_required": true
+  }
+}

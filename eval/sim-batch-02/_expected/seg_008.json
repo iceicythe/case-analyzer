@@ -1,0 +1,35 @@
+{
+  "case_id": "seg_008",
+  "scene": "减速过程中短暂回升，回落处不满足连续性桥接",
+  "t0": 37769.7,
+  "duration": 30.0,
+  "design_events": [
+    [
+      6.0,
+      9.0
+    ],
+    [
+      9.3,
+      12.3
+    ]
+  ],
+  "expect_candidates": 1,
+  "expect_verdict": "meets_numeric_rule",
+  "expect_statuses": [
+    "planning_trigger_needs_review",
+    "planning_trigger_needs_review"
+  ],
+  "expect_boundary": false,
+  "expect_object": "normal",
+  "expect_import_warning": false,
+  "label_decision": "positive",
+  "note": "回升段不足以隔开粗筛窗口：候选合并为一个，但严格参考区间仍为两个。",
+  "has_object_log": true,
+  "jitter": true,
+  "vehicle_gaps": [],
+  "planning_gaps": [],
+  "control_gaps": [],
+  "object_gaps": [],
+  "planning_offset": 0.0,
+  "planning_period": 0.1
+}

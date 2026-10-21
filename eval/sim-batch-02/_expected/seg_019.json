@@ -1,0 +1,30 @@
+{
+  "case_id": "seg_019",
+  "scene": "本车道前车与相邻车道目标全程同帧输出（多目标）",
+  "t0": 33967.9,
+  "duration": 29.0,
+  "design_events": [
+    [
+      10.0,
+      13.0
+    ]
+  ],
+  "expect_candidates": 1,
+  "expect_verdict": "meets_numeric_rule",
+  "expect_statuses": [
+    "planning_trigger_needs_review"
+  ],
+  "expect_boundary": false,
+  "expect_object": "ambiguous",
+  "expect_import_warning": false,
+  "label_decision": "positive",
+  "note": "同一时刻存在两条目标记录：目标证据应出现对齐歧义；规划/控制链路不受影响。",
+  "has_object_log": true,
+  "jitter": true,
+  "vehicle_gaps": [],
+  "planning_gaps": [],
+  "control_gaps": [],
+  "object_gaps": [],
+  "planning_offset": 0.0,
+  "planning_period": 0.1
+}

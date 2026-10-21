@@ -1,0 +1,544 @@
+{
+  "seg_001": {
+    "decision": "positive",
+    "events": [
+      [
+        59312.8,
+        59315.8
+      ]
+    ],
+    "source_decision": "positive",
+    "source_events": [
+      [
+        59312.8,
+        59315.8
+      ]
+    ],
+    "source_sha256": "e8acf37c7a02a8bc448844229327ed7290de1efa17f3ac33a4166322522150cf",
+    "label_source": "program_reference_verified_by_human_not_blind",
+    "scoring_exclusion": null
+  },
+  "seg_002": {
+    "decision": "positive",
+    "events": [
+      [
+        61610.9,
+        61613.6
+      ]
+    ],
+    "source_decision": "positive",
+    "source_events": [
+      [
+        61610.9,
+        61613.6
+      ]
+    ],
+    "source_sha256": "fdf8b0769c2c5ddb0d1c6bd67432a4b367c1e71c81705da9d6b531de318e4913",
+    "label_source": "program_reference_verified_by_human_not_blind",
+    "scoring_exclusion": null
+  },
+  "seg_003": {
+    "decision": "positive",
+    "events": [
+      [
+        54261.2,
+        54267.7
+      ]
+    ],
+    "source_decision": "positive",
+    "source_events": [
+      [
+        54261.2,
+        54267.7
+      ]
+    ],
+    "source_sha256": "3e867b899f838dd339e55d9842cb912a975a9c6417689486f51b443bfa3bd618",
+    "label_source": "program_reference_verified_by_human_not_blind",
+    "scoring_exclusion": null
+  },
+  "seg_004": {
+    "decision": "positive",
+    "events": [
+      [
+        17217.8,
+        17221.8
+      ]
+    ],
+    "source_decision": "positive",
+    "source_events": [
+      [
+        17217.8,
+        17221.8
+      ]
+    ],
+    "source_sha256": "f6ba98c0a9708d117ae8180b62e0cdebafc65a6f5e3b03a6e57ee4dbce3dfbae",
+    "label_source": "program_reference_verified_by_human_not_blind",
+    "scoring_exclusion": null
+  },
+  "seg_005": {
+    "decision": "positive",
+    "events": [
+      [
+        6160.8,
+        6163.9
+      ]
+    ],
+    "source_decision": "positive",
+    "source_events": [
+      [
+        6160.8,
+        6163.9
+      ]
+    ],
+    "source_sha256": "44ecd51b507a622313a1408ac942895df5d1b7c38e66d2a6cf975368fac67d9e",
+    "label_source": "program_reference_verified_by_human_not_blind",
+    "scoring_exclusion": null
+  },
+  "seg_006": {
+    "decision": "negative",
+    "events": [],
+    "source_decision": "negative",
+    "source_events": [],
+    "source_sha256": "063b2e9d737b24d38738101263cd093ea179e58d29ca5fa6bb6f8cbbdf5c26ff",
+    "label_source": "program_reference_verified_by_human_not_blind",
+    "scoring_exclusion": null
+  },
+  "seg_007": {
+    "decision": "negative",
+    "events": [],
+    "source_decision": "negative",
+    "source_events": [],
+    "source_sha256": "56daec652129c41d5e96192eef9b057a6b476646caaecd6b62d04f2d5d7b6907",
+    "label_source": "program_reference_verified_by_human_not_blind",
+    "scoring_exclusion": null
+  },
+  "seg_008": {
+    "decision": "positive",
+    "events": [
+      [
+        37775.7,
+        37778.7
+      ],
+      [
+        37779.0,
+        37782.0
+      ]
+    ],
+    "source_decision": "positive",
+    "source_events": [
+      [
+        37775.7,
+        37778.7
+      ],
+      [
+        37779.0,
+        37782.0
+      ]
+    ],
+    "source_sha256": "52fea75be5941a937dc4fa31fdea26a916a6e874c0b1b93039a1f952d075b657",
+    "label_source": "program_reference_verified_by_human_not_blind",
+    "scoring_exclusion": null
+  },
+  "seg_009": {
+    "decision": "positive",
+    "events": [
+      [
+        11887.0,
+        11889.5
+      ],
+      [
+        11894.0,
+        11896.5
+      ]
+    ],
+    "source_decision": "positive",
+    "source_events": [
+      [
+        11887.0,
+        11889.5
+      ],
+      [
+        11894.0,
+        11896.5
+      ]
+    ],
+    "source_sha256": "fc5758a803652faca7fb375d01d2a247c867bf7507dd62b4e1b834be475cbaf4",
+    "label_source": "program_reference_verified_by_human_not_blind",
+    "scoring_exclusion": null
+  },
+  "seg_010": {
+    "decision": "positive",
+    "events": [
+      [
+        41103.9,
+        41107.9
+      ]
+    ],
+    "source_decision": "positive",
+    "source_events": [
+      [
+        41103.9,
+        41107.9
+      ]
+    ],
+    "source_sha256": "da4a15e75bf230a2d853a418ff7f16e8902d406553daafb8c76e7a3601b7929d",
+    "label_source": "program_reference_verified_by_human_not_blind",
+    "scoring_exclusion": null
+  },
+  "seg_011": {
+    "decision": "negative",
+    "events": [],
+    "source_decision": "negative",
+    "source_events": [],
+    "source_sha256": "1660f621e28d11a965aa0f8e92901a5327a9bb2b85bda50d6bfe7f56641a6aab",
+    "label_source": "program_reference_verified_by_human_not_blind",
+    "scoring_exclusion": null
+  },
+  "seg_012": {
+    "decision": "positive",
+    "events": [
+      [
+        8952.2,
+        8953.7
+      ],
+      [
+        8955.7,
+        8957.2
+      ],
+      [
+        8959.2,
+        8960.7
+      ]
+    ],
+    "source_decision": "positive",
+    "source_events": [
+      [
+        8952.2,
+        8953.7
+      ],
+      [
+        8955.7,
+        8957.2
+      ],
+      [
+        8959.2,
+        8960.7
+      ]
+    ],
+    "source_sha256": "12407405d8d77ccb9a2a5c0724dd9b008c07eb4d4a4b7b6eff2a9c74ae4486a2",
+    "label_source": "program_reference_verified_by_human_not_blind",
+    "scoring_exclusion": null
+  },
+  "seg_013": {
+    "decision": "positive",
+    "events": [
+      [
+        56404.5,
+        56406.6
+      ]
+    ],
+    "source_decision": "positive",
+    "source_events": [
+      [
+        56404.5,
+        56406.6
+      ]
+    ],
+    "source_sha256": "f17b40e02388693ce20acb5575bd2c8900c7dc96a7a1e02e71cb1a56a41885a9",
+    "label_source": "program_reference_verified_by_human_not_blind",
+    "scoring_exclusion": null
+  },
+  "seg_014": {
+    "decision": "positive",
+    "events": [
+      [
+        39130.4,
+        39132.9
+      ]
+    ],
+    "source_decision": "positive",
+    "source_events": [
+      [
+        39130.4,
+        39132.9
+      ]
+    ],
+    "source_sha256": "4b021a57fc5bd1d5e6d5343513217d0c982bab6b3a41a5eb7f716d1d417a2894",
+    "label_source": "program_reference_verified_by_human_not_blind",
+    "scoring_exclusion": null
+  },
+  "seg_015": {
+    "decision": "positive",
+    "events": [
+      [
+        50847.1,
+        50850.2
+      ]
+    ],
+    "source_decision": "positive",
+    "source_events": [
+      [
+        50847.1,
+        50850.2
+      ]
+    ],
+    "source_sha256": "630c6a61d76a640bb40418a6fe12e48b90f9ace6e804e96c4d9291b8e71553ce",
+    "label_source": "program_reference_verified_by_human_not_blind",
+    "scoring_exclusion": null
+  },
+  "seg_016": {
+    "decision": "positive",
+    "events": [
+      [
+        37460.6,
+        37462.6
+      ]
+    ],
+    "source_decision": "positive",
+    "source_events": [
+      [
+        37460.6,
+        37462.6
+      ]
+    ],
+    "source_sha256": "c60c5663f9a41bbe61163d0ab7eb7e95784b378cf5e9fb2c150c6f054946505f",
+    "label_source": "program_reference_verified_by_human_not_blind",
+    "scoring_exclusion": null
+  },
+  "seg_017": {
+    "decision": "negative",
+    "events": [],
+    "source_decision": "negative",
+    "source_events": [],
+    "source_sha256": "963822d4a0fa887e7234e4c359d6d8c931ed0e7bd58510219551bc764a73070a",
+    "label_source": "program_reference_verified_by_human_not_blind",
+    "scoring_exclusion": null
+  },
+  "seg_018": {
+    "decision": "positive",
+    "events": [
+      [
+        53097.6,
+        53099.8
+      ]
+    ],
+    "source_decision": "positive",
+    "source_events": [
+      [
+        53097.6,
+        53099.8
+      ]
+    ],
+    "source_sha256": "6714445ceceb74b381b1f94b259ada4d90312b06dfa8628c9af1904c0e5cc102",
+    "label_source": "program_reference_verified_by_human_not_blind",
+    "scoring_exclusion": null
+  },
+  "seg_019": {
+    "decision": "positive",
+    "events": [
+      [
+        33977.9,
+        33981.0
+      ]
+    ],
+    "source_decision": "positive",
+    "source_events": [
+      [
+        33977.9,
+        33981.0
+      ]
+    ],
+    "source_sha256": "c99a429861875d5bfada436eaaa4321850dd34900051d856fd5a7b88c0cf7a1c",
+    "label_source": "program_reference_verified_by_human_not_blind",
+    "scoring_exclusion": null
+  },
+  "seg_020": {
+    "decision": "positive",
+    "events": [
+      [
+        45135.6,
+        45138.4
+      ]
+    ],
+    "source_decision": "positive",
+    "source_events": [
+      [
+        45135.6,
+        45138.4
+      ]
+    ],
+    "source_sha256": "10a2bbff9c3562b072c848dfa7a4bb39925a50812c175740dc554741a3ad06e4",
+    "label_source": "program_reference_verified_by_human_not_blind",
+    "scoring_exclusion": null
+  },
+  "seg_021": {
+    "decision": "positive",
+    "events": [
+      [
+        2646.2,
+        2649.2
+      ]
+    ],
+    "source_decision": "positive",
+    "source_events": [
+      [
+        2646.2,
+        2649.2
+      ]
+    ],
+    "source_sha256": "d007505bb44a039ebbad02b3816146ab7ab86a48c4e7342c498ac34d321e35de",
+    "label_source": "program_reference_verified_by_human_not_blind",
+    "scoring_exclusion": null
+  },
+  "seg_022": {
+    "decision": "data_issue",
+    "events": [],
+    "source_decision": "positive",
+    "source_events": [
+      [
+        48093.2,
+        48096.2
+      ]
+    ],
+    "source_sha256": "d655cc6f46f9c28d3724a416f21c419c9221149c559b67d44f1f43efc4fc36bb",
+    "label_source": "program_reference_verified_by_human_not_blind",
+    "scoring_exclusion": "预先约定的车辆采样缺口案例"
+  },
+  "seg_023": {
+    "decision": "data_issue",
+    "events": [],
+    "source_decision": "positive",
+    "source_events": [
+      [
+        54735.2,
+        54743.2
+      ]
+    ],
+    "source_sha256": "cd1a4e1e3fad826de87b9c8502f9354a6ee11f73e41eb177267e4adaf8bb9771",
+    "label_source": "program_reference_verified_by_human_not_blind",
+    "scoring_exclusion": "预先约定的车辆采样缺口案例"
+  },
+  "seg_024": {
+    "decision": "data_issue",
+    "events": [],
+    "source_decision": "uncertain",
+    "source_events": [],
+    "source_sha256": "dcc738384491ad5844fabe02e0d0c4a73a531263eff70ee6090d824f541ac363",
+    "label_source": "program_reference_verified_by_human_not_blind",
+    "scoring_exclusion": "预先约定的车辆采样缺口案例"
+  },
+  "seg_025": {
+    "decision": "positive",
+    "events": [
+      [
+        37673.5,
+        37676.6
+      ]
+    ],
+    "source_decision": "positive",
+    "source_events": [
+      [
+        37673.5,
+        37676.6
+      ]
+    ],
+    "source_sha256": "558f2e454f02109f60640c8326f5442ce98d0936c306acc4f7670234f359bfc8",
+    "label_source": "program_reference_verified_by_human_not_blind",
+    "scoring_exclusion": null
+  },
+  "seg_026": {
+    "decision": "positive",
+    "events": [
+      [
+        43158.8,
+        43161.8
+      ]
+    ],
+    "source_decision": "positive",
+    "source_events": [
+      [
+        43158.8,
+        43161.8
+      ]
+    ],
+    "source_sha256": "befc0ff9f9e4379eb16134db117b4d04b39872d529f75405fb1b5253fffc2f64",
+    "label_source": "program_reference_verified_by_human_not_blind",
+    "scoring_exclusion": null
+  },
+  "seg_027": {
+    "decision": "positive",
+    "events": [
+      [
+        17271.2,
+        17274.2
+      ]
+    ],
+    "source_decision": "positive",
+    "source_events": [
+      [
+        17271.2,
+        17274.2
+      ]
+    ],
+    "source_sha256": "345218e184d84da4a34303d1298c766f17ec0942f5b8d591c1eb73dca259d891",
+    "label_source": "program_reference_verified_by_human_not_blind",
+    "scoring_exclusion": null
+  },
+  "seg_028": {
+    "decision": "positive",
+    "events": [
+      [
+        6743.1,
+        6746.1
+      ]
+    ],
+    "source_decision": "positive",
+    "source_events": [
+      [
+        6743.1,
+        6746.1
+      ]
+    ],
+    "source_sha256": "b48c8da355cda98e852f24198fe2c5d9d2024f8b623b3286638d5fca7dc450ea",
+    "label_source": "program_reference_verified_by_human_not_blind",
+    "scoring_exclusion": null
+  },
+  "seg_029": {
+    "decision": "positive",
+    "events": [
+      [
+        6945.9,
+        6949.1
+      ]
+    ],
+    "source_decision": "positive",
+    "source_events": [
+      [
+        6945.9,
+        6949.1
+      ]
+    ],
+    "source_sha256": "958339c1b05621326e91f6d03ee2a39e29c8b9d314ebf8b3292ba436c98f2428",
+    "label_source": "program_reference_verified_by_human_not_blind",
+    "scoring_exclusion": null
+  },
+  "seg_030": {
+    "decision": "positive",
+    "events": [
+      [
+        48196.6,
+        48199.9
+      ]
+    ],
+    "source_decision": "positive",
+    "source_events": [
+      [
+        48196.6,
+        48199.9
+      ]
+    ],
+    "source_sha256": "7e79eb8cc2e255e5ca19e2d8532955528f3bfda8bad06e0f41391e9681ca4bd7",
+    "label_source": "program_reference_verified_by_human_not_blind",
+    "scoring_exclusion": null
+  }
+}

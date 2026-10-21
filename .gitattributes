@@ -3,3 +3,6 @@
 *.png binary
 *.jpg binary
 *.zip binary
+
+# 冻结评测集：按字节入库/检出，保证 SHA256SUMS 跨平台可验
+eval/sim-batch-02/** -text

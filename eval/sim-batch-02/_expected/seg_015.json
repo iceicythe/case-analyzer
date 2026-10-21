@@ -1,0 +1,30 @@
+{
+  "case_id": "seg_015",
+  "scene": "目标切入后两段式减速：先避让再跟随",
+  "t0": 50838.2,
+  "duration": 28.0,
+  "design_events": [
+    [
+      9.0,
+      12.0
+    ]
+  ],
+  "expect_candidates": 1,
+  "expect_verdict": "meets_numeric_rule",
+  "expect_statuses": [
+    "planning_trigger_needs_review"
+  ],
+  "expect_boundary": false,
+  "expect_object": "normal",
+  "expect_import_warning": false,
+  "label_decision": "positive",
+  "note": "",
+  "has_object_log": true,
+  "jitter": true,
+  "vehicle_gaps": [],
+  "planning_gaps": [],
+  "control_gaps": [],
+  "object_gaps": [],
+  "planning_offset": 0.0,
+  "planning_period": 0.1
+}

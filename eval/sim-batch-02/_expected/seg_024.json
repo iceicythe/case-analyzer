@@ -1,0 +1,28 @@
+{
+  "case_id": "seg_024",
+  "scene": "事件内部 0.6 秒采样缺口，数据不足以确认事件",
+  "t0": 39848.0,
+  "duration": 28.0,
+  "design_events": [],
+  "expect_candidates": 0,
+  "expect_verdict": "none",
+  "expect_statuses": [],
+  "expect_boundary": false,
+  "expect_object": "normal",
+  "expect_import_warning": true,
+  "label_decision": "uncertain",
+  "note": "设计上存在一次减速，但缺口吃掉全部完整窗口：程序应不报候选；真值记 uncertain，不计入漏报。",
+  "has_object_log": true,
+  "jitter": true,
+  "vehicle_gaps": [
+    [
+      10.2,
+      10.8
+    ]
+  ],
+  "planning_gaps": [],
+  "control_gaps": [],
+  "object_gaps": [],
+  "planning_offset": 0.0,
+  "planning_period": 0.1
+}

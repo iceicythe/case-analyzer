@@ -1,0 +1,17 @@
+﻿file,column,unit,semantics,source,mapping
+vehicle_state.csv,timestamp,s,行车时钟（各 Case 独立原点 t0）,生成器,四路共用同一原点；严格 0.1 秒网格
+vehicle_state.csv,speed_mps,m/s,自车纵向速度,场景模型积分,非负；不支持带符号倒车速度
+vehicle_state.csv,acceleration_mps2,m/s^2,自车纵向加速度,由车速后向差分派生,负值为减速；非独立传感器测量；仅作辅助证据
+planning_state.csv,timestamp,s,规划记录时间,仿真规划输出,10 Hz（seg_029 为 5 Hz；seg_027/028 含时钟偏移，见交付说明）
+planning_state.csv,target_speed_mps,m/s,规划目标速度,仿真规划输出,减速段取该段终点速度；巡航段取近期速度
+planning_state.csv,planned_acceleration_mps2,m/s^2,规划目标纵向加速度,仿真规划输出,负值为减速请求；非车辆实测加速度
+planning_state.csv,decision_reason,-,规划决策枚举,仿真规划输出,CRUISE / FOLLOW_LEAD_VEHICLE / CUT_IN_EVASION / STOP_FOR_TRAFFIC_LIGHT / SPEED_LIMIT_CHANGE / ACCELERATE_AFTER_CUT_OUT / RESUME_CRUISE / STOPPED / YIELD_FOR_MERGE / MERGE_COMPLETE / SPEED_UP
+control_state.csv,timestamp,s,控制记录时间,仿真控制输出,10 Hz；仲裁后
+control_state.csv,brake_command,0-1,制动请求（归一化）,仿真控制输出,非实测制动力；与车辆侧 brake 不是同一信号
+control_state.csv,throttle_command,0-1,驱动请求（归一化）,仿真控制输出,非负
+control_state.csv,requested_acceleration_mps2,m/s^2,控制侧目标纵向加速度,仿真控制输出,与规划目标同符号同时域
+object_state.csv,timestamp,s,目标观测时间,仿真目标输出,10 Hz；同刻可多目标
+object_state.csv,object_id,-,稳定跟踪 ID,仿真目标输出,每 Case 独立编号；可含相邻目标或中途换号（重联）
+object_state.csv,distance_m,m,纵向距离,仿真目标输出,非负；相对车身参考点
+object_state.csv,relative_speed_mps,m/s,相对速度,仿真目标输出,负值表示接近
+object_state.csv,confidence,0-1,目标置信度,仿真目标输出,逐行 0.78~0.97 波动，含偶发低置信帧；均高于可信门槛 0.5

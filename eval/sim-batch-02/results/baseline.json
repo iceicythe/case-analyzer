@@ -1,0 +1,800 @@
+{
+  "evaluated_cases": 27,
+  "excluded_cases": 3,
+  "gold_event_count": 27,
+  "candidate_recall": 1.0,
+  "candidate_covered_events": 27,
+  "automatic_confirmation_precision": 1.0,
+  "automatic_event_recall": 0.9629629629629629,
+  "tp": 26,
+  "fp": 0,
+  "fn": 1,
+  "wrongly_rejected_gold_events": 0,
+  "automatic_processing_coverage": 0.8666666666666667,
+  "automatic_candidates": 26,
+  "total_candidates": 30,
+  "report_useful_rate": null,
+  "reports_assessed": 0,
+  "reports_total": 0,
+  "reports_useful": 0,
+  "model_reports_validated": 0,
+  "model_reports_failed": 0,
+  "cases": [
+    {
+      "case_id": "seg_001",
+      "excluded": false,
+      "gold_events": [
+        [
+          59312.8,
+          59315.8
+        ]
+      ],
+      "predicted_events": [
+        [
+          59312.8,
+          59315.8
+        ]
+      ],
+      "tp": 1,
+      "fp": 0,
+      "fn": 0,
+      "candidate_missed_events": [],
+      "wrongly_rejected_events": [],
+      "boundary_errors": [
+        {
+          "prediction": 0,
+          "truth": 0,
+          "start_error_seconds": 0.0,
+          "end_error_seconds": 0.0
+        }
+      ]
+    },
+    {
+      "case_id": "seg_002",
+      "excluded": false,
+      "gold_events": [
+        [
+          61610.9,
+          61613.6
+        ]
+      ],
+      "predicted_events": [
+        [
+          61610.9,
+          61613.6
+        ]
+      ],
+      "tp": 1,
+      "fp": 0,
+      "fn": 0,
+      "candidate_missed_events": [],
+      "wrongly_rejected_events": [],
+      "boundary_errors": [
+        {
+          "prediction": 0,
+          "truth": 0,
+          "start_error_seconds": 0.0,
+          "end_error_seconds": 0.0
+        }
+      ]
+    },
+    {
+      "case_id": "seg_003",
+      "excluded": false,
+      "gold_events": [
+        [
+          54261.2,
+          54267.7
+        ]
+      ],
+      "predicted_events": [
+        [
+          54261.2,
+          54267.7
+        ]
+      ],
+      "tp": 1,
+      "fp": 0,
+      "fn": 0,
+      "candidate_missed_events": [],
+      "wrongly_rejected_events": [],
+      "boundary_errors": [
+        {
+          "prediction": 0,
+          "truth": 0,
+          "start_error_seconds": 0.0,
+          "end_error_seconds": 0.0
+        }
+      ]
+    },
+    {
+      "case_id": "seg_004",
+      "excluded": false,
+      "gold_events": [
+        [
+          17217.8,
+          17221.8
+        ]
+      ],
+      "predicted_events": [
+        [
+          17217.8,
+          17221.8
+        ]
+      ],
+      "tp": 1,
+      "fp": 0,
+      "fn": 0,
+      "candidate_missed_events": [],
+      "wrongly_rejected_events": [],
+      "boundary_errors": [
+        {
+          "prediction": 0,
+          "truth": 0,
+          "start_error_seconds": 0.0,
+          "end_error_seconds": 0.0
+        }
+      ]
+    },
+    {
+      "case_id": "seg_005",
+      "excluded": false,
+      "gold_events": [
+        [
+          6160.8,
+          6163.9
+        ]
+      ],
+      "predicted_events": [
+        [
+          6160.8,
+          6163.9
+        ]
+      ],
+      "tp": 1,
+      "fp": 0,
+      "fn": 0,
+      "candidate_missed_events": [],
+      "wrongly_rejected_events": [],
+      "boundary_errors": [
+        {
+          "prediction": 0,
+          "truth": 0,
+          "start_error_seconds": 0.0,
+          "end_error_seconds": 0.0
+        }
+      ]
+    },
+    {
+      "case_id": "seg_006",
+      "excluded": false,
+      "gold_events": [],
+      "predicted_events": [],
+      "tp": 0,
+      "fp": 0,
+      "fn": 0,
+      "candidate_missed_events": [],
+      "wrongly_rejected_events": [],
+      "boundary_errors": []
+    },
+    {
+      "case_id": "seg_007",
+      "excluded": false,
+      "gold_events": [],
+      "predicted_events": [],
+      "tp": 0,
+      "fp": 0,
+      "fn": 0,
+      "candidate_missed_events": [],
+      "wrongly_rejected_events": [],
+      "boundary_errors": []
+    },
+    {
+      "case_id": "seg_008",
+      "excluded": false,
+      "gold_events": [
+        [
+          37775.7,
+          37778.7
+        ],
+        [
+          37779.0,
+          37782.0
+        ]
+      ],
+      "predicted_events": [
+        [
+          37775.7,
+          37778.7
+        ],
+        [
+          37779.0,
+          37782.0
+        ]
+      ],
+      "tp": 2,
+      "fp": 0,
+      "fn": 0,
+      "candidate_missed_events": [],
+      "wrongly_rejected_events": [],
+      "boundary_errors": [
+        {
+          "prediction": 0,
+          "truth": 0,
+          "start_error_seconds": 0.0,
+          "end_error_seconds": 0.0
+        },
+        {
+          "prediction": 1,
+          "truth": 1,
+          "start_error_seconds": 0.0,
+          "end_error_seconds": 0.0
+        }
+      ]
+    },
+    {
+      "case_id": "seg_009",
+      "excluded": false,
+      "gold_events": [
+        [
+          11887.0,
+          11889.5
+        ],
+        [
+          11894.0,
+          11896.5
+        ]
+      ],
+      "predicted_events": [
+        [
+          11887.0,
+          11889.5
+        ],
+        [
+          11894.0,
+          11896.5
+        ]
+      ],
+      "tp": 2,
+      "fp": 0,
+      "fn": 0,
+      "candidate_missed_events": [],
+      "wrongly_rejected_events": [],
+      "boundary_errors": [
+        {
+          "prediction": 0,
+          "truth": 0,
+          "start_error_seconds": 0.0,
+          "end_error_seconds": 0.0
+        },
+        {
+          "prediction": 1,
+          "truth": 1,
+          "start_error_seconds": 0.0,
+          "end_error_seconds": 0.0
+        }
+      ]
+    },
+    {
+      "case_id": "seg_010",
+      "excluded": false,
+      "gold_events": [
+        [
+          41103.9,
+          41107.9
+        ]
+      ],
+      "predicted_events": [
+        [
+          41103.9,
+          41107.9
+        ]
+      ],
+      "tp": 1,
+      "fp": 0,
+      "fn": 0,
+      "candidate_missed_events": [],
+      "wrongly_rejected_events": [],
+      "boundary_errors": [
+        {
+          "prediction": 0,
+          "truth": 0,
+          "start_error_seconds": 0.0,
+          "end_error_seconds": 0.0
+        }
+      ]
+    },
+    {
+      "case_id": "seg_011",
+      "excluded": false,
+      "gold_events": [],
+      "predicted_events": [],
+      "tp": 0,
+      "fp": 0,
+      "fn": 0,
+      "candidate_missed_events": [],
+      "wrongly_rejected_events": [],
+      "boundary_errors": []
+    },
+    {
+      "case_id": "seg_012",
+      "excluded": false,
+      "gold_events": [
+        [
+          8952.2,
+          8953.7
+        ],
+        [
+          8955.7,
+          8957.2
+        ],
+        [
+          8959.2,
+          8960.7
+        ]
+      ],
+      "predicted_events": [
+        [
+          8952.2,
+          8953.7
+        ],
+        [
+          8955.7,
+          8957.2
+        ],
+        [
+          8959.2,
+          8960.7
+        ]
+      ],
+      "tp": 3,
+      "fp": 0,
+      "fn": 0,
+      "candidate_missed_events": [],
+      "wrongly_rejected_events": [],
+      "boundary_errors": [
+        {
+          "prediction": 0,
+          "truth": 0,
+          "start_error_seconds": 0.0,
+          "end_error_seconds": 0.0
+        },
+        {
+          "prediction": 1,
+          "truth": 1,
+          "start_error_seconds": 0.0,
+          "end_error_seconds": 0.0
+        },
+        {
+          "prediction": 2,
+          "truth": 2,
+          "start_error_seconds": 0.0,
+          "end_error_seconds": 0.0
+        }
+      ]
+    },
+    {
+      "case_id": "seg_013",
+      "excluded": false,
+      "gold_events": [
+        [
+          56404.5,
+          56406.6
+        ]
+      ],
+      "predicted_events": [
+        [
+          56404.5,
+          56406.6
+        ]
+      ],
+      "tp": 1,
+      "fp": 0,
+      "fn": 0,
+      "candidate_missed_events": [],
+      "wrongly_rejected_events": [],
+      "boundary_errors": [
+        {
+          "prediction": 0,
+          "truth": 0,
+          "start_error_seconds": 0.0,
+          "end_error_seconds": 0.0
+        }
+      ]
+    },
+    {
+      "case_id": "seg_014",
+      "excluded": false,
+      "gold_events": [
+        [
+          39130.4,
+          39132.9
+        ]
+      ],
+      "predicted_events": [
+        [
+          39130.4,
+          39132.9
+        ]
+      ],
+      "tp": 1,
+      "fp": 0,
+      "fn": 0,
+      "candidate_missed_events": [],
+      "wrongly_rejected_events": [],
+      "boundary_errors": [
+        {
+          "prediction": 0,
+          "truth": 0,
+          "start_error_seconds": 0.0,
+          "end_error_seconds": 0.0
+        }
+      ]
+    },
+    {
+      "case_id": "seg_015",
+      "excluded": false,
+      "gold_events": [
+        [
+          50847.1,
+          50850.2
+        ]
+      ],
+      "predicted_events": [
+        [
+          50847.1,
+          50850.2
+        ]
+      ],
+      "tp": 1,
+      "fp": 0,
+      "fn": 0,
+      "candidate_missed_events": [],
+      "wrongly_rejected_events": [],
+      "boundary_errors": [
+        {
+          "prediction": 0,
+          "truth": 0,
+          "start_error_seconds": 0.0,
+          "end_error_seconds": 0.0
+        }
+      ]
+    },
+    {
+      "case_id": "seg_016",
+      "excluded": false,
+      "gold_events": [
+        [
+          37460.6,
+          37462.6
+        ]
+      ],
+      "predicted_events": [
+        [
+          37460.6,
+          37462.6
+        ]
+      ],
+      "tp": 1,
+      "fp": 0,
+      "fn": 0,
+      "candidate_missed_events": [],
+      "wrongly_rejected_events": [],
+      "boundary_errors": [
+        {
+          "prediction": 0,
+          "truth": 0,
+          "start_error_seconds": 0.0,
+          "end_error_seconds": 0.0
+        }
+      ]
+    },
+    {
+      "case_id": "seg_017",
+      "excluded": false,
+      "gold_events": [],
+      "predicted_events": [],
+      "tp": 0,
+      "fp": 0,
+      "fn": 0,
+      "candidate_missed_events": [],
+      "wrongly_rejected_events": [],
+      "boundary_errors": []
+    },
+    {
+      "case_id": "seg_018",
+      "excluded": false,
+      "gold_events": [
+        [
+          53097.6,
+          53099.8
+        ]
+      ],
+      "predicted_events": [
+        [
+          53097.6,
+          53099.8
+        ]
+      ],
+      "tp": 1,
+      "fp": 0,
+      "fn": 0,
+      "candidate_missed_events": [],
+      "wrongly_rejected_events": [],
+      "boundary_errors": [
+        {
+          "prediction": 0,
+          "truth": 0,
+          "start_error_seconds": 0.0,
+          "end_error_seconds": 0.0
+        }
+      ]
+    },
+    {
+      "case_id": "seg_019",
+      "excluded": false,
+      "gold_events": [
+        [
+          33977.9,
+          33981.0
+        ]
+      ],
+      "predicted_events": [
+        [
+          33977.9,
+          33981.0
+        ]
+      ],
+      "tp": 1,
+      "fp": 0,
+      "fn": 0,
+      "candidate_missed_events": [],
+      "wrongly_rejected_events": [],
+      "boundary_errors": [
+        {
+          "prediction": 0,
+          "truth": 0,
+          "start_error_seconds": 0.0,
+          "end_error_seconds": 0.0
+        }
+      ]
+    },
+    {
+      "case_id": "seg_020",
+      "excluded": false,
+      "gold_events": [
+        [
+          45135.6,
+          45138.4
+        ]
+      ],
+      "predicted_events": [
+        [
+          45135.6,
+          45138.4
+        ]
+      ],
+      "tp": 1,
+      "fp": 0,
+      "fn": 0,
+      "candidate_missed_events": [],
+      "wrongly_rejected_events": [],
+      "boundary_errors": [
+        {
+          "prediction": 0,
+          "truth": 0,
+          "start_error_seconds": 0.0,
+          "end_error_seconds": 0.0
+        }
+      ]
+    },
+    {
+      "case_id": "seg_021",
+      "excluded": false,
+      "gold_events": [
+        [
+          2646.2,
+          2649.2
+        ]
+      ],
+      "predicted_events": [
+        [
+          2646.2,
+          2649.2
+        ]
+      ],
+      "tp": 1,
+      "fp": 0,
+      "fn": 0,
+      "candidate_missed_events": [],
+      "wrongly_rejected_events": [],
+      "boundary_errors": [
+        {
+          "prediction": 0,
+          "truth": 0,
+          "start_error_seconds": 0.0,
+          "end_error_seconds": 0.0
+        }
+      ]
+    },
+    {
+      "case_id": "seg_022",
+      "excluded": true,
+      "reason": "data_issue"
+    },
+    {
+      "case_id": "seg_023",
+      "excluded": true,
+      "reason": "data_issue"
+    },
+    {
+      "case_id": "seg_024",
+      "excluded": true,
+      "reason": "data_issue"
+    },
+    {
+      "case_id": "seg_025",
+      "excluded": false,
+      "gold_events": [
+        [
+          37673.5,
+          37676.6
+        ]
+      ],
+      "predicted_events": [
+        [
+          37673.5,
+          37676.6
+        ]
+      ],
+      "tp": 1,
+      "fp": 0,
+      "fn": 0,
+      "candidate_missed_events": [],
+      "wrongly_rejected_events": [],
+      "boundary_errors": [
+        {
+          "prediction": 0,
+          "truth": 0,
+          "start_error_seconds": 0.0,
+          "end_error_seconds": 0.0
+        }
+      ]
+    },
+    {
+      "case_id": "seg_026",
+      "excluded": false,
+      "gold_events": [
+        [
+          43158.8,
+          43161.8
+        ]
+      ],
+      "predicted_events": [
+        [
+          43158.8,
+          43161.8
+        ]
+      ],
+      "tp": 1,
+      "fp": 0,
+      "fn": 0,
+      "candidate_missed_events": [],
+      "wrongly_rejected_events": [],
+      "boundary_errors": [
+        {
+          "prediction": 0,
+          "truth": 0,
+          "start_error_seconds": 0.0,
+          "end_error_seconds": 0.0
+        }
+      ]
+    },
+    {
+      "case_id": "seg_027",
+      "excluded": false,
+      "gold_events": [
+        [
+          17271.2,
+          17274.2
+        ]
+      ],
+      "predicted_events": [
+        [
+          17271.2,
+          17274.2
+        ]
+      ],
+      "tp": 1,
+      "fp": 0,
+      "fn": 0,
+      "candidate_missed_events": [],
+      "wrongly_rejected_events": [],
+      "boundary_errors": [
+        {
+          "prediction": 0,
+          "truth": 0,
+          "start_error_seconds": 0.0,
+          "end_error_seconds": 0.0
+        }
+      ]
+    },
+    {
+      "case_id": "seg_028",
+      "excluded": false,
+      "gold_events": [
+        [
+          6743.1,
+          6746.1
+        ]
+      ],
+      "predicted_events": [
+        [
+          6743.1,
+          6746.1
+        ]
+      ],
+      "tp": 1,
+      "fp": 0,
+      "fn": 0,
+      "candidate_missed_events": [],
+      "wrongly_rejected_events": [],
+      "boundary_errors": [
+        {
+          "prediction": 0,
+          "truth": 0,
+          "start_error_seconds": 0.0,
+          "end_error_seconds": 0.0
+        }
+      ]
+    },
+    {
+      "case_id": "seg_029",
+      "excluded": false,
+      "gold_events": [
+        [
+          6945.9,
+          6949.1
+        ]
+      ],
+      "predicted_events": [
+        [
+          6945.9,
+          6949.1
+        ]
+      ],
+      "tp": 1,
+      "fp": 0,
+      "fn": 0,
+      "candidate_missed_events": [],
+      "wrongly_rejected_events": [],
+      "boundary_errors": [
+        {
+          "prediction": 0,
+          "truth": 0,
+          "start_error_seconds": 0.0,
+          "end_error_seconds": 0.0
+        }
+      ]
+    },
+    {
+      "case_id": "seg_030",
+      "excluded": false,
+      "gold_events": [
+        [
+          48196.6,
+          48199.9
+        ]
+      ],
+      "predicted_events": [],
+      "tp": 0,
+      "fp": 0,
+      "fn": 1,
+      "candidate_missed_events": [],
+      "wrongly_rejected_events": [],
+      "boundary_errors": []
+    }
+  ],
+  "method": "pure_rules_with_same_quality_and_boundary_gates; no model calls; status names reused by scorer only",
+  "model_calls": 0
+}

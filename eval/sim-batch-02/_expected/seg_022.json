@@ -1,0 +1,35 @@
+{
+  "case_id": "seg_022",
+  "scene": "事件后巡航段存在 0.3 秒采样缺口",
+  "t0": 48083.2,
+  "duration": 30.0,
+  "design_events": [
+    [
+      10.0,
+      13.0
+    ]
+  ],
+  "expect_candidates": 1,
+  "expect_verdict": "source_unverified",
+  "expect_statuses": [
+    "planning_trigger_needs_review"
+  ],
+  "expect_boundary": false,
+  "expect_object": "normal",
+  "expect_import_warning": true,
+  "label_decision": "positive",
+  "note": "缺口不在事件内：事件仍可检出，但来源核查降级，候选应判 source_unverified。",
+  "has_object_log": true,
+  "jitter": true,
+  "vehicle_gaps": [
+    [
+      20.1,
+      20.4
+    ]
+  ],
+  "planning_gaps": [],
+  "control_gaps": [],
+  "object_gaps": [],
+  "planning_offset": 0.0,
+  "planning_period": 0.1
+}

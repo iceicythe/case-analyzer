@@ -1,0 +1,30 @@
+{
+  "case_id": "seg_010",
+  "scene": "受控边界样本：半秒窗口降幅恰为 1.000 m/s，正好落在口径门槛上",
+  "t0": 41095.9,
+  "duration": 30.0,
+  "design_events": [
+    [
+      8.0,
+      12.0
+    ]
+  ],
+  "expect_candidates": 1,
+  "expect_verdict": "meets_numeric_rule",
+  "expect_statuses": [
+    "planning_trigger_needs_review"
+  ],
+  "expect_boundary": false,
+  "expect_object": "normal",
+  "expect_import_warning": false,
+  "label_decision": "positive",
+  "note": "关闭记录抖动以保证数值精确。",
+  "has_object_log": true,
+  "jitter": false,
+  "vehicle_gaps": [],
+  "planning_gaps": [],
+  "control_gaps": [],
+  "object_gaps": [],
+  "planning_offset": 0.0,
+  "planning_period": 0.1
+}

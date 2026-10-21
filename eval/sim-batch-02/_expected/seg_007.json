@@ -1,0 +1,23 @@
+{
+  "case_id": "seg_007",
+  "scene": "长距离缓慢降速（滑行减速），单窗口降幅不足",
+  "t0": 38783.5,
+  "duration": 30.0,
+  "design_events": [],
+  "expect_candidates": 0,
+  "expect_verdict": "none",
+  "expect_statuses": [],
+  "expect_boundary": false,
+  "expect_object": "normal",
+  "expect_import_warning": false,
+  "label_decision": "negative",
+  "note": "",
+  "has_object_log": true,
+  "jitter": true,
+  "vehicle_gaps": [],
+  "planning_gaps": [],
+  "control_gaps": [],
+  "object_gaps": [],
+  "planning_offset": 0.0,
+  "planning_period": 0.1
+}

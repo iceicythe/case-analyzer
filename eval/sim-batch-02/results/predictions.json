@@ -1,0 +1,1040 @@
+{
+  "cases": {
+    "seg_001": {
+      "candidates": [
+        {
+          "candidate_id": "C001",
+          "interval": [
+            59312.6,
+            59316.0
+          ],
+          "status": "ai_confirmed_event",
+          "confirmed_intervals": [
+            [
+              59312.8,
+              59315.8
+            ]
+          ],
+          "reason_code": "evidence_consistent",
+          "review_status": "validated"
+        }
+      ]
+    },
+    "seg_002": {
+      "candidates": [
+        {
+          "candidate_id": "C001",
+          "interval": [
+            61610.8,
+            61613.7
+          ],
+          "status": "ai_confirmed_event",
+          "confirmed_intervals": [
+            [
+              61610.9,
+              61613.6
+            ]
+          ],
+          "reason_code": "evidence_consistent",
+          "review_status": "validated"
+        }
+      ]
+    },
+    "seg_003": {
+      "candidates": [
+        {
+          "candidate_id": "C001",
+          "interval": [
+            54261.0,
+            54267.9
+          ],
+          "status": "ai_confirmed_event",
+          "confirmed_intervals": [
+            [
+              54261.2,
+              54267.7
+            ]
+          ],
+          "reason_code": "evidence_consistent",
+          "review_status": "validated"
+        }
+      ]
+    },
+    "seg_004": {
+      "candidates": [
+        {
+          "candidate_id": "C001",
+          "interval": [
+            17217.6,
+            17222.0
+          ],
+          "status": "ai_confirmed_event",
+          "confirmed_intervals": [
+            [
+              17217.8,
+              17221.8
+            ]
+          ],
+          "reason_code": "evidence_consistent",
+          "review_status": "validated"
+        }
+      ]
+    },
+    "seg_005": {
+      "candidates": [
+        {
+          "candidate_id": "C001",
+          "interval": [
+            6160.7,
+            6164.0
+          ],
+          "status": "ai_confirmed_event",
+          "confirmed_intervals": [
+            [
+              6160.8,
+              6163.9
+            ]
+          ],
+          "reason_code": "evidence_consistent",
+          "review_status": "validated"
+        }
+      ]
+    },
+    "seg_006": {
+      "candidates": []
+    },
+    "seg_007": {
+      "candidates": []
+    },
+    "seg_008": {
+      "candidates": [
+        {
+          "candidate_id": "C001",
+          "interval": [
+            37775.5,
+            37782.2
+          ],
+          "status": "ai_confirmed_event",
+          "confirmed_intervals": [
+            [
+              37775.7,
+              37778.7
+            ],
+            [
+              37779.0,
+              37782.0
+            ]
+          ],
+          "reason_code": "evidence_consistent",
+          "review_status": "validated"
+        }
+      ]
+    },
+    "seg_009": {
+      "candidates": [
+        {
+          "candidate_id": "C001",
+          "interval": [
+            11886.8,
+            11889.7
+          ],
+          "status": "ai_confirmed_event",
+          "confirmed_intervals": [
+            [
+              11887.0,
+              11889.5
+            ]
+          ],
+          "reason_code": "evidence_consistent",
+          "review_status": "validated"
+        },
+        {
+          "candidate_id": "C002",
+          "interval": [
+            11893.8,
+            11896.7
+          ],
+          "status": "ai_confirmed_event",
+          "confirmed_intervals": [
+            [
+              11894.0,
+              11896.5
+            ]
+          ],
+          "reason_code": "evidence_consistent",
+          "review_status": "validated"
+        }
+      ]
+    },
+    "seg_010": {
+      "candidates": [
+        {
+          "candidate_id": "C001",
+          "interval": [
+            41103.7,
+            41108.1
+          ],
+          "status": "ai_confirmed_event",
+          "confirmed_intervals": [
+            [
+              41103.9,
+              41107.9
+            ]
+          ],
+          "reason_code": "evidence_consistent",
+          "review_status": "validated"
+        }
+      ]
+    },
+    "seg_011": {
+      "candidates": [
+        {
+          "candidate_id": "C001",
+          "interval": [
+            54790.3,
+            54794.5
+          ],
+          "status": "ai_rejected_candidate",
+          "confirmed_intervals": [],
+          "reason_code": "below_event_rule",
+          "review_status": "validated"
+        }
+      ]
+    },
+    "seg_012": {
+      "candidates": [
+        {
+          "candidate_id": "C001",
+          "interval": [
+            8952.0,
+            8953.9
+          ],
+          "status": "ai_confirmed_event",
+          "confirmed_intervals": [
+            [
+              8952.2,
+              8953.7
+            ]
+          ],
+          "reason_code": "evidence_consistent",
+          "review_status": "validated"
+        },
+        {
+          "candidate_id": "C002",
+          "interval": [
+            8955.5,
+            8957.4
+          ],
+          "status": "ai_confirmed_event",
+          "confirmed_intervals": [
+            [
+              8955.7,
+              8957.2
+            ]
+          ],
+          "reason_code": "evidence_consistent",
+          "review_status": "validated"
+        },
+        {
+          "candidate_id": "C003",
+          "interval": [
+            8959.0,
+            8960.9
+          ],
+          "status": "ai_confirmed_event",
+          "confirmed_intervals": [
+            [
+              8959.2,
+              8960.7
+            ]
+          ],
+          "reason_code": "evidence_consistent",
+          "review_status": "validated"
+        }
+      ]
+    },
+    "seg_013": {
+      "candidates": [
+        {
+          "candidate_id": "C001",
+          "interval": [
+            56404.4,
+            56406.8
+          ],
+          "status": "ai_confirmed_event",
+          "confirmed_intervals": [
+            [
+              56404.5,
+              56406.6
+            ]
+          ],
+          "reason_code": "evidence_consistent",
+          "review_status": "validated"
+        }
+      ]
+    },
+    "seg_014": {
+      "candidates": [
+        {
+          "candidate_id": "C001",
+          "interval": [
+            39130.2,
+            39133.1
+          ],
+          "status": "ai_confirmed_event",
+          "confirmed_intervals": [
+            [
+              39130.4,
+              39132.9
+            ]
+          ],
+          "reason_code": "evidence_consistent",
+          "review_status": "validated"
+        }
+      ]
+    },
+    "seg_015": {
+      "candidates": [
+        {
+          "candidate_id": "C001",
+          "interval": [
+            50847.0,
+            50850.4
+          ],
+          "status": "ai_confirmed_event",
+          "confirmed_intervals": [
+            [
+              50847.1,
+              50850.2
+            ]
+          ],
+          "reason_code": "evidence_consistent",
+          "review_status": "validated"
+        }
+      ]
+    },
+    "seg_016": {
+      "candidates": [
+        {
+          "candidate_id": "C001",
+          "interval": [
+            37460.5,
+            37462.7
+          ],
+          "status": "ai_confirmed_event",
+          "confirmed_intervals": [
+            [
+              37460.6,
+              37462.6
+            ]
+          ],
+          "reason_code": "evidence_consistent",
+          "review_status": "validated"
+        }
+      ]
+    },
+    "seg_017": {
+      "candidates": []
+    },
+    "seg_018": {
+      "candidates": [
+        {
+          "candidate_id": "C001",
+          "interval": [
+            53097.5,
+            53100.0
+          ],
+          "status": "ai_confirmed_event",
+          "confirmed_intervals": [
+            [
+              53097.6,
+              53099.8
+            ]
+          ],
+          "reason_code": "evidence_consistent",
+          "review_status": "validated"
+        }
+      ]
+    },
+    "seg_019": {
+      "candidates": [
+        {
+          "candidate_id": "C001",
+          "interval": [
+            33977.7,
+            33981.1
+          ],
+          "status": "ai_confirmed_event",
+          "confirmed_intervals": [
+            [
+              33977.9,
+              33981.0
+            ]
+          ],
+          "reason_code": "evidence_consistent",
+          "review_status": "validated"
+        }
+      ]
+    },
+    "seg_020": {
+      "candidates": [
+        {
+          "candidate_id": "C001",
+          "interval": [
+            45135.5,
+            45138.5
+          ],
+          "status": "ai_confirmed_event",
+          "confirmed_intervals": [
+            [
+              45135.6,
+              45138.4
+            ]
+          ],
+          "reason_code": "evidence_consistent",
+          "review_status": "validated"
+        }
+      ]
+    },
+    "seg_021": {
+      "candidates": [
+        {
+          "candidate_id": "C001",
+          "interval": [
+            2646.0,
+            2649.4
+          ],
+          "status": "ai_confirmed_event",
+          "confirmed_intervals": [
+            [
+              2646.2,
+              2649.2
+            ]
+          ],
+          "reason_code": "evidence_consistent",
+          "review_status": "validated"
+        }
+      ]
+    },
+    "seg_022": {
+      "candidates": [
+        {
+          "candidate_id": "C001",
+          "interval": [
+            48093.0,
+            48096.4
+          ],
+          "status": "needs_human",
+          "confirmed_intervals": [],
+          "reason_code": "source_unverified",
+          "review_status": "not_requested"
+        }
+      ]
+    },
+    "seg_023": {
+      "candidates": [
+        {
+          "candidate_id": "C001",
+          "interval": [
+            54735.0,
+            54740.9
+          ],
+          "status": "needs_human",
+          "confirmed_intervals": [],
+          "reason_code": "source_unverified",
+          "review_status": "not_requested"
+        },
+        {
+          "candidate_id": "C002",
+          "interval": [
+            54741.3,
+            54743.4
+          ],
+          "status": "needs_human",
+          "confirmed_intervals": [],
+          "reason_code": "source_unverified",
+          "review_status": "not_requested"
+        }
+      ]
+    },
+    "seg_024": {
+      "candidates": []
+    },
+    "seg_025": {
+      "candidates": [
+        {
+          "candidate_id": "C001",
+          "interval": [
+            37673.3,
+            37676.7
+          ],
+          "status": "ai_confirmed_event",
+          "confirmed_intervals": [
+            [
+              37673.5,
+              37676.6
+            ]
+          ],
+          "reason_code": "evidence_consistent",
+          "review_status": "validated"
+        }
+      ]
+    },
+    "seg_026": {
+      "candidates": [
+        {
+          "candidate_id": "C001",
+          "interval": [
+            43158.6,
+            43162.0
+          ],
+          "status": "ai_confirmed_event",
+          "confirmed_intervals": [
+            [
+              43158.8,
+              43161.8
+            ]
+          ],
+          "reason_code": "evidence_consistent",
+          "review_status": "validated"
+        }
+      ]
+    },
+    "seg_027": {
+      "candidates": [
+        {
+          "candidate_id": "C001",
+          "interval": [
+            17271.0,
+            17274.4
+          ],
+          "status": "ai_confirmed_event",
+          "confirmed_intervals": [
+            [
+              17271.2,
+              17274.2
+            ]
+          ],
+          "reason_code": "evidence_consistent",
+          "review_status": "validated"
+        }
+      ]
+    },
+    "seg_028": {
+      "candidates": [
+        {
+          "candidate_id": "C001",
+          "interval": [
+            6742.9,
+            6746.3
+          ],
+          "status": "ai_confirmed_event",
+          "confirmed_intervals": [
+            [
+              6743.1,
+              6746.1
+            ]
+          ],
+          "reason_code": "evidence_consistent",
+          "review_status": "validated"
+        }
+      ]
+    },
+    "seg_029": {
+      "candidates": [
+        {
+          "candidate_id": "C001",
+          "interval": [
+            6945.7,
+            6949.3
+          ],
+          "status": "ai_confirmed_event",
+          "confirmed_intervals": [
+            [
+              6945.9,
+              6949.1
+            ]
+          ],
+          "reason_code": "evidence_consistent",
+          "review_status": "validated"
+        }
+      ]
+    },
+    "seg_030": {
+      "candidates": [
+        {
+          "candidate_id": "C001",
+          "interval": [
+            48196.4,
+            48199.9
+          ],
+          "status": "needs_human",
+          "confirmed_intervals": [],
+          "reason_code": "segment_boundary",
+          "review_status": "not_requested"
+        }
+      ]
+    }
+  },
+  "reports": {
+    "seg_001_C001": {
+      "case_id": "seg_001",
+      "candidate_id": "C001",
+      "status": "model_validated",
+      "error_type": null,
+      "report_sha256": "cb752890594ab3963c5a1076475cb0143124389f52f5d084f65208fed25b919f",
+      "observation_comparisons": [
+        {
+          "interval": [
+            59312.8,
+            59315.8
+          ],
+          "actual": "planning_trigger_needs_review",
+          "expected": "planning_trigger_needs_review",
+          "matches_design": true
+        }
+      ]
+    },
+    "seg_002_C001": {
+      "case_id": "seg_002",
+      "candidate_id": "C001",
+      "status": "model_validated",
+      "error_type": null,
+      "report_sha256": "01695c8f1d87d86fe1d87ae26335caff7513b53c4849a1085e84a0f5a40d265a",
+      "observation_comparisons": [
+        {
+          "interval": [
+            61610.9,
+            61613.6
+          ],
+          "actual": "planning_trigger_needs_review",
+          "expected": "planning_trigger_needs_review",
+          "matches_design": true
+        }
+      ]
+    },
+    "seg_003_C001": {
+      "case_id": "seg_003",
+      "candidate_id": "C001",
+      "status": "model_validated",
+      "error_type": null,
+      "report_sha256": "be14535a8cad7446e2969a4d21b6559548e62df66ad9c0e7e5f0a1716432ae49",
+      "observation_comparisons": [
+        {
+          "interval": [
+            54261.2,
+            54267.7
+          ],
+          "actual": "planning_trigger_needs_review",
+          "expected": "planning_trigger_needs_review",
+          "matches_design": true
+        }
+      ]
+    },
+    "seg_004_C001": {
+      "case_id": "seg_004",
+      "candidate_id": "C001",
+      "status": "model_validated",
+      "error_type": null,
+      "report_sha256": "c20371c80e8678a4a91f1370681f5357d76ef6942fa68bfad50bdd27e7985a3f",
+      "observation_comparisons": [
+        {
+          "interval": [
+            17217.8,
+            17221.8
+          ],
+          "actual": "planning_trigger_needs_review",
+          "expected": "planning_trigger_needs_review",
+          "matches_design": true
+        }
+      ]
+    },
+    "seg_005_C001": {
+      "case_id": "seg_005",
+      "candidate_id": "C001",
+      "status": "model_validated",
+      "error_type": null,
+      "report_sha256": "11d3cca6cfe42ecdf08fd4b029472092daa892dc523ce969299dcaf5ae1de053",
+      "observation_comparisons": [
+        {
+          "interval": [
+            6160.8,
+            6163.9
+          ],
+          "actual": "planning_trigger_needs_review",
+          "expected": "planning_trigger_needs_review",
+          "matches_design": true
+        }
+      ]
+    },
+    "seg_008_C001": {
+      "case_id": "seg_008",
+      "candidate_id": "C001",
+      "status": "model_validated",
+      "error_type": null,
+      "report_sha256": "5818395d6fd92fe77a00bc6dd3eaf5153f2408ece36d422f4e948d43c7c40d33",
+      "observation_comparisons": [
+        {
+          "interval": [
+            37775.7,
+            37778.7
+          ],
+          "actual": "planning_trigger_needs_review",
+          "expected": "planning_trigger_needs_review",
+          "matches_design": true
+        },
+        {
+          "interval": [
+            37779.0,
+            37782.0
+          ],
+          "actual": "planning_trigger_needs_review",
+          "expected": "planning_trigger_needs_review",
+          "matches_design": true
+        }
+      ]
+    },
+    "seg_009_C001": {
+      "case_id": "seg_009",
+      "candidate_id": "C001",
+      "status": "model_validated",
+      "error_type": null,
+      "report_sha256": "a9ddb8f7dff30690bd32c2dce83d339fc6902820cd550a2d1931a28d58dd1146",
+      "observation_comparisons": [
+        {
+          "interval": [
+            11887.0,
+            11889.5
+          ],
+          "actual": "planning_trigger_needs_review",
+          "expected": "planning_trigger_needs_review",
+          "matches_design": true
+        }
+      ]
+    },
+    "seg_009_C002": {
+      "case_id": "seg_009",
+      "candidate_id": "C002",
+      "status": "model_validated",
+      "error_type": null,
+      "report_sha256": "1dede3cc8727380bafbd8f0116860bf2320f0d8dd0343f655a2a7caaf3824f08",
+      "observation_comparisons": [
+        {
+          "interval": [
+            11894.0,
+            11896.5
+          ],
+          "actual": "planning_trigger_needs_review",
+          "expected": "planning_trigger_needs_review",
+          "matches_design": true
+        }
+      ]
+    },
+    "seg_010_C001": {
+      "case_id": "seg_010",
+      "candidate_id": "C001",
+      "status": "model_validated",
+      "error_type": null,
+      "report_sha256": "cbf7976fa3ca6c325f357d41db7852c705d32d09370404b48959f04692ff8774",
+      "observation_comparisons": [
+        {
+          "interval": [
+            41103.9,
+            41107.9
+          ],
+          "actual": "planning_trigger_needs_review",
+          "expected": "planning_trigger_needs_review",
+          "matches_design": true
+        }
+      ]
+    },
+    "seg_012_C001": {
+      "case_id": "seg_012",
+      "candidate_id": "C001",
+      "status": "model_validated",
+      "error_type": null,
+      "report_sha256": "2bd5c818c6417fff85fa8ef5d633e860bcac2f49a20a5fce6d6ddde25e95f033",
+      "observation_comparisons": [
+        {
+          "interval": [
+            8952.2,
+            8953.7
+          ],
+          "actual": "planning_trigger_needs_review",
+          "expected": "planning_trigger_needs_review",
+          "matches_design": true
+        }
+      ]
+    },
+    "seg_012_C002": {
+      "case_id": "seg_012",
+      "candidate_id": "C002",
+      "status": "model_validated",
+      "error_type": null,
+      "report_sha256": "5bec78a01234fa6c6024f0f2f410f80248f64ddc5d259e146ee08e0e7e85dc06",
+      "observation_comparisons": [
+        {
+          "interval": [
+            8955.7,
+            8957.2
+          ],
+          "actual": "planning_trigger_needs_review",
+          "expected": "planning_trigger_needs_review",
+          "matches_design": true
+        }
+      ]
+    },
+    "seg_012_C003": {
+      "case_id": "seg_012",
+      "candidate_id": "C003",
+      "status": "model_validated",
+      "error_type": null,
+      "report_sha256": "bb1a00395c27dbd1c4c32779a9ba2e55c709292e490724f9f231c37595f95a62",
+      "observation_comparisons": [
+        {
+          "interval": [
+            8959.2,
+            8960.7
+          ],
+          "actual": "planning_trigger_needs_review",
+          "expected": "planning_trigger_needs_review",
+          "matches_design": true
+        }
+      ]
+    },
+    "seg_013_C001": {
+      "case_id": "seg_013",
+      "candidate_id": "C001",
+      "status": "model_validated",
+      "error_type": null,
+      "report_sha256": "279f284eb4ad20232b23af8201a113e15cf4af115d20cde0cc1f0b3a3ff2ff7a",
+      "observation_comparisons": [
+        {
+          "interval": [
+            56404.5,
+            56406.6
+          ],
+          "actual": "planning_trigger_needs_review",
+          "expected": "planning_trigger_needs_review",
+          "matches_design": true
+        }
+      ]
+    },
+    "seg_014_C001": {
+      "case_id": "seg_014",
+      "candidate_id": "C001",
+      "status": "model_validated",
+      "error_type": null,
+      "report_sha256": "3ac2da02b14dfe42575e7092fac3f7dfa700859e88ee9b32c3cc6ce35d8f15b4",
+      "observation_comparisons": [
+        {
+          "interval": [
+            39130.4,
+            39132.9
+          ],
+          "actual": "planning_trigger_needs_review",
+          "expected": "planning_trigger_needs_review",
+          "matches_design": true
+        }
+      ]
+    },
+    "seg_015_C001": {
+      "case_id": "seg_015",
+      "candidate_id": "C001",
+      "status": "model_validated",
+      "error_type": null,
+      "report_sha256": "88d4c1d351d7a900a41b81d3cb7c8be19c9e11a4937da7bb23e653ac24ed2611",
+      "observation_comparisons": [
+        {
+          "interval": [
+            50847.1,
+            50850.2
+          ],
+          "actual": "planning_trigger_needs_review",
+          "expected": "planning_trigger_needs_review",
+          "matches_design": true
+        }
+      ]
+    },
+    "seg_016_C001": {
+      "case_id": "seg_016",
+      "candidate_id": "C001",
+      "status": "model_validated",
+      "error_type": null,
+      "report_sha256": "f476d85a870330321a11d6274e09737ab83eeeb374eddfe87e8e3a41c1c0d853",
+      "observation_comparisons": [
+        {
+          "interval": [
+            37460.6,
+            37462.6
+          ],
+          "actual": "planning_trigger_needs_review",
+          "expected": "planning_trigger_needs_review",
+          "matches_design": true
+        }
+      ]
+    },
+    "seg_018_C001": {
+      "case_id": "seg_018",
+      "candidate_id": "C001",
+      "status": "model_validated",
+      "error_type": null,
+      "report_sha256": "2bac261c5621508315e144f441aba37b67d7cdc1db493d62487e24867e9c23a5",
+      "observation_comparisons": [
+        {
+          "interval": [
+            53097.6,
+            53099.8
+          ],
+          "actual": "planning_trigger_needs_review",
+          "expected": "planning_trigger_needs_review",
+          "matches_design": true
+        }
+      ]
+    },
+    "seg_019_C001": {
+      "case_id": "seg_019",
+      "candidate_id": "C001",
+      "status": "model_validated",
+      "error_type": null,
+      "report_sha256": "d1f62290992e676a91b6da3129d3166fdc9f2ce11e2794f6157f01eb41b4f682",
+      "observation_comparisons": [
+        {
+          "interval": [
+            33977.9,
+            33981.0
+          ],
+          "actual": "planning_trigger_needs_review",
+          "expected": "planning_trigger_needs_review",
+          "matches_design": true
+        }
+      ]
+    },
+    "seg_020_C001": {
+      "case_id": "seg_020",
+      "candidate_id": "C001",
+      "status": "model_validated",
+      "error_type": null,
+      "report_sha256": "984499d68d0b16acfa885289a6476d390c282344cbcd609b515ad95e9f258e30",
+      "observation_comparisons": [
+        {
+          "interval": [
+            45135.6,
+            45138.4
+          ],
+          "actual": "planning_trigger_needs_review",
+          "expected": "planning_trigger_needs_review",
+          "matches_design": true
+        }
+      ]
+    },
+    "seg_021_C001": {
+      "case_id": "seg_021",
+      "candidate_id": "C001",
+      "status": "model_validated",
+      "error_type": null,
+      "report_sha256": "0d9004bd3c7a8485ee7d6a59dd1c20143654a0312e54966143b8f8a673906480",
+      "observation_comparisons": [
+        {
+          "interval": [
+            2646.2,
+            2649.2
+          ],
+          "actual": "planning_trigger_needs_review",
+          "expected": "planning_trigger_needs_review",
+          "matches_design": true
+        }
+      ]
+    },
+    "seg_025_C001": {
+      "case_id": "seg_025",
+      "candidate_id": "C001",
+      "status": "model_validated",
+      "error_type": null,
+      "report_sha256": "279c51c303708914c26cfa8532d68300a52673ca28d6248dfc9f03fb8e468491",
+      "observation_comparisons": [
+        {
+          "interval": [
+            37673.5,
+            37676.6
+          ],
+          "actual": "vehicle_response_unexplained",
+          "expected": "vehicle_response_unexplained",
+          "matches_design": true
+        }
+      ]
+    },
+    "seg_026_C001": {
+      "case_id": "seg_026",
+      "candidate_id": "C001",
+      "status": "model_validated",
+      "error_type": null,
+      "report_sha256": "013573c09fe99d270af6a943ce4e0643bfcf1ca8eed6fd462c81a81ca13842a7",
+      "observation_comparisons": [
+        {
+          "interval": [
+            43158.8,
+            43161.8
+          ],
+          "actual": "vehicle_response_unexplained",
+          "expected": "vehicle_response_unexplained",
+          "matches_design": true
+        }
+      ]
+    },
+    "seg_027_C001": {
+      "case_id": "seg_027",
+      "candidate_id": "C001",
+      "status": "model_validated",
+      "error_type": null,
+      "report_sha256": "91e5f92ee8c34e96490379c54a7dcb45b387399331ac45533b40a5fb8ac8828e",
+      "observation_comparisons": [
+        {
+          "interval": [
+            17271.2,
+            17274.2
+          ],
+          "actual": "vehicle_response_unexplained",
+          "expected": "vehicle_response_unexplained",
+          "matches_design": true
+        }
+      ]
+    },
+    "seg_028_C001": {
+      "case_id": "seg_028",
+      "candidate_id": "C001",
+      "status": "model_failed",
+      "error_type": "ModelInvocationError",
+      "report_sha256": "1ef525514ebef6e40eb75e71519d992a7a93ac52bd94fd80c032f13d74fd5a95",
+      "observation_comparisons": [
+        {
+          "interval": [
+            6743.1,
+            6746.1
+          ],
+          "actual": "planning_trigger_needs_review",
+          "expected": "planning_trigger_needs_review",
+          "matches_design": true
+        }
+      ]
+    },
+    "seg_029_C001": {
+      "case_id": "seg_029",
+      "candidate_id": "C001",
+      "status": "model_failed",
+      "error_type": "ModelInvocationError",
+      "report_sha256": "7148b0ce88a9449582aeceb3c2da754c5a5499dbd227836b3ce86c6b0bda7623",
+      "observation_comparisons": [
+        {
+          "interval": [
+            6945.9,
+            6949.1
+          ],
+          "actual": "vehicle_response_unexplained",
+          "expected": "vehicle_response_unexplained",
+          "matches_design": true
+        }
+      ]
+    }
+  }
+}

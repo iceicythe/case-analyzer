@@ -1,0 +1,31 @@
+﻿case_id,scene,duration_s,design_events,expected_candidates,expected_verdict,expected_observation_status,object_evidence,import_warning,label_decision,note
+seg_001,高速跟车，前车减速，ACC 跟随减速,30.0,12.0-15.0,1,meets_numeric_rule,planning_trigger_needs_review,normal,no,positive,
+seg_002,旁车道车辆切入本车道，紧急减速,30.0,8.0-10.5,1,meets_numeric_rule,planning_trigger_needs_review,normal,no,positive,
+seg_003,路口红灯，跟随前车减速至停止,30.0,18.0-24.5,1,meets_numeric_rule,planning_trigger_needs_review,normal,no,positive,
+seg_004,限速由 80 降为 60，主动减速至新限速,30.0,6.0-10.0,1,meets_numeric_rule,planning_trigger_needs_review,normal,no,positive,
+seg_005,跟车减速后前车切出，恢复巡航速度,30.0,10.0-13.0,1,meets_numeric_rule,planning_trigger_needs_review,normal,no,positive,
+seg_006,高速巡航，全程无纵向减速事件,30.0,none,0,none,none,normal,no,negative,
+seg_007,长距离缓慢降速（滑行减速），单窗口降幅不足,30.0,none,0,none,none,normal,no,negative,
+seg_008,减速过程中短暂回升，回落处不满足连续性桥接,30.0,6.0-9.0;9.3-12.3,1,meets_numeric_rule,planning_trigger_needs_review|planning_trigger_needs_review,normal,no,positive,回升段不足以隔开粗筛窗口：候选合并为一个，但严格参考区间仍为两个。
+seg_009,两次相隔较远的独立减速事件,30.0,6.0-8.5;13.0-15.5,2,meets_numeric_rule,planning_trigger_needs_review|planning_trigger_needs_review,normal,no,positive,
+seg_010,受控边界样本：半秒窗口降幅恰为 1.000 m/s，正好落在口径门槛上,30.0,8.0-12.0,1,meets_numeric_rule,planning_trigger_needs_review,normal,no,positive,关闭记录抖动以保证数值精确。
+seg_011,受控边界样本：半秒窗口降幅 0.998 m/s，低于门槛但高于候选粗筛,30.0,none,1,below_numeric_rule,none,normal,no,negative,典型误报样本：程序会报候选，但按数值规则不该算事件。
+seg_012,拥堵路段走走停停，出现三次短减速,21.0,5.0-6.5;8.5-10.0;12.0-13.5,3,meets_numeric_rule,planning_trigger_needs_review|planning_trigger_needs_review|planning_trigger_needs_review,normal,no,positive,
+seg_013,城市道路跟车，中等强度减速后缓慢恢复,29.5,8.0-10.0,1,meets_numeric_rule,planning_trigger_needs_review,normal,no,positive,
+seg_014,匝道汇入车流，让行主路车辆减速,29.5,10.0-12.5,1,meets_numeric_rule,planning_trigger_needs_review,normal,no,positive,
+seg_015,目标切入后两段式减速：先避让再跟随,28.0,9.0-12.0,1,meets_numeric_rule,planning_trigger_needs_review,normal,no,positive,
+seg_016,前车急刹，本车重制动跟随,25.0,7.0-8.8,1,meets_numeric_rule,planning_trigger_needs_review,normal,no,positive,
+seg_017,长下坡松油门滑行，缓慢单调降速（阴性对照）,30.0,none,0,none,none,absent,no,negative,
+seg_018,车流波动：先加速跟进，随后跟随减速,28.0,9.0-11.2,1,meets_numeric_rule,planning_trigger_needs_review,normal,no,positive,
+seg_019,本车道前车与相邻车道目标全程同帧输出（多目标）,29.0,10.0-13.0,1,meets_numeric_rule,planning_trigger_needs_review,ambiguous,no,positive,同一时刻存在两条目标记录：目标证据应出现对齐歧义；规划/控制链路不受影响。
+seg_020,事件中目标轨迹重联（跟踪标识切换）,28.0,9.0-11.6,1,meets_numeric_rule,planning_trigger_needs_review,normal,no,positive,同一前车的跟踪标识在事件中段切换；每时刻仅一条记录，目标证据应保持正常对齐。
+seg_021,事件中目标日志短暂丢失,28.0,8.0-11.0,1,meets_numeric_rule,planning_trigger_needs_review,partial,no,positive,目标日志在事件中段缺失 1.3 秒：事件处目标有效对齐应少于采样总数；链路不受影响。
+seg_022,事件后巡航段存在 0.3 秒采样缺口,30.0,10.0-13.0,1,source_unverified,planning_trigger_needs_review,normal,yes,positive,缺口不在事件内：事件仍可检出，但来源核查降级，候选应判 source_unverified。
+seg_023,事件中段存在 0.3 秒采样缺口（单次连续减速被拆分）,30.0,8.0-13.7;14.1-16.0,2,source_unverified,planning_trigger_needs_review|planning_trigger_needs_review,normal,yes,positive,缺口穿过事件内部：桥接合并被禁用，应拆分为两个区间且均判 source_unverified。
+seg_024,事件内部 0.6 秒采样缺口，数据不足以确认事件,28.0,none,0,none,none,normal,yes,uncertain,设计上存在一次减速，但缺口吃掉全部完整窗口：程序应不报候选；真值记 uncertain，不计入漏报。
+seg_025,规划日志在事件中段丢失 1 秒,29.0,10.0-13.0,1,meets_numeric_rule,vehicle_response_unexplained,normal,no,positive,车辆侧事件正常检出；事件中段规划行缺失，链路证据不足应判 vehicle_response_unexplained。
+seg_026,控制日志在事件中段丢失 1 秒,29.0,10.0-13.0,1,meets_numeric_rule,vehicle_response_unexplained,normal,no,positive,控制行缺失与规划缺失同理：链路证据不足，不能判断请求来源。
+seg_027,规划时钟相位差半格（+0.05 秒）,29.0,10.0-13.0,1,meets_numeric_rule,vehicle_response_unexplained,normal,no,positive,规划时间戳整体偏移半个采样周期：每个车辆采样到最近规划行均为等距并列，全时段对齐歧义。
+seg_028,规划时钟偏移 0.14 秒（在 0.15 秒对齐容差内）,29.0,10.0-13.0,1,meets_numeric_rule,planning_trigger_needs_review,normal,no,positive,容差边界对照：偏移小于容差时每个采样仍可唯一对齐，链路应保持完整。
+seg_029,规划以 5 Hz 输出（0.2 秒周期），车辆为 10 Hz 采样,29.0,9.0-12.2,1,meets_numeric_rule,vehicle_response_unexplained,normal,no,positive,模块输出速率不同：落在规划周期中点的车辆采样对齐歧义，链路应判证据不足。
+seg_030,减速事件延伸至片段末尾,15.3,12.0-15.3,1,meets_numeric_rule,planning_trigger_needs_review,normal,no,positive,事件一直持续到数据结束：应触发片段首尾边界核查提示。

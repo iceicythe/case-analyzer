@@ -1,0 +1,30 @@
+{
+  "case_id": "seg_030",
+  "scene": "减速事件延伸至片段末尾",
+  "t0": 48184.6,
+  "duration": 15.3,
+  "design_events": [
+    [
+      12.0,
+      15.3
+    ]
+  ],
+  "expect_candidates": 1,
+  "expect_verdict": "meets_numeric_rule",
+  "expect_statuses": [
+    "planning_trigger_needs_review"
+  ],
+  "expect_boundary": true,
+  "expect_object": "normal",
+  "expect_import_warning": false,
+  "label_decision": "positive",
+  "note": "事件一直持续到数据结束：应触发片段首尾边界核查提示。",
+  "has_object_log": true,
+  "jitter": true,
+  "vehicle_gaps": [],
+  "planning_gaps": [],
+  "control_gaps": [],
+  "object_gaps": [],
+  "planning_offset": 0.0,
+  "planning_period": 0.1
+}
