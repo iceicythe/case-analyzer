@@ -57,7 +57,7 @@ def main(argv=None):
     parser.add_argument('--no-open', action='store_true')
     parser.add_argument('--no-auto-review', action='store_true')
     parser.add_argument('--host', default=os.environ.get('CASE_ANALYZER_HOST', '127.0.0.1'),
-                        help='监听地址，默认 127.0.0.1；容器内运行用 0.0.0.0（也可用环境变量 CASE_ANALYZER_HOST）')
+                        help='本地服务监听地址，默认 127.0.0.1（也可用环境变量 CASE_ANALYZER_HOST）')
     parser.add_argument('--check', action='store_true', help='初始化空目录并检查应用资源，不启动服务或请求模型')
     parser.add_argument('--check-api', action='store_true', help='仅发送一次短请求检查 API，不载入数据或启动复核队列')
     args = parser.parse_args()

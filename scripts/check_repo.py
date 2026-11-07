@@ -15,7 +15,9 @@ def public_files():
         top = subprocess.run(['git','rev-parse','--show-toplevel'],cwd=ROOT,capture_output=True,text=True,check=True)
         if Path(top.stdout.strip()).resolve() == ROOT:
             result = subprocess.run(['git','ls-files','--cached','--others','--exclude-standard','-z'],cwd=ROOT,capture_output=True,check=True)
-            names = [name for name in result.stdout.decode('utf-8').split('\0') if name]
+            deleted = subprocess.run(['git','diff','--name-only','--diff-filter=D','-z'],cwd=ROOT,capture_output=True,check=True)
+            deleted_names = set(deleted.stdout.decode('utf-8').split('\0'))
+            names = [name for name in result.stdout.decode('utf-8').split('\0') if name and name not in deleted_names]
             if names: return [ROOT/name for name in names]
     except (OSError,subprocess.CalledProcessError):
         pass

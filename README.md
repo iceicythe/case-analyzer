@@ -49,8 +49,9 @@ Case Analyzer 把这条流程放到同一个工作台中：保留原始引用，
 
 ```bash
 python3 -m venv .venv
-.venv/bin/python -m pip install -r requirements.txt
-.venv/bin/python -m app
+source .venv/bin/activate
+python -m pip install -r requirements.txt
+python -m app
 ```
 
 浏览器打开 **http://127.0.0.1:8770/**。首次启动是空工作空间，数据保存在自动创建的 `runtime/` 中。按 `Ctrl+C` 停止，重启保留已经保存的记录。
@@ -61,44 +62,12 @@ python3 -m venv .venv
 
 “数据接入”默认支持选择一个包含多条 Case 的目录，按子目录分别校验和导入；相同内容跳过，编号冲突不覆盖，失败条目可单独重试。目录结构与操作见 [批量接入与自动流程](docs/WORKFLOW.md)。
 
-### 容器化运行（Docker）
-
-不想配环境时，把项目和依赖打成一包，换机器一条命令跑起来：
-
-```shell
-docker build -t case-analyzer .
-docker run --rm -p 8770:8770 -v case-data:/app/runtime case-analyzer
-```
-
-或直接用 compose：`docker compose up --build`。浏览器打开 **http://localhost:8770/**。
-
-- 数据放在命名卷 `case-data`，容器删除不丢；想用本地目录挂载，把 `-v case-data:/app/runtime` 换成 `-v <本地目录>:/app/runtime`。
-- 模型 Key 通过环境变量传入，不进镜像：`-e DEEPSEEK_API_KEY=<你的 Key>`。
-- 容器内监听 `0.0.0.0` 由 `--host`（或环境变量 `CASE_ANALYZER_HOST`）控制，默认仍只监听 `127.0.0.1`，本地直跑行为不变。
-
-**实测记录**（Windows 10 家庭中文版 + Docker Desktop 4.95.0 + WSL2 后端）：
-
-| 验证项 | 结果 |
-|---|---|
-| `docker build -t case-analyzer .` | 通过，镜像约 400 MB，pip 安装 24 个依赖 149 秒 |
-| `docker run -d -p 8770:8770 case-analyzer` | 通过，容器启动约 4 秒，`GET /` 返回 200（4413 B，70 ms） |
-| `docker compose up --build` | 通过，网络/命名卷/容器一键创建，缓存命中后重建 0.2 秒 |
-| `docker compose down` | 通过，容器与网络干净移除，卷保留 |
-
-国内网络注意：`registry-1.docker.io` 直连多省不通，建议配镜像源（Docker Desktop → Settings → Docker Engine）：
-
-```json
-{ "registry-mirrors": ["https://docker.m.daocloud.io"] }
-```
-
-另需确认 Windows 系统代理（`设置 → 网络 → 代理`）处于关闭状态或代理软件在运行——Docker 跟随系统代理，代理端口无监听时所有拉取会静默失败。
-
 ### 命令行批量导入
 
-整批日志不必守在浏览器前：在仓库根目录执行
+整批日志不必守在浏览器前：激活项目虚拟环境后，在仓库根目录执行
 
 ```shell
-.venv/Scripts/python -m app import <日志目录> --source-type recorded --source-name "西安道路测试 · 第一批"
+python -m app import <日志目录> --source-type recorded --source-name "西安道路测试 · 第一批"
 ```
 
 每个子目录按一条 Case 处理，至少包含 `vehicle_state.csv`。逐 Case 输出状态与行数，最后给出汇总；缺文件、编号非法或超过单 Case 大小上限都只报告该 Case，不中断整批：
@@ -119,7 +88,7 @@ seg_042    error     Case 编号限 1～64 位字母、数字、下划线或短�
 
 ### 飞书工作台通知
 
-填写 `configs/feishu.local.json` 中的 `webhook_url`，将 `enabled` 改为 `true`；若机器人开启签名校验，同时填写 `signing_secret`。本地文件由 `scripts\setup.cmd` 创建，也可复制 [配置模板](configs/feishu.example.json)。执行 `.venv/Scripts/python.exe -m app notify --test` 发送连接测试，然后重启工作台。
+填写 `configs/feishu.local.json` 中的 `webhook_url`，将 `enabled` 改为 `true`；若机器人开启签名校验，同时填写 `signing_secret`。本地文件由 `scripts\setup.cmd` 创建，也可复制 [配置模板](configs/feishu.example.json)。在已激活虚拟环境的终端执行 `python -m app notify --test` 发送连接测试，然后重启工作台。
 
 自动复核与排查完成后，后台合并发送进展卡片，标出待人工与失败 Case。飞书网络请求不阻塞分析；发送记录持久保存，重启去重，失败时可在任务总览重发。配置也适用于命令行导入和事件评测。完整步骤、触发范围及链接限制见 [飞书配置说明](docs/FEISHU.md)。
 
@@ -246,7 +215,7 @@ python -B -X utf8 -m unittest discover -s tests -v
 python scripts/check_repo.py
 ```
 
-常用操作也可以走 `scripts/pipeline.sh`（Linux / macOS / 容器内）：`./scripts/pipeline.sh test` 跑测试与自检，`./scripts/pipeline.sh import <目录>` 批量导入，`./scripts/pipeline.sh serve` 启动工作台，`./scripts/pipeline.sh docker` 构建并启动容器。
+常用操作也可以走 `scripts/pipeline.sh`（Linux / macOS）：`./scripts/pipeline.sh test` 跑测试与自检，`./scripts/pipeline.sh import <目录>` 批量导入，`./scripts/pipeline.sh serve` 启动工作台。
 
 默认测试使用临时目录、公式样例和模拟模型响应，无需 Key，不调用真实 API。覆盖导入、回滚、并发、人工确认、队列恢复、保存冲突、报告导出、事件匹配及排查约束。浏览器测试另行安装，见 [贡献指南](CONTRIBUTING.md)。
 
@@ -271,13 +240,10 @@ case-analyzer/
 ├── scripts/      一键安装/启动/检查、常用流水线、仓库检查、端到端评测、吞吐测量与打包
 ├── tests/        自包含测试，无历史数据依赖
 ├── docs/         数据约定、架构、演示与评测方法
-├── Dockerfile    容器镜像定义（compose 一条命令起服务）
 └── runtime/      本机运行时创建，Git 忽略
 ```
 
 后续重点是独立数据评测、批量与长期运行验证、报告去重及更多日志格式适配。欢迎提交最小可复现问题与改进，详见 [CONTRIBUTING.md](CONTRIBUTING.md)。
-
-维护者首次发布可参考 [GitHub 发布步骤](docs/PUBLISHING.md)。
 
 ## License
 

@@ -20,7 +20,7 @@ eval/sim-batch-02/
 ├── verify.py                       独立校验预言机（不引用工具代码，SD-WINDOW-1.1 独立实现；默认只读）
 ├── verify_report.txt               2026-10-15 预言机报告（30/30 一致）
 ├── file_hashes.csv                 原始数据集 366 项 SHA256 清单（生成时全部通过）
-├── SHA256SUMS                      本发布包 291 项 SHA256 清单
+├── SHA256SUMS                      本发布包 300 项 SHA256 清单
 ├── generate.py                     生成器源码（同种子 20261015 可逐字节复现）
 ├── case_manifest.csv               30 条用例清单（场景 / 真值区间 / 预期判定 / 预期观察状态）
 ├── signal_dictionary.csv           信号字典（列语义 / 单位 / 来源）
@@ -101,7 +101,7 @@ python verify.py --labels-out recomputed_labels --report recomputed_report.txt
 | 数据问题处理符合率 | 100%（3/3） | 缺口 Case 不自动确认、不调用模型 |
 | 匹配事件边界误差 | 起止均 0 秒 | 26 个匹配事件；模型已有规则参考区间，不能解释为独立边界预测能力 |
 | AI 排查调用有效结果 | 23/25（92%） | 2 次 API 失败，保留本地回退报告，未重刷 |
-| 报告有用率 | 待人工评价（0/25） | 未自动填写评价；格式校验不等于建议正确率。评价材料包已随发布：见 [`human_review/`](human_review/README.md)（规则清单 vs AI 建议的三维对照、10 份选例、记录模板与局限声明），执行后在此行填写实测数字 |
+| 报告有用率 | 待人工评价（0/25） | 未自动填写评价；格式校验不等于建议正确率。评价材料包已随发布：见 [`human_review/`](human_review/README.md)（实际规则 vs AI 的配对对照、12 份质量选例（其中 4 份成功 AI 配对、1 份回退对照）、记录模板与局限声明），执行后在此行填写实测数字 |
 
 三点必须连同数字一起读：
 
@@ -125,7 +125,7 @@ python scripts/run_benchmark.py --dataset eval/sim-batch-02/cases --labels eval/
 
 - `campaign.json` 的 `source_directory`（维护者本机绝对路径）已替换为相对说明，并置 `source_directory_redacted = true`；其余内容（输入哈希、程序指纹、批次政策、模型参数）原样保留。
 - 全包经本地路径与密钥扫描，0 命中；模型 Key 从不进入任何随包文件。
-- 原始数据集生成时的 366 项 SHA256 清单见 `file_hashes.csv`（生成时全部通过）；本发布包 291 项清单见 `SHA256SUMS`。
+- 原始数据集生成时的 366 项 SHA256 清单见 `file_hashes.csv`（生成时全部通过）；本发布包 300 项清单见 `SHA256SUMS`。
 - 本包由 `build_frozen_set.py` 组装，可传 `--sim/--run/--out` 重放；组装时对输入逐文件比对确认与工具实际消费副本一致。
 
 ## 10. 局限（不声称的部分）

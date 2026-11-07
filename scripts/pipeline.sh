@@ -1,12 +1,11 @@
 #!/usr/bin/env bash
-# Case Analyzer 常用流水线：test / check / import / perf / serve / docker。
+# Case Analyzer 常用流水线：test / check / import / perf / serve。
 # 用法：scripts/pipeline.sh <命令> [参数]
 #   scripts/pipeline.sh test                跑单元测试与仓库自检
 #   scripts/pipeline.sh check               只跑仓库自检（不跑测试）
 #   scripts/pipeline.sh import <目录>       批量导入（其余参数原样透传给 python -m app import）
 #   scripts/pipeline.sh perf [--rows 100000] [--cases 4]   生成合成数据并测导入吞吐
 #   scripts/pipeline.sh serve [--port 8770] 启动工作台
-#   scripts/pipeline.sh docker              构建并启动容器
 set -euo pipefail
 
 PY="${PYTHON:-python3}"
@@ -32,9 +31,6 @@ case "${1:-}" in
   serve)
     shift
     exec "$PY" -B -X utf8 -m app "$@"
-    ;;
-  docker)
-    docker compose up --build
     ;;
   *)
     sed -n '2,12p' "$0"

@@ -1,0 +1,102 @@
+{
+  "version": 2,
+  "note": "冻结材料提取；不生成模型结果，不填写真人评分。",
+  "reports": [
+    {
+      "report_id": "seg_001_C001",
+      "status": "model_validated",
+      "scope": "paired_ai",
+      "report_record_sha256": "2a9d89216f59e912c4f9571aaa0e9bee1c267e98ca0abc34689be1c2794339d2",
+      "baseline_source": "results/baseline_report_comparison.json",
+      "baseline_source_sha256": "80b1f50da6d3e24a8c873ac6704d822aacc8d7142aa2b6cea50e273a92c0e411"
+    },
+    {
+      "report_id": "seg_008_C001",
+      "status": "model_validated",
+      "scope": "paired_ai",
+      "report_record_sha256": "54a231fb68bbb84303d47c12209e0824722758e933a915d8ca7d9e33cd7c8b7a",
+      "baseline_source": "results/baseline_report_comparison.json",
+      "baseline_source_sha256": "80b1f50da6d3e24a8c873ac6704d822aacc8d7142aa2b6cea50e273a92c0e411"
+    },
+    {
+      "report_id": "seg_009_C001",
+      "status": "model_validated",
+      "scope": "quality_only",
+      "report_record_sha256": "d338c0cbbd1dd2a18428c476a6ddb1a5532e4c290fb5364484c32875d3606a24",
+      "baseline_source": null,
+      "baseline_source_sha256": null
+    },
+    {
+      "report_id": "seg_009_C002",
+      "status": "model_validated",
+      "scope": "quality_only",
+      "report_record_sha256": "24a6e671e3879aaf647f541200bca75e794c8f3b34a9dce3d5979960bcc894c8",
+      "baseline_source": null,
+      "baseline_source_sha256": null
+    },
+    {
+      "report_id": "seg_012_C001",
+      "status": "model_validated",
+      "scope": "quality_only",
+      "report_record_sha256": "3d9e116f75a2304ce37e0426cd7551444ee7a7aca189dbb1fbb17d7ee8b02782",
+      "baseline_source": null,
+      "baseline_source_sha256": null
+    },
+    {
+      "report_id": "seg_016_C001",
+      "status": "model_validated",
+      "scope": "quality_only",
+      "report_record_sha256": "a943c87efac3bff21a2c2e61d0b011c39eb414d50b9963943156a9db0e946598",
+      "baseline_source": null,
+      "baseline_source_sha256": null
+    },
+    {
+      "report_id": "seg_019_C001",
+      "status": "model_validated",
+      "scope": "paired_ai",
+      "report_record_sha256": "08b80a051890b3dd14cf4ec4b830426a1d2b468cc01a581f5b678dc264362525",
+      "baseline_source": "results/baseline_report_comparison.json",
+      "baseline_source_sha256": "80b1f50da6d3e24a8c873ac6704d822aacc8d7142aa2b6cea50e273a92c0e411"
+    },
+    {
+      "report_id": "seg_020_C001",
+      "status": "model_validated",
+      "scope": "quality_only",
+      "report_record_sha256": "0334372c0622af45e8d6441d545460887de068ea285ebd0c3c23655291dfc083",
+      "baseline_source": null,
+      "baseline_source_sha256": null
+    },
+    {
+      "report_id": "seg_021_C001",
+      "status": "model_validated",
+      "scope": "quality_only",
+      "report_record_sha256": "5bf128b6a95ad4f9dec21dc9cabf3abce78a0fea3e1d3ad40535376179e1e857",
+      "baseline_source": null,
+      "baseline_source_sha256": null
+    },
+    {
+      "report_id": "seg_025_C001",
+      "status": "model_validated",
+      "scope": "paired_ai",
+      "report_record_sha256": "0a13f6206409fc076695083b01709326540b89badd88a3211ec0ba1814cfecb4",
+      "baseline_source": "results/baseline_report_comparison.json",
+      "baseline_source_sha256": "80b1f50da6d3e24a8c873ac6704d822aacc8d7142aa2b6cea50e273a92c0e411"
+    },
+    {
+      "report_id": "seg_027_C001",
+      "status": "model_validated",
+      "scope": "quality_only",
+      "report_record_sha256": "83746095ca19507e96998f4537f810bfe7cec75425b9d9919a6c6eb25cbbad2d",
+      "baseline_source": null,
+      "baseline_source_sha256": null
+    },
+    {
+      "report_id": "seg_028_C001",
+      "status": "model_failed",
+      "scope": "fallback_control",
+      "report_record_sha256": "64f06cf84e9fa6a686c59d585de99283b1f9410b0bdccc1ce45b8a1f98107964",
+      "baseline_source": "results/baseline_report_comparison.json",
+      "baseline_source_sha256": "80b1f50da6d3e24a8c873ac6704d822aacc8d7142aa2b6cea50e273a92c0e411"
+    }
+  ]
+}
